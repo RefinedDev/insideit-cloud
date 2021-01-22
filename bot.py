@@ -165,7 +165,7 @@ async def botping(message):
         await message.channel.send(embed =  embed)
 
 
-cogslist = ['cogs.misc','cogs.help','cogs.APIscrape','cogs.RPS','cogs.configurations','cogs.highrank','cogs.img']
+cogslist = ['cogs.misc','cogs.help','cogs.APIscrape','cogs.RPS','cogs.configurations','cogs.highrank','cogs.img','cogs.music']
 
 if __name__ == '__main__':
     for i in cogslist:
