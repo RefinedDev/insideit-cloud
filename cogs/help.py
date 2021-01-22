@@ -23,7 +23,6 @@ class helpcommand(Cog):
             em.add_field(name = '🐶 Animals',value = '`?help animals`',inline = False)
             em.add_field(name = '⚙ Configurations',value = '`?config`',inline = False)
             em.add_field(name = '🥺 Support Me!',value = '[Invite Link](https://discord.com/api/oauth2/authorize?client_id=795963203804200980&permissions=8&scope=bot) • [Support Server](https://discord.gg/ZNG247NBVp)',inline= False)
-            em.add_field(name = 'Partnership with glados!',value = '[Invite Glados](https://discord.com/oauth2/authorize?client_id=791891067309785108&permissions=2147352567&scope=bot) • [Support Server](https://discord.gg/UbSp2aKTQX) • [Upvote Glados!](https://top.gg/bot/791891067309785108/vote)',inline= False)
             await ctx.send(embed=em)
     
     @help.command()
