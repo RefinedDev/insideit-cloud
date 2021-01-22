@@ -92,8 +92,8 @@ class HighRank(Cog):
 
         cursor = db.cursor()
         guildid = ctx.guild.id
-        sql = "INSERT INTO warnlogs (userid,reason,guildid) VALUES (%s, %s, %s)"
-        val = (str(user.id),str(reason),guildid)
+        sql = "INSERT INTO warnlogs (userid,reason,guildid,type) VALUES (%s, %s, %s, %s)"
+        val = (str(user.id),str(reason),guildid,'Warn')
         cursor.execute(sql,val)
         db.commit()
         await ctx.send(f'{user.mention} was warned: {str(reason)}')
@@ -120,14 +120,14 @@ class HighRank(Cog):
         )
 
         cursor = db.cursor()
-        cursor.execute('SELECT reason,infid FROM warnlogs WHERE userid = ' + str(user.id) + ' AND guildid = ' + str(ctx.guild.id))
+        cursor.execute('SELECT reason,infid,type FROM warnlogs WHERE userid = ' + str(user.id) + ' AND guildid = ' + str(ctx.guild.id))
         res = cursor.fetchall()
         embed = discord.Embed(title = f'Infractions Of {user.name}',color = ctx.author.color)
         if (len(res) == 0):
             embed.add_field(name = '**No Infractions Found**',value = 'This user has no infractions.')
         else:
             for i in res:
-                embed.add_field(name = f'Infraction Id: **{i[1]}**',value = f'Type: Warn\nReason: `{str(i[0])}`',inline = False)
+                embed.add_field(name = f'Infraction Id: **{i[1]}**',value = f'Type: {i[2]}\nReason: `{str(i[0])}`',inline = False)
         embed.set_footer(text = 'To revoke a warn use the warn_revoke (infID) command.')
         await ctx.send(embed = embed)
         cursor.close()
