@@ -154,8 +154,8 @@ async def on_member_remove(member):
     except Exception as e:
         print(f"An error occured on_member_remove {e}")
 
-@commands.Cog.listener()
-async def on_raw_reaction_add(self, payload):
+@client.event
+async def on_raw_reaction_add(payload):
     channel = client.get_channel(payload.channel_id)
     #message = await channel.fetch_message(payload.message_id)
     #user = await client.fetch_user(payload.user_id)
