@@ -156,6 +156,7 @@ async def on_member_remove(member):
 
 @client.event
 async def on_reaction_add(reaction,user):
+    print(user.reaction.emoji)
     if user.reaction.emoji == '<:uglycat:791151352885149717>':
         print('xd')
     else:
