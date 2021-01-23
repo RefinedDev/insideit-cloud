@@ -22,14 +22,12 @@ class MiscCmds(Cog):
         elif isinstance(error,commands.MissingPermissions):
             embed = discord.Embed(colour= discord.Colour.red(),timestamp = datetime.utcnow())
             embed.add_field(name="eyo calmdown",value= "You do not have the required permissions to run this command.")
-            await ctx.message.delete()
             await ctx.send(embed= embed,delete_after=5)
         elif isinstance(error,commands.MissingRequiredArgument):
             pass
         elif isinstance(error,commands.CommandOnCooldown):
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "eyo calmdown",value = f'This command is on cooldown, try again later after {error.retry_after:,.2f} seconds.')
-            await ctx.message.delete()
             await ctx.send(embed = embeddd,delete_after=5)  
         else:
             print(error)
@@ -92,7 +90,6 @@ class MiscCmds(Cog):
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "Missing Argument or User doesn't exist",value = "Specify the user pal.")
             embeddd.add_field(name  = "Command Example",value = "`?twitter OHrefineddev`",inline=False)
-            await ctx.message.delete()
             await ctx.send(embed = embeddd,delete_after=5) 
 
     
@@ -124,7 +121,6 @@ class MiscCmds(Cog):
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
             embeddd.add_field(name = "Missing Argument",value = "Specify the args pal.")
             embeddd.add_field(name  = "Command Example",value = "`?choose pizza burger`",inline=False)
-            await ctx.message.delete()
             await ctx.send(embed = embeddd,delete_after=5)
 
     @commands.command()
@@ -157,7 +153,6 @@ class MiscCmds(Cog):
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
             embeddd.add_field(name = "Missing Argument or User doesn't exist",value = "Specify the user pal")
             embeddd.add_field(name  = "Command Example",value = "`?robloxsearch RefinedDev`",inline=False)
-            await ctx.message.delete()
             await ctx.send(embed = embeddd,delete_after=5)
 
     @commands.command()

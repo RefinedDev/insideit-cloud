@@ -19,19 +19,16 @@ class HighRank(Cog):
         elif isinstance(error,commands.MissingPermissions):
             embed = discord.Embed(colour= discord.Colour.red(),timestamp = datetime.utcnow())
             embed.add_field(name="eyo calmdown",value= "You do not have the required permissions to run this command.")
-            await ctx.message.delete()
             await ctx.send(embed= embed,delete_after=5)
         elif isinstance(error,commands.MissingRequiredArgument):
             pass
         elif isinstance(error,commands.MemberNotFound):
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "eyo calmdown",value = f'Member Not Found.')
-            await ctx.message.delete()
             await ctx.send(embed = embeddd,delete_after=5)
         elif isinstance(error,commands.CommandOnCooldown):
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "eyo calmdown",value = f'This command is on cooldown, try again later after {error.retry_after:,.2f} seconds.')
-            await ctx.message.delete()
             await ctx.send(embed = embeddd,delete_after=5)  
         else:
             print(error)

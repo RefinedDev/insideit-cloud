@@ -20,7 +20,6 @@ class apiscraping(Cog):
         if isinstance(exc,commands.CommandOnCooldown):
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "eyo calmdown",value = f'This command is on cooldown, try again later after {exc.retry_after:,.2f} seconds.')
-            await ctx.message.delete()
             await ctx.send(embed = embeddd,delete_after=5)  
         else:
             print(exc)
@@ -367,7 +366,6 @@ class apiscraping(Cog):
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
             embeddd.add_field(name = "Missing Argument",value = "Specify the text pal.")
             embeddd.add_field(name  = "Command Example",value = "`?fromBase64 bG9s`",inline=False)
-            await ctx.message.delete()
             await ctx.send(embed = embeddd,delete_after=5)
 
 def setup(client):

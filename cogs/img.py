@@ -20,12 +20,10 @@ class img(Cog):
         if isinstance(exc,commands.CommandOnCooldown):
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "eyo calmdown",value = f'This command is on cooldown, try again later after {exc.retry_after:,.2f} seconds.')
-            await ctx.message.delete()
             await ctx.send(embed = embeddd,delete_after=5) 
         elif isinstance(exc,commands.MemberNotFound):
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "eyo calmdown",value = f'Member Not Found.')
-            await ctx.message.delete()
             await ctx.send(embed = embeddd,delete_after=5) 
         else:
             print(exc)

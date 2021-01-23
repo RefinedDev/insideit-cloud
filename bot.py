@@ -19,7 +19,6 @@ async def on_command_error(ctx,error):
     elif isinstance(error,commands.MissingPermissions):
         embed = discord.Embed(colour= discord.Colour.red(),timestamp = datetime.utcnow())
         embed.add_field(name="eyo calmdown",value= "You do not have the required permissions to run this command.")
-        await ctx.message.delete()
         await ctx.send(embed= embed,delete_after=5)
     elif isinstance(error,commands.MissingRequiredArgument):
         pass
