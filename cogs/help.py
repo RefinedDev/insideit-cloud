@@ -16,12 +16,12 @@ class helpcommand(Cog):
         if ctx.invoked_subcommand is None:
             em = discord.Embed(title = 'InsideIt Commands Help',color = ctx.author.color)
             em.add_field(name=  "❓ Info",value="`?help info`")
-            em.add_field(name = "⚡ HighRank",value = '`?help highrank`',inline= False)
-            em.add_field(name = "😏 Miscellaneous",value = '`?help misc`',inline=False)
-            em.add_field(name = "😂 Memes",value = '`?help meme`',inline=False)
-            em.add_field(name = "📷 Image",value = '`?help img`',inline= False)
-            em.add_field(name = '🐶 Animals',value = '`?help animals`',inline = False)
-            em.add_field(name = '⚙ Configurations',value = '`?config`',inline = False)
+            em.add_field(name = "⚡ HighRank",value = '`?help highrank`')
+            em.add_field(name = "😏 Miscellaneous",value = '`?help misc`')
+            em.add_field(name = "😂 Memes",value = '`?help meme`')
+            em.add_field(name = "📷 Image",value = '`?help img`')
+            em.add_field(name = '🐶 Animals',value = '`?help animals`')
+            em.add_field(name = '⚙ Configurations',value = '`?config`')
             em.add_field(name = '🥺 Support Me!',value = '[Invite Link](https://discord.com/api/oauth2/authorize?client_id=795963203804200980&permissions=8&scope=bot) • [Support Server](https://discord.gg/ZNG247NBVp)',inline= False)
             await ctx.send(embed=em)
     
@@ -29,7 +29,7 @@ class helpcommand(Cog):
     async def highrank(self,ctx):
         embed = discord.Embed(colour = ctx.author.color)
         await ctx.message.delete()
-        embed.add_field(name = '⚡ HighRank Commands.',value = "`?purge (amount): Deletes specific amount of messages from a channel where it was called.`\n\n`?announce (channelid) (text): Do an announcement in the channel specified with the channelid and with a stylish embed.`\n\n`?slowmode (seconds): Set the channel's slowmode to the specified number.`\n\n`?warn (userID) (reason): Warn a user. duh`\n\n`?inf (userID): List of infractions from a user.`\n\n`?revoke_inf (infID): Revoke an infraction from a user.`\n\n`?kick (userId) (reason): Kick a user duh. (the kick gets noted in thier infractions.)`")
+        embed.add_field(name = '⚡ HighRank Commands.',value = "`?purge (amount): Deletes specific amount of messages from a channel where it was called.`\n\n`?announce (channelid) (text): Do an announcement in the channel specified with the channelid and with a stylish embed.`\n\n`?slowmode (seconds): Set the channel's slowmode to the specified number.`\n\n`?warn (userID) (reason): Warn a user. duh`\n\n`?inf (userID): List of infractions from a user.`\n\n`?revoke_inf (infID): Revoke an infraction from a user.`\n\n`?kick (userId) (reason): The kick gets noted in thier infractions.`\n\n?ban (userID) (reason): The ban gets noted in their infractions.")
         await ctx.send(embed = embed)
 
     @help.command()

@@ -199,6 +199,34 @@ class HighRank(Cog):
             db.close()
 
 
+    @commands.command()
+    @commands.has_permissions(kick_members = True)
+    async def ban(self,ctx,member : discord.Member = None,*, reason = 'Not Specified'):
+        if member == None:
+            embeddd = discord.Embed(colour= discord.Colour.red())
+            embeddd.add_field(name = "Missing User",value = "Specify the user pal.",inline= False)
+            embeddd.add_field(name = "Command Example",value = "`?ban 472985252805298 idk cuh`",inline= False)
+            await ctx.send(embed = embeddd,delete_after=5)
+            return
+        else:
+            db = mysql.connector.connect(
+                host = "us-cdbr-east-02.cleardb.com",
+                user = "bc4de25d94d683",
+                passwd = "0bf00100",
+                database = "heroku_1d7c0ca78dfc2ef"
+            )
+
+            cursor = db.cursor()
+            guildid = ctx.guild.id
+            sql = "INSERT INTO logs (userid,reason,guildid,type) VALUES (%s, %s, %s, %s)"
+            val = (str(member.id),str(reason),guildid,'Ban')
+            cursor.execute(sql,val)
+            db.commit()
+            await member.ban(reason = reason)
+            cursor.close() 
+            db.close()
+
+
 
 
 def setup(client):
