@@ -161,7 +161,8 @@ async def on_raw_reaction_add(self, payload):
     #user = await client.fetch_user(payload.user_id)
     emoji = payload.emoji
 
-    await channel.send(emoji)
+    print(emoji)
+    print(channel.name)
 
 
 @client.listen('on_message')
