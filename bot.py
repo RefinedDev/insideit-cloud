@@ -158,10 +158,10 @@ async def on_member_remove(member):
 async def on_raw_reaction_add(self, payload):
     channel = await client.fetch_channel(payload.channel_id)
     #message = await channel.fetch_message(payload.message_id)
-    user = await client.fetch_user(payload.user_id)
+    #user = await client.fetch_user(payload.user_id)
     emoji = payload.emoji
 
-    await channel.send(emoji + str(channel.id) + user.name)
+    await channel.send(emoji)
 
 
 @client.listen('on_message')
