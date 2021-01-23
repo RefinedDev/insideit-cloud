@@ -197,7 +197,7 @@ class HighRank(Cog):
             val = (str(member.id),str(reason),guildid,'Kick')
             cursor.execute(sql,val)
             db.commit()
-            member.kick(reason = reason)
+            await member.kick(reason = reason)
             cursor.close() 
             db.close()
 

@@ -59,7 +59,7 @@ class img(Cog):
     @commands.command()
     @commands.cooldown(1,5,commands.BucketType.user)
     async def throw(self,ctx,*,text = 'Worst Dad ever.'):
-        abandon = Image.open("cogs/images/abandon.png")
+        abandon = Image.open("cogs/images/abandon.jpg")
         draw = ImageDraw.Draw(abandon)
         font = ImageFont.truetype('cogs/images/ARIAL.TTF',25)
         draw.text((25,417), text, (0,0,0), font= font)
