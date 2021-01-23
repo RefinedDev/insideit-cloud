@@ -106,7 +106,7 @@ class HighRank(Cog):
             embeddd.add_field(name = "Command Example",value = "`?warn 1938194824019 idk cuh`",inline= False)
             await ctx.send(embed = embeddd,delete_after=5)
     
-    @commands.command(aliases = ['infraction','warns'])
+    @commands.command(aliases = ['infraction','modlogs'])
     @commands.has_permissions(kick_members = True)
     async def inf(self,ctx,user : discord.Member):
         db = mysql.connector.connect(
