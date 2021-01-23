@@ -92,7 +92,7 @@ class HighRank(Cog):
 
         cursor = db.cursor()
         guildid = ctx.guild.id
-        sql = "INSERT INTO warnlogs (userid,reason,guildid,type) VALUES (%s, %s, %s, %s)"
+        sql = "INSERT INTO logs (userid,reason,guildid,type) VALUES (%s, %s, %s, %s)"
         val = (str(user.id),str(reason),guildid,'Warn')
         cursor.execute(sql,val)
         db.commit()
@@ -120,7 +120,7 @@ class HighRank(Cog):
         )
 
         cursor = db.cursor()
-        cursor.execute('SELECT reason,infid,type FROM warnlogs WHERE userid = ' + str(user.id) + ' AND guildid = ' + str(ctx.guild.id))
+        cursor.execute('SELECT reason,infid,type FROM logs WHERE userid = ' + str(user.id) + ' AND guildid = ' + str(ctx.guild.id))
         res = cursor.fetchall()
         embed = discord.Embed(title = f'Infractions Of {user.name}',color = ctx.author.color)
         if (len(res) == 0):
@@ -145,7 +145,7 @@ class HighRank(Cog):
     @commands.command()
     @commands.cooldown(1,60,commands.BucketType.user)
     @commands.has_permissions(kick_members = True)
-    async def warn_revoke(self,ctx,infid):
+    async def revoke_inf(self,ctx,infid):
         db = mysql.connector.connect(
             host = "us-cdbr-east-02.cleardb.com",
             user = "bc4de25d94d683",
@@ -154,18 +154,18 @@ class HighRank(Cog):
         )
 
         cursor = db.cursor()
-        cursor.execute('SELECT reason FROM warnlogs WHERE infid = ' + str(infid))
+        cursor.execute('SELECT reason FROM logs WHERE infid = ' + str(infid))
         res = cursor.fetchall()
         if (len(res) == 0):
             await ctx.send(f'ERROR 404: Warn with id {infid} not found.')
         else:
-            cursor.execute('DELETE FROM warnlogs WHERE infid = ' + str(infid))
+            cursor.execute('DELETE FROM logs WHERE infid = ' + str(infid))
             db.commit()
             await ctx.send(f'Warn with id {infid} was revoked.')
         cursor.close()
         db.close()
 
-    @warn_revoke.error
+    @revoke_inf.error
     async def warn_reveke(self,ctx,error):
         if isinstance(error, commands.MissingRequiredArgument):
             embeddd = discord.Embed(colour= discord.Colour.red())
@@ -173,6 +173,35 @@ class HighRank(Cog):
             embeddd.add_field(name = "Command Example",value = "`?warn_revoke 1`",inline= False)
             embeddd.set_footer(text  = "PS: To get the ID of the infraction run the ?inf (userID) command and get the id of infraction.")
             await ctx.send(embed = embeddd,delete_after=5)
+
+    @commands.command()
+    @commands.has_permissions(kick_members = True)
+    async def kick(self,ctx,member : discord.Member = None,*, reason = 'Not Specified'):
+        if member == None:
+            embeddd = discord.Embed(colour= discord.Colour.red())
+            embeddd.add_field(name = "Missing User",value = "Specify the user pal.",inline= False)
+            embeddd.add_field(name = "Command Example",value = "`?kick 472985252805298 idk cuh`",inline= False)
+            await ctx.send(embed = embeddd,delete_after=5)
+            return
+        else:
+            db = mysql.connector.connect(
+                host = "us-cdbr-east-02.cleardb.com",
+                user = "bc4de25d94d683",
+                passwd = "0bf00100",
+                database = "heroku_1d7c0ca78dfc2ef"
+            )
+
+            cursor = db.cursor()
+            guildid = ctx.guild.id
+            sql = "INSERT INTO logs (userid,reason,guildid,type) VALUES (%s, %s, %s, %s)"
+            val = (str(member.id),str(reason),guildid,'Kick')
+            cursor.execute(sql,val)
+            db.commit()
+            member.kick(reason = reason)
+            cursor.close() 
+            db.close()
+
+
 
 
 def setup(client):
