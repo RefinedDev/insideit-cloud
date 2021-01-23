@@ -154,17 +154,6 @@ async def on_member_remove(member):
     except Exception as e:
         print(f"An error occured on_member_remove {e}")
 
-@client.event
-async def on_reaction_add(reaction,user):
-    print(user.reaction.emoji)
-    if user.reaction.emoji == '<:uglycat:791151352885149717>':
-        print('xd')
-    else:
-        print('noxd')
-
-@client.event
-async def on_reaction_remove(reaction,user):
-    pass
 @client.listen('on_message')
 async def botping(message):
     if message.content == '<@!795963203804200980>':
