@@ -27,7 +27,7 @@ class config(Cog):
     async def config(self,ctx):
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(title = '⚙ Configurations.',description = 'Use `?config [nameofconfig]` to configure, you can also use `?showconfigs` to see what configurations are on or off.',color = ctx.author.color)
-            embed.add_field(name = 'You can configure the following.',value = '`WelcomeMessage`\n`WelcomeRole`\n`LeaveMessage`')
+            embed.add_field(name = 'You can configure the following.',value = '`WelcomeMessage`\n`WelcomeRole`\n`LeaveMessage`\n`ReactionRoles`')
             await ctx.send(embed = embed)
 
 
@@ -61,7 +61,7 @@ class config(Cog):
                     await ctx.send("Din't reply in time noob.")
                     return
                 else:
-                    if msg1.content == 'On' or msg1.content == 'on' or msg1.content == 'ON':
+                    if str.lower(msg1.content) == 'on':
                         await ctx.send('Write the channel id where welcome msgs should be sent!')
                         try:
                             idmsg = await self.client.wait_for('message',timeout = 50.0,check = check)
@@ -91,7 +91,7 @@ class config(Cog):
                                     await ctx.send('This configuration is already turned on!')
                             else:
                                 await ctx.send("Channel not found! >:C")
-                    elif msg1.content == 'Off' or msg1.content == 'off' or msg1.content == 'OFF':
+                    elif str.lower(msg1.content) == 'off':
                             guildid = str(ctx.guild.id)
                             channelid = '0'
                             cursor.execute("SELECT toggle from welcomemsg WHERE guildid = " + guildid)
@@ -144,7 +144,7 @@ class config(Cog):
                     await ctx.send("Din't reply in time noob.")
                     return
                 else:
-                    if msg1.content == 'On' or msg1.content == 'on' or msg1.content == 'ON':
+                    if str.lower(msg1.content) == 'on':
                         await ctx.send('Write the channel id where Leave msgs should be sent!')
                         try:
                             idmsg = await self.client.wait_for('message',timeout = 50.0,check = check)
@@ -174,7 +174,7 @@ class config(Cog):
                                     await ctx.send('This configuration is already turned on!')
                             else:
                                 await ctx.send("Channel not found! >:C")
-                    elif msg1.content == 'Off' or msg1.content == 'off' or msg1.content == 'OFF':
+                    elif str.lower(msg1.content) == 'off':
                             guildid = str(ctx.guild.id)
                             channelid = '0'
                             cursor.execute("SELECT toggle from leavemsg WHERE guildid = " + guildid)
@@ -226,7 +226,7 @@ class config(Cog):
                     await ctx.send("Din't reply in time noob.")
                     return
                 else:
-                    if msg1.content == 'On' or msg1.content == 'on' or msg1.content == 'ON':
+                    if str.lower(msg1.content) == 'on':
                         await ctx.send('Write the roleID of the role that the new members will recieve when they join!')
                         try:
                             idmsg = await self.client.wait_for('message',timeout = 50.0,check = check)
@@ -256,7 +256,7 @@ class config(Cog):
                                     await ctx.send('This configuration is already turned on!')
                             else:
                                 await ctx.send("Role not found!")
-                    elif msg1.content == 'Off' or msg1.content == 'off' or msg1.content == 'OFF':
+                    elif str.lower(msg1.content) == 'off':
                             guildid = str(ctx.guild.id)
                             roleid = '0'
                             cursor.execute("SELECT toggle from welcomeroles WHERE guildid = " + guildid)
@@ -277,7 +277,76 @@ class config(Cog):
                 await ctx.send("Invalid Choice")
         db.close()
         cursor.close()
+    
+    @config.command
+    @commands.cooldown(1,150,commands.BucketType.guild)
+    @commands.has_permissions(administrator = True)
+    async def ReactionRoles(self,ctx):
+        messageid = None
+        roleid = None
+        reaction = None
+        db = mysql.connector.connect(
+            host = "us-cdbr-east-02.cleardb.com",
+            user = "bc4de25d94d683",
+            passwd = "0bf00100",
+            database = "heroku_1d7c0ca78dfc2ef"
+        )
+
+        cursor = db.cursor()
+        def check(message):
+            return message.author == ctx.author and message.channel == ctx.channel
                 
+        await ctx.send('What would ya like to configure?\n`addreaction`\n`deletereaction`')
+        try:
+            msg = await self.client.wait_for('message',timeout = 50.0,check = check)
+        except asyncio.TimeoutError:
+            await ctx.send("Din't reply in time noob.")
+            return
+        else:
+            if str.lower(msg.content) == 'addreaction':
+                await ctx.send("Write the message's id where you want the reaction role to be done.")
+                try:
+                    msg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
+                except asyncio.TimeoutError:
+                    await ctx.send("Din't reply in time noob.")
+                    return
+                else:
+                    messageid = msg2.content
+                    channel = self.client.get_channel(int(messageid))
+                    if channel != None:
+                        await ctx.send("Now write the role's id which members will recieve when reacted.")
+                        try:
+                            msg3 = await self.client.wait_for('message',timeout = 50.0,check = check)
+                        except asyncio.TimeoutError:
+                            await ctx.send("Din't reply in time noob.")
+                            return
+                        else:
+                            roleid = msg3.content
+                            role = discord.utils.get(ctx.guild.roles, id=int(roleid))
+                            if role != None:
+                                await ctx.send('Now last but not least, write the Reaction Emoji that members will have to react to recieve the role!')
+                                try:
+                                    msg4 = await self.client.wait_for('message',timeout = 50.0,check = check)
+                                except asyncio.TimeoutError:
+                                    await ctx.send("Din't reply in time noob.")
+                                    return
+                                else:
+                                    reaction = msg4.content
+                                    sql = "INSERT INTO reactionroles (guildid,messageid,roleid,reaction) VALUES (%s, %s, %s, %s)"
+                                    val = (str(ctx.guild.id), str(messageid), str(roleid), str(reaction))
+                                    cursor.execute(sql,val)
+                                    db.commit()
+                                    await ctx.send(f'Reaction role added, members will recieve the {role.name} role when reacted to {reaction}!\n**PS: Reaction Roles Are Currently In Maintenance And Will NOT WORK Sorry For The Inconvinience**')
+                            else:
+                                await ctx.send('Invalid RoleId returning..')
+                                return
+                    else:
+                        await ctx.send('Invalid ChannelId returning..')
+                        return
+            elif str.lower(msg.content) == 'deletereaction':
+                await ctx.send('Hey bro this option is in maintenance check back later!')
+                return
+
     @commands.command()
     @commands.cooldown(1,150,commands.BucketType.guild)
     @commands.has_permissions(administrator = True)

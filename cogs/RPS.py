@@ -35,7 +35,6 @@ class RockPaperScissors(Cog):
         if (len(res) == 0):
             sql = "INSERT INTO rpsrecords (name, userid) VALUES (%s, %s)"
             val = (name, theid)
-            print(sql,val)
             cursor.execute(sql,val)
             db.commit()
             print(f'New Column For {name} Has Been Created!!')
