@@ -312,7 +312,7 @@ class config(Cog):
                     return
                 else:
                     messageid = msg2.content
-                    channel = self.client.get_channel(int(messageid))
+                    channel = await self.client.fetch_message(int(messageid))
                     if channel != None:
                         await ctx.send("Now write the role's id which members will recieve when reacted.")
                         try:
