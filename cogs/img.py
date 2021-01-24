@@ -139,10 +139,10 @@ class img(Cog):
         if user == None:
             user = ctx.author
         response = requests.get(f"https://some-random-api.ml/canvas/triggered/?avatar={user.avatar_url_as(size=128)}")
-        file = open("triggred.png", "wb")
+        file = open("triggred.gif", "wb")
         file.write(response.content)
         file.close()
-        await ctx.send(file=discord.File('triggred.png'))
+        await ctx.send(file=discord.File('triggred.gif'))
 
     @commands.command()
     @commands.cooldown(1,5,commands.BucketType.user)
@@ -150,10 +150,10 @@ class img(Cog):
         if user == None:
             user = ctx.author
         response = requests.get(f"https://some-random-api.ml/canvas/wasted/?avatar={user.avatar_url_as(size=128)}")
-        file = open("wasted.png", "wb")
+        file = open("wasted.gif", "wb")
         file.write(response.content)
         file.close()
-        await ctx.send(file=discord.File('wasted.png'))
+        await ctx.send(file=discord.File('wasted.gif'))
 
 def setup(client):
     client.add_cog(img(client))
