@@ -33,8 +33,8 @@ class RockPaperScissors(Cog):
         cursor.execute("SELECT wins from rpsrecords WHERE userid = " + str(theid))
         res = cursor.fetchall()
         if (len(res) == 0):
-            sql = "INSERT INTO rpsrecords (name, userid) VALUES (%s, %s)"
-            val = (name, theid)
+            sql = "INSERT INTO rpsrecords (name, userid, wins) VALUES (%s, %s, %s)"
+            val = (name, theid, '1')
             cursor.execute(sql,val)
             db.commit()
             print(f'New Column For {name} Has Been Created!!')
@@ -67,7 +67,7 @@ class RockPaperScissors(Cog):
             await ctx.send("Din't reply in time noob.")
             return
         else:
-            if msg.content == "Yes" or msg.content == "YES" or msg.content == 'yes':
+            if str.lower(msg.content) == 'yes':
                 await ctx.send("Okay, let's start")
                 asyncio.sleep(0.5)
                 await ctx.send("Choose something between `(r)` Rock, `(p)` Paper, `(s)` Scissors\nIf you want to quit just say `quit`")
@@ -123,7 +123,7 @@ class RockPaperScissors(Cog):
                         await ctx.send("Invalid Choice")
                         return
             
-            elif msg.content == 'No' or msg.content == 'NO' or msg.content == 'no':
+            elif str.lower(msg.content) == 'no':
                 await ctx.send("Bruh why did u call me then >:C bye")
                 return
             else:
