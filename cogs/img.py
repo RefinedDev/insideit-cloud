@@ -138,7 +138,7 @@ class img(Cog):
     async def trigger(self, ctx,user : discord.Member = None):
         if user == None:
             user = ctx.author
-        response = requests.get(f"https://some-random-api.ml/canvas/triggered/?avatar={user.avatar_url_as(size=128)}")
+        response = requests.get(f"https://some-random-api.ml/canvas/triggered/?avatar={user.avatar_url}")
         file = open("triggred.gif", "wb")
         file.write(response.content)
         file.close()
@@ -149,7 +149,7 @@ class img(Cog):
     async def wasted(self, ctx,user : discord.Member = None):
         if user == None:
             user = ctx.author
-        response = requests.get(f"https://some-random-api.ml/canvas/wasted/?avatar={user.avatar_url_as(size=128)}")
+        response = requests.get(f"https://some-random-api.ml/canvas/wasted/?avatar={user.avatar_url}")
         file = open("wasted.gif", "wb")
         file.write(response.content)
         file.close()
