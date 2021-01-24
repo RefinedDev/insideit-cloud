@@ -146,7 +146,7 @@ class img(Cog):
 
     @commands.command()
     @commands.cooldown(1,5,commands.BucketType.user)
-    async def wasted(self, ctx,user):
+    async def wasted(self, ctx,user : discord.Member = None):
         if user == None:
             user = ctx.author
         response = requests.get(f"https://some-random-api.ml/canvas/wasted/?avatar={user.avatar_url_as(size=128)}")
