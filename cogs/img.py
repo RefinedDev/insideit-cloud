@@ -6,6 +6,7 @@ import json
 import random
 from PIL import Image,ImageDraw,ImageFont
 from io import BytesIO
+import requests
 
 class img(Cog):
     def __init__(self,client):
@@ -132,6 +133,27 @@ class img(Cog):
         
         await ctx.send(file = discord.File('cogs/images/violencepic.jpg'))
 
+    @commands.command()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def trigger(self, ctx,user : discord.Member = None):
+        if user == None:
+            user = ctx.author
+        response = requests.get(f"https://some-random-api.ml/canvas/triggered/?avatar={user.avatar_url_as(size=128)}")
+        file = open("triggred.png", "wb")
+        file.write(response.content)
+        file.close()
+        await ctx.send(file=discord.File('triggred.png'))
+
+    @commands.command()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def wasted(self, ctx,user):
+        if user == None:
+            user = ctx.author
+        response = requests.get(f"https://some-random-api.ml/canvas/wasted/?avatar={user.avatar_url_as(size=128)}")
+        file = open("wasted.png", "wb")
+        file.write(response.content)
+        file.close()
+        await ctx.send(file=discord.File('wasted.png'))
 
 def setup(client):
     client.add_cog(img(client))

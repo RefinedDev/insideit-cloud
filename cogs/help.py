@@ -57,7 +57,7 @@ class helpcommand(Cog):
     async def img(self,ctx):
         embed = discord.Embed(colour = ctx.author.color)
         await ctx.message.delete()
-        embed.add_field(name = '📷 Image Commands.',value = "`?throw`,`?slap`,`?achievement`,`?youtube`,`?hoomangood`,`?blood`")
+        embed.add_field(name = '📷 Image Commands.',value = "`?throw`,`?slap`,`?achievement`,`?youtube`,`?hoomangood`,`?blood`,`?triggered`,`?wasted`")
         await ctx.send(embed = embed)
 
     @help.command()
