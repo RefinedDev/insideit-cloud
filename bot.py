@@ -154,15 +154,6 @@ async def on_member_remove(member):
     except Exception as e:
         print(f"An error occured on_member_remove {e}")
 
-@client.event
-async def on_raw_reaction_add(payload):
-    pass
-    # channel = client.get_channel(payload.channel_id)
-    # #message = await channel.fetch_message(payload.message_id)
-    # #user = await client.fetch_user(payload.user_id)
-    # emoji = payload.emoji
-
-
 @client.listen('on_message')
 async def botping(message):
     if message.content == '<@!795963203804200980>':
