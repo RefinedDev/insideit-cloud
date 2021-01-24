@@ -278,7 +278,7 @@ class config(Cog):
         db.close()
         cursor.close()
     
-    @config.command
+    @config.command()
     @commands.cooldown(1,150,commands.BucketType.guild)
     @commands.has_permissions(administrator = True)
     async def ReactionRoles(self,ctx):
@@ -346,6 +346,8 @@ class config(Cog):
             elif str.lower(msg.content) == 'deletereaction':
                 await ctx.send('Hey bro this option is in maintenance check back later!')
                 return
+        cursor.close()
+        db.close()
 
     @commands.command()
     @commands.cooldown(1,150,commands.BucketType.guild)
