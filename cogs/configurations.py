@@ -357,14 +357,6 @@ class config(Cog):
                                         else:
                                             await ctx.send('This configuration is already turned on!')
                             elif str.lower(idmsg.content) == 'no':
-                                await ctx.send('Do you want to prevent discord invite links? Yes/No')
-                                try:
-                                    idmsg = await self.client.wait_for('message',timeout = 50.0,check = check)
-                                except asyncio.TimeoutError:
-                                    await ctx.send("Din't reply in time noob.")
-                                    return
-                                else:
-                                    if str.lower(idmsg.content) == 'yes':
                                         await ctx.send('Okay, do you want to prevent ANY other links like youtube or google links? Yes/No')
                                         try:
                                             idmsg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
