@@ -76,11 +76,9 @@ class config(Cog):
                                 cursor.execute("SELECT toggle,channelid from welcomemsg WHERE guildid = " + guildid)
                                 res = cursor.fetchall()
                                 if (len(res) == 0):
-                                    sql = "INSERT INTO welcomemsg (guildid,toggle) VALUES (%s, %s)"
-                                    val = (guildid,'OFF')
+                                    sql = "INSERT INTO welcomemsg (guildid,toggle,channelid) VALUES (%s, %s, %s)"
+                                    val = (guildid,'ON',channelid)
                                     cursor.execute(sql,val)
-                                    db.commit()
-                                    cursor.execute("UPDATE welcomemsg SET toggle = 'ON', channelid = " + channelid + " WHERE guildid = " + guildid)   
                                     db.commit()
                                     await ctx.send(f'Welcome Messages is ON now and will be sent to the `{channel.name}` channel!')
                                 elif res[0][0] != 'ON':
@@ -159,11 +157,9 @@ class config(Cog):
                                 cursor.execute("SELECT toggle,channelid from leavemsg WHERE guildid = " + guildid)
                                 res = cursor.fetchall()
                                 if (len(res) == 0):
-                                    sql = "INSERT INTO leavemsg (guildid,toggle) VALUES (%s, %s)"
-                                    val = (guildid,'OFF')
+                                    sql = "INSERT INTO leavemsg (guildid,toggle,channelid) VALUES (%s, %s, %s)"
+                                    val = (guildid,'ON',channelid)
                                     cursor.execute(sql,val)
-                                    db.commit()
-                                    cursor.execute("UPDATE leavemsg SET toggle = 'ON', channelid = " + channelid + " WHERE guildid = " + guildid)   
                                     db.commit()
                                     await ctx.send(f'Leave Messages is ON now and will be sent to the `{channel.name}` channel!')
                                 elif res[0][0] != 'ON':
@@ -241,11 +237,9 @@ class config(Cog):
                                 cursor.execute("SELECT toggle,roleid from welcomeroles WHERE guildid = " + guildid)
                                 res = cursor.fetchall()
                                 if (len(res) == 0):
-                                    sql = "INSERT INTO welcomeroles (guildid,toggle) VALUES (%s, %s)"
-                                    val = (guildid,'OFF')
+                                    sql = "INSERT INTO welcomeroles (guildid,toggle,roleid) VALUES (%s, %s, %s)"
+                                    val = (guildid,'ON',roleid)
                                     cursor.execute(sql,val)
-                                    db.commit()
-                                    cursor.execute("UPDATE welcomeroles SET toggle = 'ON', roleid = " + roleid + " WHERE guildid = " + guildid)   
                                     db.commit()
                                     await ctx.send(f'WelcomeRoles are now on and new members will recieve the `{role.name}` Role!')
                                 elif res[0][0] != 'ON':
@@ -329,7 +323,7 @@ class config(Cog):
                                         cursor.execute("SELECT toggle from antilink WHERE guildid = " + guildid)
                                         res = cursor.fetchall()
                                         if (len(res) == 0):
-                                            sql = "INSERT INTO antilink (guildid,toggle,discordlink,otherlink) VALUES (%s, %s)"
+                                            sql = "INSERT INTO antilink (guildid,toggle,discordlink,otherlink) VALUES (%s, %s, %s, %s)"
                                             val = (guildid,'ON','YES','YES')
                                             cursor.execute(sql,val)
                                             db.commit()
@@ -345,7 +339,7 @@ class config(Cog):
                                         cursor.execute("SELECT toggle from antilink WHERE guildid = " + guildid)
                                         res = cursor.fetchall()
                                         if (len(res) == 0):
-                                            sql = "INSERT INTO antilink (guildid,toggle,discordlink,otherlink) VALUES (%s, %s)"
+                                            sql = "INSERT INTO antilink (guildid,toggle,discordlink,otherlink) VALUES (%s, %s, %s, %s)"
                                             val = (guildid,'ON','YES','NO')
                                             cursor.execute(sql,val)
                                             db.commit()
@@ -369,7 +363,7 @@ class config(Cog):
                                                 cursor.execute("SELECT toggle,discordlink,otherlink from antilink WHERE guildid = " + guildid)
                                                 res = cursor.fetchall()
                                                 if (len(res) == 0):
-                                                    sql = "INSERT INTO antilink (guildid,toggle,discordlink,otherlink) VALUES (%s, %s)"
+                                                    sql = "INSERT INTO antilink (guildid,toggle,discordlink,otherlink) VALUES (%s, %s, %s, %s)"
                                                     val = (guildid,'ON','NO','YES')
                                                     cursor.execute(sql,val)
                                                     db.commit()
@@ -385,7 +379,7 @@ class config(Cog):
                                                 cursor.execute("SELECT toggle from antilink WHERE guildid = " + guildid)
                                                 res = cursor.fetchall()
                                                 if (len(res) == 0):
-                                                    sql = "INSERT INTO antilink (guildid,toggle,discordlink,otherlink) VALUES (%s, %s)"
+                                                    sql = "INSERT INTO antilink (guildid,toggle,discordlink,otherlink) VALUES (%s, %s, %s, %s)"
                                                     val = (guildid,'OFF','NO','NO')
                                                     cursor.execute(sql,val)
                                                     db.commit()
