@@ -49,11 +49,19 @@ class MiscCmds(Cog):
         dateandtime = serverjoindate.strftime("%m/%d/%Y, %H:%M:%S GMT")
         registerdate = member.created_at
         formatregister = registerdate.strftime("%m/%d/%Y, %H:%M:%S GMT")
-
         em.set_author(name = member.display_name, icon_url= member.avatar_url)
         em.add_field(name = "Server Join Date", value =  dateandtime)
         em.add_field(name = "Registered", value =  formatregister)
-        em.add_field(name = "Current Status",value = member.status,inline= False)
+        status = None
+        if member.status == 'offline':
+            status = f'<:status_offline:596576752013279242> Offline'
+        elif member.status == 'dnd':
+            status = '<:status_dnd:596576774364856321> Do Not Disturb'
+        elif member.status == 'online':
+            status = '<:status_online:596576749790429200> Online'
+        elif member.status == 'idle':
+            status = '<:status_idle:596576773488115722> Idle'
+        em.add_field(name = "Current Status",value = status,inline= False)
         em.set_footer(text= f'User ID: {member.id}')
         
         thenumberofrolesthepersonhas = 0
