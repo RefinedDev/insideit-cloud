@@ -366,7 +366,7 @@ class config(Cog):
                                         else:
                                             if str.lower(idmsg2.content) == 'yes':
                                                 guildid = str(ctx.guild.id)
-                                                cursor.execute("SELECT toggle from antilink WHERE guildid = " + guildid)
+                                                cursor.execute("SELECT toggle,discordlink,otherlink from antilink WHERE guildid = " + guildid)
                                                 res = cursor.fetchall()
                                                 if (len(res) == 0):
                                                     sql = "INSERT INTO antilink (guildid,toggle,discordlink,otherlink) VALUES (%s, %s)"
@@ -381,8 +381,22 @@ class config(Cog):
                                                 else:
                                                     await ctx.send('This configuration is already turned on!')
                                             elif str.lower(idmsg2.content) == 'no':
-                                                await ctx.send("Both of the options were chosen as No so i'm not turning AntiLink on.")
-                                                return
+                                                guildid = str(ctx.guild.id)
+                                                cursor.execute("SELECT toggle from antilink WHERE guildid = " + guildid)
+                                                res = cursor.fetchall()
+                                                if (len(res) == 0):
+                                                    sql = "INSERT INTO antilink (guildid,toggle,discordlink,otherlink) VALUES (%s, %s)"
+                                                    val = (guildid,'OFF','NO','NO')
+                                                    cursor.execute(sql,val)
+                                                    db.commit()
+                                                    await ctx.send("Both of the options were chosen as No so i'm not turning AntiLink on.")
+                                                    return
+                                                elif res[0][0] != 'ON':
+                                                    await ctx.send("Both of the options were chosen as No so i'm not turning AntiLink on.")
+                                                    return
+                                                else:
+                                                    await ctx.send('This configuration is already turned on!')
+            
                     elif str.lower(msg1.content) == 'off':
                             guildid = str(ctx.guild.id)
                             cursor.execute("SELECT toggle from antilink WHERE guildid = " + guildid)
@@ -399,6 +413,8 @@ class config(Cog):
                                 await ctx.send(f'AntiLink is now off!')
                             else:
                                 await ctx.send('This configuration is already turned off!')
+                    else:
+                        await ctx.send('Invalid Choice.')
             else:
                 await ctx.send("Invalid Choice")
         db.close()
