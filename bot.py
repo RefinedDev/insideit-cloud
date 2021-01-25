@@ -161,6 +161,24 @@ async def botping(message):
         embed.add_field(name = "Prefixes",value = '\n'.join(prefixes))
         await message.channel.send(embed =  embed)
 
+@client.listen('on_message')
+async def nolink(message):
+    if 'discord.gg' in message.content:
+        db = mysql.connector.connect(
+            host = "us-cdbr-east-02.cleardb.com",
+            user = "bc4de25d94d683",
+            passwd = "0bf00100",
+            database = "heroku_1d7c0ca78dfc2ef"
+        )
+
+        cursor = db.cursor()
+        cursor.execute('SELECT toggle,discordlink FROM antilink WHERE guildid = ' + str(message.guild.id))
+        res = cursor.fetchall()
+        if res[0][0] == "ON":
+            if res[0][1] == 'YES':
+                await message.delete()
+        else:
+            pass
 
 cogslist = ['cogs.misc','cogs.help','cogs.APIscrape','cogs.RPS','cogs.configurations','cogs.highrank','cogs.img']
 
