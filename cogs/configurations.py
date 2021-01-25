@@ -462,7 +462,7 @@ class config(Cog):
             if (len(res4) == 0):
                 embed.add_field(name = 'AntiLink',value = f'`OFF`',inline= False)
             else:
-                embed.add_field(name = 'AntiLink',value = f'`{res4[0][0]}`\nNODiscordLink: {res4[0][1]}\nNOOtherLinks: {res4[0][2]}',inline= False)
+                embed.add_field(name = 'AntiLink',value = f'`{res4[0][0]}`\n`NODiscordLink: {res4[0][1]}`\n`NOOtherLinks: {res4[0][2]}`',inline= False)
             await ctx.send(embed = embed)
             db.close()
             cursor.close()
