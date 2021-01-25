@@ -301,7 +301,7 @@ class config(Cog):
             return
         else:
             if msg.content == 'toggle':
-                await ctx.send('Would you like to turn Welcome Role `On` Or `Off`?')
+                await ctx.send('Would you like to turn AntiLink `On` Or `Off`?')
                 try:
                     msg1 = await self.client.wait_for('message',timeout = 50.0,check = check)
                 except asyncio.TimeoutError:
@@ -340,7 +340,7 @@ class config(Cog):
                                             await ctx.send(f'AntiLink is now on!')
                                         else:
                                             await ctx.send('This configuration is already turned on!')
-                                    elif str.lower(idmsg.content) == 'no':
+                                    elif str.lower(idmsg2.content) == 'no':
                                         guildid = str(ctx.guild.id)
                                         cursor.execute("SELECT toggle from antilink WHERE guildid = " + guildid)
                                         res = cursor.fetchall()
