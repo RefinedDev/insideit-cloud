@@ -27,7 +27,7 @@ class config(Cog):
     async def config(self,ctx):
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(title = '⚙ Configurations.',description = 'Use `?config [nameofconfig]` to configure, you can also use `?showconfigs` to see what configurations are on or off.',color = ctx.author.color)
-            embed.add_field(name = 'You can configure the following.',value = '`WelcomeMessage`\n`WelcomeRole`\n`LeaveMessage`')
+            embed.add_field(name = 'You can configure the following.',value = '`WelcomeMessage`\n`WelcomeRole`\n`LeaveMessage`\n`AntiLink`')
             await ctx.send(embed = embed)
 
 
@@ -440,6 +440,8 @@ class config(Cog):
             res2= cursor.fetchall()
             cursor.execute("SELECT toggle from leavemsg WHERE guildid = " + guildid)  
             res3 = cursor.fetchall()
+            cursor.execute("SELECT toggle,discordlink,otherlink from antilink WHERE guildid = " + guildid)  
+            res4 = cursor.fetchall()
 
             embed = discord.Embed()
             if (len(res2) == 0):
@@ -456,6 +458,11 @@ class config(Cog):
                 embed.add_field(name = 'LeaveMessage',value = f'`OFF`',inline= False)
             else:
                 embed.add_field(name = 'LeaveMessage',value = f'`{res3[0][0]}`',inline= False)
+            
+            if (len(res4) == 0):
+                embed.add_field(name = 'AntiLink',value = f'`OFF`',inline= False)
+            else:
+                embed.add_field(name = 'AntiLink',value = f'`{res4[0][0]}`\nNODiscordLink: {res4[0][1]}\nNOOtherLinks: {res4[0][2]}',inline= False)
             await ctx.send(embed = embed)
             db.close()
             cursor.close()

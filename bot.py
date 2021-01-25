@@ -174,6 +174,8 @@ async def nolink(message):
         cursor = db.cursor()
         cursor.execute('SELECT toggle,discordlink FROM antilink WHERE guildid = ' + str(message.guild.id))
         res = cursor.fetchall()
+        if (len(res) == 0):
+            return
         if res[0][0] == "ON":
             if res[0][1] == 'YES':
                 await message.delete()
@@ -193,6 +195,9 @@ async def nolink(message):
         cursor = db.cursor()
         cursor.execute('SELECT toggle,discordlink FROM antilink WHERE guildid = ' + str(message.guild.id))
         res = cursor.fetchall()
+        if (len(res) == 0):
+            return
+
         if res[0][0] == "ON":
             if res[0][1] == 'YES':
                 await message.delete()
