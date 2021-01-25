@@ -52,6 +52,7 @@ class MiscCmds(Cog):
         em.set_author(name = member.display_name, icon_url= member.avatar_url)
         em.add_field(name = "Server Join Date", value =  dateandtime)
         em.add_field(name = "Registered", value =  formatregister)
+        print(member.status)
         if member.status == 'offline':
             status = f'<:status_offline:596576752013279242> Offline'
             em.add_field(name = "Current Status",value = status,inline= False)
