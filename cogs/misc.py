@@ -54,13 +54,13 @@ class MiscCmds(Cog):
         em.add_field(name = "Server Join Date", value =  dateandtime)
         em.add_field(name = "Registered", value =  formatregister)
         if str(member.status) == 'offline':
-            em.add_field(name = "Current Status <:status_offline:596576752013279242>",value = 'Offline',inline= False)
+            em.add_field(name = "Current Status <:status_offline:803132091453538345>",value = 'Offline',inline= False)
         elif str(member.status) == 'online':
-            em.add_field(name = "Current Status <:status_online:596576749790429200>",value = 'Online',inline= False)
+            em.add_field(name = "Current Status <:status_online:803132226081390614>",value = 'Online',inline= False)
         elif str(member.status) == 'dnd':
-            em.add_field(name = "Current Status <:status_dnd:596576774364856321>",value = 'Do Not Disturb',inline= False)
+            em.add_field(name = "Current Status <:status_dnd:803131938092220457>",value = 'Do Not Disturb',inline= False)
         elif str(member.status) == 'idle':
-            em.add_field(name = "Current Status <:status_idle:596576773488115722>",value = 'Idle',inline= False)
+            em.add_field(name = "Current Status <:status_idle:803132137603334144>",value = 'Idle',inline= False)
         em.set_footer(text= f'User ID: {member.id}')
         
         thenumberofrolesthepersonhas = 0
