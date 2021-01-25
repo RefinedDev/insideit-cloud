@@ -325,7 +325,7 @@ class config(Cog):
                                     return
                                 else:
                                     if str.lower(idmsg2.content) == 'yes':
-                                        guildid = ctx.guild.id
+                                        guildid = str(ctx.guild.id)
                                         cursor.execute("SELECT toggle from antilink WHERE guildid = " + guildid)
                                         res = cursor.fetchall()
                                         if (len(res) == 0):
@@ -341,7 +341,7 @@ class config(Cog):
                                         else:
                                             await ctx.send('This configuration is already turned on!')
                                     elif str.lower(idmsg.content) == 'no':
-                                        guildid = ctx.guild.id
+                                        guildid = str(ctx.guild.id)
                                         cursor.execute("SELECT toggle from antilink WHERE guildid = " + guildid)
                                         res = cursor.fetchall()
                                         if (len(res) == 0):
@@ -373,7 +373,7 @@ class config(Cog):
                                             return
                                         else:
                                             if str.lower(idmsg2.content) == 'yes':
-                                                guildid = ctx.guild.id
+                                                guildid = str(ctx.guild.id)
                                                 cursor.execute("SELECT toggle from antilink WHERE guildid = " + guildid)
                                                 res = cursor.fetchall()
                                                 if (len(res) == 0):
@@ -388,8 +388,9 @@ class config(Cog):
                                                     await ctx.send(f'AntiLink is now on!')
                                                 else:
                                                     await ctx.send('This configuration is already turned on!')
-                                            elif str.lower(idmsg.content) == 'no':
+                                            elif str.lower(idmsg2.content) == 'no':
                                                 await ctx.send("Both of the options were chosen as No so i'm not turning AntiLink on.")
+                                                return
                     elif str.lower(msg1.content) == 'off':
                             guildid = str(ctx.guild.id)
                             cursor.execute("SELECT toggle from antilink WHERE guildid = " + guildid)
