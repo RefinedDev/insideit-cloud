@@ -292,8 +292,9 @@ class HighRank(Cog):
                         await user.add_roles(role)
                         await ctx.send(f'Muted {user.mention} for {str(newtime)} seconds: {str(reason)}')
                         if newtime < 300:
-                            asyncio.sleep(newtime)
+                            await asyncio.sleep(newtime)
                             await user.remove_roles(role)
+                            cursor.execute('DELETE FROM mutedata WHERE userid = ' + str(user.id))
                             print(f'{user.name} has been unmuted.')
                     except Exception as e:
                         await ctx.send(f'An Error Occured: {e}')
@@ -304,8 +305,8 @@ class HighRank(Cog):
 
 
     @commands.command()
-    #@commands.has_permissions(kick_members = True)
-    @commands.cooldown(1,60,commands.BucketType.user)
+    @commands.has_permissions(kick_members = True)
+    #@commands.cooldown(1,60,commands.BucketType.user)
     async def unmute(self,ctx,user : discord.Member = None):
         if user == None:
             embeddd = discord.Embed(colour= discord.Colour.red())
