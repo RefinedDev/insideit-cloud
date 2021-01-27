@@ -230,7 +230,7 @@ class HighRank(Cog):
     def cog_unload(self):
         self.mute_loop.cancel()
     @commands.command()
-    #@commands.cooldown(1,60,commands.BucketType.user)
+    @commands.cooldown(1,60,commands.BucketType.user)
     @commands.has_permissions(kick_members = True)
     async def mute(self,ctx,user : discord.Member = None,time = None,*,reason = 'Not Specified'):
         hourandminute = {
@@ -273,34 +273,35 @@ class HighRank(Cog):
 
         cursor = db.cursor()
         guildid = str(ctx.guild.id)
-
+        newtime = 0
         cursor.execute('SELECT userid FROM mutedata WHERE userid = ' + str(user.id))
         res = cursor.fetchall()
         if (len(res) == 0):
             for i in hourandminute:
                 split = time.split(i)
                 if split[0] != time:
-                    try:
-                        newtime = int(split[0])
-                        newtime = newtime * int(hourandminute[i])
-                        sql = "INSERT INTO logs (userid,reason,guildid,type) VALUES (%s, %s, %s, %s)"
-                        val = (str(user.id),str(reason),guildid,'Mute')
-                        cursor.execute(sql,val)
-                        db.commit()
-                        sql = "INSERT INTO mutedata (userid,guildid,time,timemuted) VALUES (%s, %s, %s, %s)"
-                        val = (str(user.id),guildid,str(newtime), str(datetime.now()))
-                        cursor.execute(sql,val)
-                        db.commit()
-                        await user.add_roles(role)
-                        await ctx.send(f'Muted {user.mention} for {str(newtime)} seconds: {str(reason)}')
-                        if newtime < 300:
-                            await asyncio.sleep(newtime)
-                            await user.remove_roles(role)
-                            cursor.execute('DELETE FROM mutedata WHERE userid = ' + str(user.id))
-                            db.commit()
-                            print(f'{user.name} has been unmuted.')
-                    except Exception as e:
-                        await ctx.send(f'An Error Occured: {e}')
+                    newtime = int(split[0])
+                    newtime = newtime * int(hourandminute[i])
+        
+            try:
+                sql = "INSERT INTO logs (userid,reason,guildid,type) VALUES (%s, %s, %s, %s)"
+                val = (str(user.id),str(reason),guildid,'Mute')
+                cursor.execute(sql,val)
+                db.commit()
+                sql = "INSERT INTO mutedata (userid,guildid,time,timemuted) VALUES (%s, %s, %s, %s)"
+                val = (str(user.id),guildid,str(newtime), str(datetime.now()))
+                cursor.execute(sql,val)
+                db.commit()
+                await user.add_roles(role)
+                await ctx.send(f'Muted {user.mention} for {str(newtime)} seconds: {str(reason)}')
+                if newtime < 300:
+                    await asyncio.sleep(newtime)
+                    await user.remove_roles(role)
+                    cursor.execute('DELETE FROM mutedata WHERE userid = ' + str(user.id))
+                    db.commit()
+                    print(f'{user.name} has been unmuted.')
+            except Exception as e:
+                print(f"An error occured {e}")
         else:
             await ctx.send('My database says that the person is already muted.')
         cursor.close()
@@ -309,7 +310,7 @@ class HighRank(Cog):
 
     @commands.command()
     @commands.has_permissions(kick_members = True)
-    #@commands.cooldown(1,60,commands.BucketType.user)
+    @commands.cooldown(1,60,commands.BucketType.user)
     async def unmute(self,ctx,user : discord.Member = None):
         if user == None:
             embeddd = discord.Embed(colour= discord.Colour.red())
