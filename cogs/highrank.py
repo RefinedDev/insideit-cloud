@@ -296,10 +296,19 @@ class HighRank(Cog):
                 await ctx.send(f'Muted {user.mention} for {str(newtime)} seconds: {str(reason)}')
                 if newtime < 300:
                     await asyncio.sleep(newtime)
+                    db = mysql.connector.connect(
+                        host = "us-cdbr-east-02.cleardb.com",
+                        user = "bc4de25d94d683",
+                        passwd = "0bf00100",
+                        database = "heroku_1d7c0ca78dfc2ef"
+                    )
+                    cursor = db.cursor()
                     await user.remove_roles(role)
                     cursor.execute('DELETE FROM mutedata WHERE userid = ' + str(user.id))
                     db.commit()
                     print(f'{user.name} has been unmuted.')
+                    cursor.close()
+                    db.close()
             except Exception as e:
                 print(f"An error occured {e}")
         else:
