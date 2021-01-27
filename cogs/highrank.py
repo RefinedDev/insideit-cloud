@@ -363,8 +363,8 @@ class HighRank(Cog):
 
             for i in res:
                 print(i)
-                realtime = i[3] + relativedelta(seconds= i[1])
-                if currentime >= realtime:
+                unmuteTime = int(i[3]) + relativedelta(seconds= i[1])
+                if currentime >= unmuteTime:
                     guild = self.client.get_guild(int(i[2]))
                     if guild != None:
                         member = guild.get_member(int(i[0]))
@@ -374,7 +374,7 @@ class HighRank(Cog):
                                 await member.remove_roles(role)
                                 cursor.execute("DELETE FROM mutedata WHERE userid = " + str(i[0]))
                                 db.commit()
-                                print('Unmuted Refined With Loop!')
+                                print('Unmuted Someone With Loop!')
             cursor.close()
             db.close()
 
