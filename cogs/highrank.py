@@ -364,8 +364,8 @@ class HighRank(Cog):
 
             for i in res:
                 print(i)
-                realtime = str(i[3]) + relativedelta(seconds=i[1])
-                if currentime > realtime:
+                realtime = str(i[3]) + relativedelta(seconds=str(i[1]))
+                if currentime >= realtime:
                     guild = self.client.get_guild(int(i[2]))
                     if guild != None:
                         member = guild.get_member(int(i[0]))
