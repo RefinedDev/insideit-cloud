@@ -359,8 +359,7 @@ class HighRank(Cog):
                 currentime = datetime.now()
 
                 if len(res) == 0:
-                    print(res)
-                    return
+                    pass
 
                 for i in res:
                     time = datetime.strptime(i[3],"%Y-%m-%d %H:%M:%S.%f")
