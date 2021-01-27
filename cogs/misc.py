@@ -6,10 +6,12 @@ import twitpy
 import random
 import pythonroblox
 import ast
+import googletrans
 
 class MiscCmds(Cog):
     def __init__(self,client):
         self.client = client
+        self.translator = googletrans.Translator()
 
 
     @Cog.listener()
@@ -36,6 +38,14 @@ class MiscCmds(Cog):
     @commands.cooldown(1,1,commands.BucketType.user)
     async def ping(self,ctx):
         await ctx.send(f'Ping `{round(self.client.latency * 1000)}ms`')
+
+    @commands.command()
+    @commands.cooldown(1,1,commands.BucketType.user)
+    async def translate(self,ctx,*,lang):
+        translate = self.translator.translate(str(lang))
+        embed = discord.Embed(title = "InsideIt's Translator",color = ctx.author.color)
+        embed.add_field(name = "Here are your translate results (might be inaccurate)",value = f'`{translate.text}`')
+        await ctx.send(embed = embed)
 
     @commands.command()
     @commands.cooldown(1,1,commands.BucketType.user)
