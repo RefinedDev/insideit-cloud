@@ -358,7 +358,7 @@ class HighRank(Cog):
                 await asyncio.sleep(i[1])
                 guild = self.client.get_guild(int(i[2]))
                 if guild != None:
-                    member = self.client.get_member(int(i[0]))
+                    member = guild.get_member(int(i[0]))
                     if member != None:
                         role = discord.utils.get(guild.roles,name = 'Muted')
                         if role != None:
