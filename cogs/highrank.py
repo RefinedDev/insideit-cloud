@@ -226,7 +226,8 @@ class HighRank(Cog):
             await member.ban(reason = reason)
             cursor.close() 
             db.close()
-
+    def cog_unload(self):
+        self.mute_loop.cancel()
     @commands.command()
     #@commands.cooldown(1,60,commands.BucketType.user)
     @commands.has_permissions(kick_members = True)
@@ -368,7 +369,7 @@ class HighRank(Cog):
                             print('Unmuted Refined With Loop!')
         except Exception as e:
             print(f'An error occured in mute_loop {e}')
-            
+        
 
         
 
