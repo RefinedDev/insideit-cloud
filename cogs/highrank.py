@@ -376,10 +376,10 @@ class HighRank(Cog):
                                 cursor.execute("DELETE FROM mutedata WHERE userid = " + str(i[0]))
                                 db.commit()
                                 print('Unmuted Refined With Loop!')
-        cursor.close()
-        db.close()
         except Exception as e:
             print(f'An error occured in mute_loop {e}')
+        cursor.close()
+        db.close()
 
     # @tasks.loop(minutes = 5)
     # async def mute_loop(self):
