@@ -345,15 +345,14 @@ class HighRank(Cog):
 
     @tasks.loop(minutes = 5)
     async def mute_loop(self):
-        db = mysql.connector.connect(
-                host = "us-cdbr-east-02.cleardb.com",
-                user = "bc4de25d94d683",
-                passwd = "0bf00100",
-                database = "heroku_1d7c0ca78dfc2ef"
-        )
+            db = mysql.connector.connect(
+                    host = "us-cdbr-east-02.cleardb.com",
+                    user = "bc4de25d94d683",
+                    passwd = "0bf00100",
+                    database = "heroku_1d7c0ca78dfc2ef"
+            )
 
-        cursor = db.cursor()
-        try:
+            cursor = db.cursor()
             cursor.execute("SELECT * FROM mutedata")
             res = cursor.fetchall()
             currentime = datetime.now()
@@ -364,9 +363,7 @@ class HighRank(Cog):
 
             for i in res:
                 print(i)
-                print(i[3])
-                print(i[1])
-                realtime = str(i[3]) + relativedelta(seconds=str(i[1]))
+                realtime = i[3] + relativedelta(seconds= i[1])
                 if currentime >= realtime:
                     guild = self.client.get_guild(int(i[2]))
                     if guild != None:
@@ -378,10 +375,8 @@ class HighRank(Cog):
                                 cursor.execute("DELETE FROM mutedata WHERE userid = " + str(i[0]))
                                 db.commit()
                                 print('Unmuted Refined With Loop!')
-        except Exception as e:
-            print(f'An error occured in mute_loop {e}')
-        cursor.close()
-        db.close()
+            cursor.close()
+            db.close()
 
     # @tasks.loop(minutes = 5)
     # async def mute_loop(self):
