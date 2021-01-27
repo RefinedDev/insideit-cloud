@@ -143,7 +143,7 @@ class RockPaperScissors(Cog):
         )
 
         cursor = db.cursor()
-        cursor.execute("SELECT * FROM rpsrecords LIMIT 0,10")
+        cursor.execute("SELECT * FROM rpsrecords LIMIT 0,10 ORDER BY wins")
         index = cursor.fetchall()
         embed = discord.Embed(title = "Top 10 Highest Global RPS Wins.",color = ctx.author.color)
         for i in index:
