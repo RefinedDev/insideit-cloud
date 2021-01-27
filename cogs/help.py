@@ -50,7 +50,7 @@ class helpcommand(Cog):
     async def misc(self,ctx):
         embed = discord.Embed(colour = ctx.author.color)
         await ctx.message.delete()
-        embed.add_field(name = '😏 Miscellaneous Commands.',value = "`?rps`,`?rpsLeaderboard`,`?whois`,`?ping`,`?fromBase64`,`?simpmeter`,`?av`,`?8ball`,`?robloxsearch`,`?choose`,`?twitter`,`?translate`")
+        embed.add_field(name = '😏 Miscellaneous Commands.',value = "`?rps`,`?rpsLeaderboard`,`?whois`,`?ping`,`?fromBase64`,`?simpmeter`,`?av`,`?8ball`,`?robloxsearch`,`?choose`,`?twitter`")
         await ctx.send(embed = embed)
 
     @help.command(aliases =['image'])
