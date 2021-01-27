@@ -43,6 +43,9 @@ class MiscCmds(Cog):
         if member == None:
             member = ctx.author
 
+        if member == '<@!795963203804200980>' or member == '795963203804200980':
+            await ctx.send('No.')
+            
         em = discord.Embed(timestamp=datetime.utcnow(),colour = ctx.author.color)
         roles = []
         serverjoindate = member.joined_at
