@@ -5,7 +5,6 @@ from datetime import datetime
 import mysql.connector
 import asyncio
 
-
 class HighRank(Cog):
     def __init__(self,client):
         self.client = client
@@ -13,6 +12,7 @@ class HighRank(Cog):
     @Cog.listener()
     async def on_ready(self):
         print("High Rank Cog Is Ready!")
+        self.mute_loop.start()
 
     async def cog_command_error(self,ctx,error):
         if isinstance(error,commands.CommandNotFound):
@@ -337,6 +337,36 @@ class HighRank(Cog):
             db.commit()
             await user.remove_roles(role)
             await ctx.send(f'Successfully unmuted {user.mention}!')
+        cursor.close()
+        db.close()
+
+    @tasks.loop(minutes = 5)
+    async def mute_loop(self):
+        db = mysql.connector.connect(
+                host = "us-cdbr-east-02.cleardb.com",
+                user = "bc4de25d94d683",
+                passwd = "0bf00100",
+                database = "heroku_1d7c0ca78dfc2ef"
+        )
+
+        cursor = db.cursor()
+        try:
+            cursor.execute("SELECT * FROM mutedata")
+            res = cursor.fetchall()
+            for i in res:
+                print(i)
+                await asyncio.sleep(i[1])
+                guild = self.client.get_guild(int(i[2]))
+                if guild != None:
+                    member = self.client.get_member(int(i[0]))
+                    if member != None:
+                        role = discord.utils.get(guild.roles,name = 'Muted')
+                        if role != None:
+                            await member.remove_roles(role)
+                            print('Unmuted Refined With Loop!')
+        except Exception as e:
+            print(f'An error occured in mute_loop {e}')
+            
 
         
 
