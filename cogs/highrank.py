@@ -295,6 +295,7 @@ class HighRank(Cog):
                             await asyncio.sleep(newtime)
                             await user.remove_roles(role)
                             cursor.execute('DELETE FROM mutedata WHERE userid = ' + str(user.id))
+                            db.commit()
                             print(f'{user.name} has been unmuted.')
                     except Exception as e:
                         await ctx.send(f'An Error Occured: {e}')
@@ -333,6 +334,7 @@ class HighRank(Cog):
             return
         else:
             cursor.execute('DELETE FROM mutedata WHERE userid = ' + str(user.id))
+            db.commit()
             await user.remove_roles(role)
             await ctx.send(f'Successfully unmuted {user.mention}!')
 
