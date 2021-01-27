@@ -4,6 +4,7 @@ from discord.ext.commands import Cog
 from datetime import datetime
 import mysql.connector
 import asyncio
+from dateutil.relativedelta import relativedelta
 
 class HighRank(Cog):
     def __init__(self,client):
@@ -286,8 +287,8 @@ class HighRank(Cog):
                         val = (str(user.id),str(reason),guildid,'Mute')
                         cursor.execute(sql,val)
                         db.commit()
-                        sql = "INSERT INTO mutedata (userid,guildid,time) VALUES (%s, %s, %s)"
-                        val = (str(user.id),guildid,str(newtime))
+                        sql = "INSERT INTO mutedata (userid,guildid,time,timemuted) VALUES (%s, %s, %s, %s)"
+                        val = (str(user.id),guildid,str(newtime), str(datetime.now()))
                         cursor.execute(sql,val)
                         db.commit()
                         await user.add_roles(role)
@@ -341,6 +342,7 @@ class HighRank(Cog):
         cursor.close()
         db.close()
 
+
     @tasks.loop(minutes = 5)
     async def mute_loop(self):
         db = mysql.connector.connect(
@@ -354,19 +356,58 @@ class HighRank(Cog):
         try:
             cursor.execute("SELECT * FROM mutedata")
             res = cursor.fetchall()
+            currentime = datetime.now()
+
+            if len(res) == 0:
+                print(res)
+                return
+
             for i in res:
                 print(i)
-                await asyncio.sleep(i[1])
-                guild = self.client.get_guild(int(i[2]))
-                if guild != None:
-                    member = guild.get_member(int(i[0]))
-                    if member != None:
-                        role = discord.utils.get(guild.roles,name = 'Muted')
-                        if role != None:
-                            await member.remove_roles(role)
-                            cursor.execute("DELETE FROM mutedata WHERE userid = " + str(i[0]))
-                            db.commit()
-                            print('Unmuted Refined With Loop!')
+                realtime = i[3] + relativedelta(seconds=i[1])
+                if currentime > realtime:
+                    guild = self.client.get_guild(int(i[2]))
+                    if guild != None:
+                        member = guild.get_member(int(i[0]))
+                        if member != None:
+                            role = discord.utils.get(guild.roles,name = 'Muted')
+                            if role != None:
+                                await member.remove_roles(role)
+                                cursor.execute("DELETE FROM mutedata WHERE userid = " + str(i[0]))
+                                db.commit()
+                                print('Unmuted Refined With Loop!')
+
+    # @tasks.loop(minutes = 5)
+    # async def mute_loop(self):
+    #     db = mysql.connector.connect(
+    #             host = "us-cdbr-east-02.cleardb.com",
+    #             user = "bc4de25d94d683",
+    #             passwd = "0bf00100",
+    #             database = "heroku_1d7c0ca78dfc2ef"
+    #     )
+
+    #     cursor = db.cursor()
+    #     try:
+    #         cursor.execute("SELECT * FROM mutedata")
+    #         res = cursor.fetchall()
+
+    #         if len(res) == 0:
+    #             print(res)
+    #             return
+
+    #         for i in res:
+    #             print(i)
+    #             await asyncio.sleep(i[1])
+    #             guild = self.client.get_guild(int(i[2]))
+    #             if guild != None:
+    #                 member = guild.get_member(int(i[0]))
+    #                 if member != None:
+    #                     role = discord.utils.get(guild.roles,name = 'Muted')
+    #                     if role != None:
+    #                         await member.remove_roles(role)
+    #                         cursor.execute("DELETE FROM mutedata WHERE userid = " + str(i[0]))
+    #                         db.commit()
+    #                         print('Unmuted Refined With Loop!')
         except Exception as e:
             print(f'An error occured in mute_loop {e}')
         
