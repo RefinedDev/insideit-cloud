@@ -353,68 +353,33 @@ class HighRank(Cog):
             )
 
             cursor = db.cursor()
-            cursor.execute("SELECT * FROM mutedata")
-            res = cursor.fetchall()
-            currentime = datetime.now()
+            try:
+                cursor.execute("SELECT * FROM mutedata")
+                res = cursor.fetchall()
+                currentime = datetime.now()
 
-            if len(res) == 0:
-                print(res)
-                return
+                if len(res) == 0:
+                    print(res)
+                    return
 
-            for i in res:
-                print(i)
-                time = datetime.strptime(i[3],"%Y-%m-%d %H:%M:%S.%f")
-                unmuteTime = time + relativedelta(seconds= i[1])
-                if currentime >= unmuteTime:
-                    guild = self.client.get_guild(int(i[2]))
-                    if guild != None:
-                        member = guild.get_member(int(i[0]))
-                        if member != None:
-                            role = discord.utils.get(guild.roles,name = 'Muted')
-                            if role != None:
-                                await member.remove_roles(role)
-                                cursor.execute("DELETE FROM mutedata WHERE userid = " + str(i[0]))
-                                db.commit()
-                                print('Unmuted Someone With Loop!')
+                for i in res:
+                    time = datetime.strptime(i[3],"%Y-%m-%d %H:%M:%S.%f")
+                    unmuteTime = time + relativedelta(seconds= i[1])
+                    if currentime >= unmuteTime:
+                        guild = self.client.get_guild(int(i[2]))
+                        if guild != None:
+                            member = guild.get_member(int(i[0]))
+                            if member != None:
+                                role = discord.utils.get(guild.roles,name = 'Muted')
+                                if role != None:
+                                    await member.remove_roles(role)
+                                    cursor.execute("DELETE FROM mutedata WHERE userid = " + str(i[0]))
+                                    db.commit()
+                                    print('Unmuted Someone With Loop!')
+            except Exception as e:
+                print(f'AN Error Occured in mute loop {e}')
             cursor.close()
             db.close()
-
-    # @tasks.loop(minutes = 5)
-    # async def mute_loop(self):
-    #     db = mysql.connector.connect(
-    #             host = "us-cdbr-east-02.cleardb.com",
-    #             user = "bc4de25d94d683",
-    #             passwd = "0bf00100",
-    #             database = "heroku_1d7c0ca78dfc2ef"
-    #     )
-
-    #     cursor = db.cursor()
-    #     try:
-    #         cursor.execute("SELECT * FROM mutedata")
-    #         res = cursor.fetchall()
-
-    #         if len(res) == 0:
-    #             print(res)
-    #             return
-
-    #         for i in res:
-    #             print(i)
-    #             await asyncio.sleep(i[1])
-    #             guild = self.client.get_guild(int(i[2]))
-    #             if guild != None:
-    #                 member = guild.get_member(int(i[0]))
-    #                 if member != None:
-    #                     role = discord.utils.get(guild.roles,name = 'Muted')
-    #                     if role != None:
-    #                         await member.remove_roles(role)
-    #                         cursor.execute("DELETE FROM mutedata WHERE userid = " + str(i[0]))
-    #                         db.commit()
-    #                         print('Unmuted Refined With Loop!')
-        # except Exception as e:
-        #     print(f'An error occured in mute_loop {e}')
-        
-
-        
 
 
 
