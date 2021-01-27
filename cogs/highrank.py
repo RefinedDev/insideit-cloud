@@ -125,7 +125,7 @@ class HighRank(Cog):
         else:
             for i in res:
                 embed.add_field(name = f'Infraction Id: **{i[1]}**',value = f'Type: {i[2]}\nReason: `{str(i[0])}`',inline = False)
-        embed.set_footer(text = 'To revoke a warn use the warn_revoke (infID) command.')
+        embed.set_footer(text = 'To revoke a warn use the ?revoke_inf (infID) command.')
         await ctx.send(embed = embed)
         cursor.close()
         db.close()
