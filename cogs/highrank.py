@@ -363,6 +363,7 @@ class HighRank(Cog):
 
             for i in res:
                 print(i)
+                print(i[3], type(i[3]))
                 unmuteTime = int(i[3]) + relativedelta(seconds= i[1])
                 if currentime >= unmuteTime:
                     guild = self.client.get_guild(int(i[2]))
