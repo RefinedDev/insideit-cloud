@@ -228,7 +228,7 @@ class HighRank(Cog):
             db.close()
 
     @commands.command()
-    @commands.cooldown(1,60,commands.BucketType.user)
+    #@commands.cooldown(1,60,commands.BucketType.user)
     @commands.has_permissions(kick_members = True)
     async def mute(self,ctx,user : discord.Member = None,time = None,*,reason = 'Not Specified'):
         hourandminute = {
@@ -285,7 +285,7 @@ class HighRank(Cog):
                         val = (str(user.id),str(reason),guildid,'Mute')
                         cursor.execute(sql,val)
                         db.commit()
-                        sql = "INSERT INTO mutedata (userid,guildid,time) VALUES (%s, %s, %s, %s)"
+                        sql = "INSERT INTO mutedata (userid,guildid,time) VALUES (%s, %s, %s)"
                         val = (str(user.id),guildid,str(newtime))
                         cursor.execute(sql,val)
                         db.commit()
@@ -304,7 +304,7 @@ class HighRank(Cog):
 
 
     @commands.command()
-    @commands.has_permissions(kick_members = True)
+    #@commands.has_permissions(kick_members = True)
     @commands.cooldown(1,60,commands.BucketType.user)
     async def unmute(self,ctx,user : discord.Member = None):
         if user == None:
