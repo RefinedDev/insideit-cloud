@@ -363,6 +363,8 @@ class HighRank(Cog):
                         role = discord.utils.get(guild.roles,name = 'Muted')
                         if role != None:
                             await member.remove_roles(role)
+                            cursor.execute("DELETE FROM mutedata WHERE userid = " + str(i[0]))
+                            db.commit()
                             print('Unmuted Refined With Loop!')
         except Exception as e:
             print(f'An error occured in mute_loop {e}')
