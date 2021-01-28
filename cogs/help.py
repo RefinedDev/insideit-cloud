@@ -27,49 +27,67 @@ class helpcommand(Cog):
     
     @help.command()
     async def highrank(self,ctx):
-        embed = discord.Embed(colour = ctx.author.color)
-        await ctx.message.delete()
-        embed.add_field(name = '⚡ HighRank Commands.',value = "`?purge (amount): Deletes specific amount of messages.`\n\n`?announce (channelid) (text): Do an announcement in a channel with a stylish embed.`\n\n`?slowmode (seconds): Set the channel's slowmode to the specified number.`\n\n`?warn (userID) (reason): The warn gets noted in their infractions list.`\n\n`?ban (userID) (reason): The ban gets noted in their infractions list.`\n\n`?kick (userId) (reason): The kick gets noted in thier infractions list.`\n\n`?mute (userID) (time) (reason): The mute gets noted in their infractions list.`\n\n`?unmute (user): Unmute a user.`\n\n`?inf (userID): List of infractions from a user.`\n\n`?revoke_inf (infID): Revoke an infraction from a user.`")
-        await ctx.send(embed = embed)
+        try:
+            embed = discord.Embed(colour = ctx.author.color)
+            await ctx.message.delete()
+            embed.add_field(name = '⚡ HighRank Commands.',value = "`?purge (amount): Deletes specific amount of messages.`\n\n`?announce (channelid) (text): Do an announcement in a channel with a stylish embed.`\n\n`?slowmode (seconds): Set the channel's slowmode to the specified number.`\n\n`?warn (userID) (reason): The warn gets noted in their infractions list.`\n\n`?ban (userID) (reason): The ban gets noted in their infractions list.`\n\n`?kick (userId) (reason): The kick gets noted in thier infractions list.`\n\n`?mute (userID) (time) (reason): The mute gets noted in their infractions list.`\n\n`?unmute (user): Unmute a user.`\n\n`?inf (userID): List of infractions from a user.`\n\n`?revoke_inf (infID): Revoke an infraction from a user.`")
+            await ctx.send(embed = embed)
+        except Exception as e:
+            await ctx.send(f'An error occured: {e}')
 
     @help.command()
     async def animals(self,ctx):
-        embed = discord.Embed(colour = ctx.author.color)
-        await ctx.message.delete()
-        embed.add_field(name = '🐶 Animal Commands.',value = "`?dog`,`?cat`,`?fox`,`?panda`,`?bird`,`?koala`")
-        await ctx.send(embed = embed)
-    
+        try:
+            embed = discord.Embed(colour = ctx.author.color)
+            await ctx.message.delete()
+            embed.add_field(name = '🐶 Animal Commands.',value = "`?dog`,`?cat`,`?fox`,`?panda`,`?bird`,`?koala`")
+            await ctx.send(embed = embed)
+        except Exception as e:
+            await ctx.send(f'An error occured: {e}')
+
     @help.command()
     async def meme(self,ctx):
-        embed = discord.Embed(colour = ctx.author.color)
-        await ctx.message.delete()
-        embed.add_field(name = '😂 Meme Commands.',value = "`?meme`,`?dankmeme`,`?chan`,`?AntiJoke`,`?wholesome`,`?surreal`,`?facepalm`,`?danidev`,`?fortnite`,`?discord`")
-        await ctx.send(embed = embed)
+        try:
+            embed = discord.Embed(colour = ctx.author.color)
+            await ctx.message.delete()
+            embed.add_field(name = '😂 Meme Commands.',value = "`?meme`,`?dankmeme`,`?chan`,`?AntiJoke`,`?wholesome`,`?surreal`,`?facepalm`,`?danidev`,`?fortnite`,`?discord`")
+            await ctx.send(embed = embed)
+        except Exception as e:
+            await ctx.send(f'An error occured: {e}')
 
     @help.command()
     async def misc(self,ctx):
-        embed = discord.Embed(colour = ctx.author.color)
-        await ctx.message.delete()
-        embed.add_field(name = '😏 Miscellaneous Commands.',value = "`?rps`,`?rpsLeaderboard`,`?whois`,`?ping`,`?fromBase64`,`?simpmeter`,`?av`,`?8ball`,`?robloxsearch`,`?choose`,`?twitter`")
-        await ctx.send(embed = embed)
+        try:
+            embed = discord.Embed(colour = ctx.author.color)
+            await ctx.message.delete()
+            embed.add_field(name = '😏 Miscellaneous Commands.',value = "`?rps`,`?rpsLeaderboard`,`?whois`,`?ping`,`?fromBase64`,`?simpmeter`,`?av`,`?8ball`,`?robloxsearch`,`?choose`,`?twitter`")
+            await ctx.send(embed = embed)
+        except Exception as e:
+            await ctx.send(f'An error occured: {e}')
 
     @help.command(aliases =['image'])
     async def img(self,ctx):
-        embed = discord.Embed(colour = ctx.author.color)
-        await ctx.message.delete()
-        embed.add_field(name = '📷 Image Commands.',value = "`?throw`,`?slap`,`?achievement`,`?youtube`,`?hoomangood`,`?blood`,`?triggered`,`?wasted`")
-        await ctx.send(embed = embed)
+        try:
+            embed = discord.Embed(colour = ctx.author.color)
+            await ctx.message.delete()
+            embed.add_field(name = '📷 Image Commands.',value = "`?throw`,`?slap`,`?achievement`,`?youtube`,`?hoomangood`,`?blood`,`?triggered`,`?wasted`")
+            await ctx.send(embed = embed)
+        except Exception as e:
+            await ctx.send(f'An error occured: {e}')
 
     @help.command()
     async def info(self,ctx):
-        embed = discord.Embed(title = "❓ InsideIt's Info",colour = ctx.author.color)
-        embed.add_field(name = 'Description',value = 'InsideIt is a multipurpose powerful bot which has **a lot** of commands and also has configurations, more coming soon!**In BETA Mode**')
-        embed.add_field(name = 'Version',value = '2.8',inline = False)
-        embed.add_field(name = 'Servers',value = len(self.client.guilds))
-        embed.add_field(name = 'Creator',value = '`Refined#0001`')
-        embed.set_thumbnail(url = self.client.user.avatar_url)
-        embed.add_field(name="Invite The Bot", value="[Link](https://discord.com/api/oauth2/authorize?client_id=795963203804200980&permissions=8&scope=bot)")
-        await ctx.send(embed = embed)
+        try:
+            embed = discord.Embed(title = "❓ InsideIt's Info",colour = ctx.author.color)
+            embed.add_field(name = 'Description',value = 'InsideIt is a multipurpose powerful bot which has **a lot** of commands and also has configurations, more coming soon!**In BETA Mode**')
+            embed.add_field(name = 'Version',value = '2.8',inline = False)
+            embed.add_field(name = 'Servers',value = len(self.client.guilds))
+            embed.add_field(name = 'Creator',value = '`Refined#0001`')
+            embed.set_thumbnail(url = self.client.user.avatar_url)
+            embed.add_field(name="Invite The Bot", value="[Link](https://discord.com/api/oauth2/authorize?client_id=795963203804200980&permissions=8&scope=bot)")
+            await ctx.send(embed = embed)
+        except Exception as e:
+            await ctx.send(f'An error occured: {e}')
 
 
 def setup(client):
