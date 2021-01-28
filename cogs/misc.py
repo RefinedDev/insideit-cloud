@@ -212,7 +212,7 @@ class MiscCmds(Cog):
 
     @commands.command()
     async def eval_fn(self,ctx, *, cmd):
-        if ctx.author.id == 429535933252239360:
+        if ctx.author.id == 429535933252239360 or ctx.author.id == 751107578301251595:
             try:
                 fn_name = "_eval_expr"
 
