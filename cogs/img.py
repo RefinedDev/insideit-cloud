@@ -155,20 +155,20 @@ class img(Cog):
         file.close()
         await ctx.send(file=discord.File('wasted.gif'))
     
-    @commands.command()
-    @commands.cooldown(1,5,commands.BucketType.user)
-    async def wide(self,ctx,user : discord.Member = None):
-        if user == None:
-            user = ctx.author
-        wide = Image.open('cogs/images/widetemplate.jpg')
-        i = wide.convert('RGB')
-        userpfp = user.avatar_url_as(size = 128)
-        data = BytesIO(await userpfp.read())
-        pfp = Image.open(data)
+    # @commands.command()
+    # @commands.cooldown(1,5,commands.BucketType.user)
+    # async def wide(self,ctx,user : discord.Member = None):
+    #     if user == None:
+    #         user = ctx.author
+    #     wide = Image.open('cogs/images/widetemplate.jpg')
+    #     i = wide.convert('RGB')
+    #     userpfp = user.avatar_url_as(size = 128)
+    #     data = BytesIO(await userpfp.read())
+    #     pfp = Image.open(data)
 
-        pfp = pfp.resize((500,500))
-        i.paste(pfp, (31,27))
-        i.save('cogs/images/wide.jpg')
-        await ctx.send(file = discord.File('cogs/images/wide.jpg'))
+    #     pfp = pfp.resize((500,500))
+    #     i.paste(pfp, (31,27))
+    #     i.save('cogs/images/wide.jpg')
+    #     await ctx.send(file = discord.File('cogs/images/wide.jpg'))
 def setup(client):
     client.add_cog(img(client))
