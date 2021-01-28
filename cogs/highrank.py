@@ -293,7 +293,7 @@ class HighRank(Cog):
                 cursor.execute(sql,val)
                 db.commit()
                 await user.add_roles(role)
-                await ctx.send(f'Muted {user.mention} for {str(newtime)} seconds: {str(reason)}')
+                await ctx.send(f'Muted {user.mention} for {time}: {str(reason)}')
                 if newtime < 300:
                     await asyncio.sleep(newtime)
                     db = mysql.connector.connect(
