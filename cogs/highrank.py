@@ -398,7 +398,7 @@ class HighRank(Cog):
                                     await member.remove_roles(role)
                                     cursor.execute("DELETE FROM mutedata WHERE userid = " + str(i[0]) + " AND guildid = " + str(i[2]))
                                     db.commit()
-                                    print('Unmuted Someone With Loop!')
+                                    print(f'Unmuted {member.mention} With Loop!')
             except Exception as e:
                 print(f'AN Error Occured in mute loop {e}')
             cursor.close()
