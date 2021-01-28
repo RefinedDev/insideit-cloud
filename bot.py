@@ -71,6 +71,16 @@ async def on_member_join(member):
         )
         cursor = db.cursor()
         guildid = str(member.guild.id)
+
+        cursor.execute('SELECT * FROM mutedata WHERE userid = ' + str(member.id) + ' AND guildid = ' + str(member.guild.id))
+        res = cursor.fetchall()
+        if len(res) == 0:
+            pass
+        else:
+            role = discord.utils.get(member.guild.roles,name = 'Muted')
+            if role != None:
+                await member.add_roles(role)
+
         cursor.execute("SELECT toggle,channelid from welcomemsg WHERE guildid = " + guildid)
         res = cursor.fetchall()
 

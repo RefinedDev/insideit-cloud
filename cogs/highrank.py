@@ -85,6 +85,9 @@ class HighRank(Cog):
     @commands.command()
     @commands.has_permissions(kick_members = True)
     async def warn(self,ctx,user : discord.Member = None,*,reason = 'Not Specified'):
+        if user == ctx.author:
+            await ctx.send('look at this dood tryna warn himself.')
+            return
         if user == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
             embeddd.add_field(name = "Missing User Or Reason",value = "Specify the user and reason pal.",inline= False)
@@ -176,6 +179,9 @@ class HighRank(Cog):
     @commands.command()
     @commands.has_permissions(kick_members = True)
     async def kick(self,ctx,member : discord.Member = None,*, reason = 'Not Specified'):
+        if member == ctx.author:
+            await ctx.send('look at this dood tryna kick himself.')
+            return
         if member == None:
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "Missing User",value = "Specify the user pal.",inline= False)
@@ -204,6 +210,9 @@ class HighRank(Cog):
     @commands.command()
     @commands.has_permissions(ban_members = True)
     async def ban(self,ctx,member : discord.Member = None,*, reason = 'Not Specified'):
+        if member == ctx.author:
+            await ctx.send('look at this dood tryna ban himself.')
+            return
         if member == None:
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "Missing User",value = "Specify the user pal.",inline= False)
@@ -233,6 +242,9 @@ class HighRank(Cog):
     @commands.cooldown(1,60,commands.BucketType.user)
     @commands.has_permissions(kick_members = True)
     async def mute(self,ctx,user : discord.Member = None,time = None,*,reason = 'Not Specified'):
+        if user == ctx.author:
+            await ctx.send('look at this dood tryna mute himself.')
+            return
         hourandminute = {
             "s": "1",
             "hr": "3600",
@@ -274,7 +286,7 @@ class HighRank(Cog):
         cursor = db.cursor()
         guildid = str(ctx.guild.id)
         newtime = 0
-        cursor.execute('SELECT userid FROM mutedata WHERE userid = ' + str(user.id))
+        cursor.execute('SELECT userid FROM mutedata WHERE userid = ' + str(user.id) + ' AND guildid = ' + guildid)
         res = cursor.fetchall()
         if (len(res) == 0):
             for i in hourandminute:
@@ -339,13 +351,13 @@ class HighRank(Cog):
         )
 
         cursor = db.cursor()
-        cursor.execute('SELECT userid FROM mutedata WHERE userid = ' + str(user.id))
+        cursor.execute('SELECT userid FROM mutedata WHERE userid = ' + str(user.id) + ' AND guildid = ' + str(ctx.guild.id))
         res = cursor.fetchall()
         if len(res) == 0:
             await ctx.send('Person is not muted bro.')
             return
         else:
-            cursor.execute('DELETE FROM mutedata WHERE userid = ' + str(user.id))
+            cursor.execute('DELETE FROM mutedata WHERE userid = ' + str(user.id) + " AND guildid = " + str(ctx.guild.id))
             db.commit()
             await user.remove_roles(role)
             await ctx.send(f'Successfully unmuted {user.mention}!')
@@ -382,7 +394,7 @@ class HighRank(Cog):
                                 role = discord.utils.get(guild.roles,name = 'Muted')
                                 if role != None:
                                     await member.remove_roles(role)
-                                    cursor.execute("DELETE FROM mutedata WHERE userid = " + str(i[0]))
+                                    cursor.execute("DELETE FROM mutedata WHERE userid = " + str(i[0]) + " AND guildid = " + str(i[2]))
                                     db.commit()
                                     print('Unmuted Someone With Loop!')
             except Exception as e:
