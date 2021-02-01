@@ -22,7 +22,7 @@ class helpcommand(Cog):
             em.add_field(name = "📷 Image",value = '`?help img`')
             em.add_field(name = '🐶 Animals',value = '`?help animals`')
             em.add_field(name = '⚙ Configurations',value = '`?config`')
-            em.add_field(name = '🥺 Support Me!',value = '[Invite Link](https://discord.com/api/oauth2/authorize?client_id=795963203804200980&permissions=8&scope=bot) • [Support Server](https://discord.gg/ZNG247NBVp)',inline= False)
+            em.add_field(name = '🥺 Support Me!',value = '[Invite Link](https://discord.com/api/oauth2/authorize?client_id=795963203804200980&permissions=1543957750&redirect_uri=http%3A%2F%2F127.0.0.1%3A5000%2Fl&scope=bot) • [Support Server](https://discord.gg/ZNG247NBVp)',inline= False)
             await ctx.send(embed=em)
     
     @help.command()
@@ -84,7 +84,7 @@ class helpcommand(Cog):
             embed.add_field(name = 'Servers',value = len(self.client.guilds))
             embed.add_field(name = 'Creator',value = '`Refined#0001`')
             embed.set_thumbnail(url = self.client.user.avatar_url)
-            embed.add_field(name="Invite The Bot", value="[Link](https://discord.com/api/oauth2/authorize?client_id=795963203804200980&permissions=8&scope=bot)")
+            embed.add_field(name="Invite The Bot", value="[Link](https://discord.com/api/oauth2/authorize?client_id=795963203804200980&permissions=1543957750&redirect_uri=http%3A%2F%2F127.0.0.1%3A5000%2Fl&scope=bot)")
             await ctx.send(embed = embed)
         except Exception as e:
             await ctx.send(f'An error occured: {e}')

@@ -48,6 +48,7 @@ async def on_guild_remove(guild):
         cursor.execute('DELETE FROM leavemsg WHERE guildid = ' + str(guild.id))
         cursor.execute('DELETE FROM welcomemsg WHERE guildid = ' + str(guild.id))
         cursor.execute('DELETE FROM welcomeroles WHERE guildid = ' + str(guild.id))
+        cursor.execute('DELETE FROM antilink WHERE guildid = ' + str(guild.id))
         db.commit()
         await  client.change_presence(activity =discord.Activity(type= discord.ActivityType.watching,name= f'for free ({len(client.guilds)} Servers)'))
         cursor.close()
