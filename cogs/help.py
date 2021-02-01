@@ -33,7 +33,7 @@ class helpcommand(Cog):
             embed.add_field(name = '⚡ HighRank Commands.',value = "`?purge (amount): Deletes specific amount of messages.`\n\n`?announce (channelid) (text): Do an announcement in a channel with a stylish embed.`\n\n`?slowmode (seconds): Set the channel's slowmode to the specified number.`\n\n`?warn (userID) (reason): The warn gets noted in their infractions list.`\n\n`?ban (userID) (reason): The ban gets noted in their infractions list.`\n\n`?kick (userId) (reason): The kick gets noted in thier infractions list.`\n\n`?mute (userID) (time) (reason): The mute gets noted in their infractions list.`\n\n`?unmute (user): Unmute a user.`\n\n`?inf (userID): List of infractions from a user.`\n\n`?revoke_inf (infID): Revoke an infraction from a user.`")
             await ctx.send(embed = embed)
         except Exception as e:
-            if e == '403 Forbidden (error code: 50013): Missing Permissions':
+            if str(e) == '403 Forbidden (error code: 50013): Missing Permissions':
                 await ctx.send("I do not have enough permissions to send the message, something is stopping me! Please give me administrator permissions no i won't harm your server.")
             else:
                 await ctx.send(f'An error occured: {e}')
@@ -46,7 +46,7 @@ class helpcommand(Cog):
             embed.add_field(name = '🐶 Animal Commands.',value = "`?dog`,`?cat`,`?fox`,`?panda`,`?bird`,`?koala`")
             await ctx.send(embed = embed)
         except Exception as e:
-            if e == '403 Forbidden (error code: 50013): Missing Permissions':
+            if str(e) == '403 Forbidden (error code: 50013): Missing Permissions':
                 await ctx.send("I do not have enough permissions to send the message, something is stopping me! Please give me administrator permissions no i won't harm your server.")
             else:
                 await ctx.send(f'An error occured: {e}')
@@ -59,7 +59,7 @@ class helpcommand(Cog):
             embed.add_field(name = '😂 Meme Commands.',value = "`?meme`,`?dankmeme`,`?chan`,`?AntiJoke`,`?wholesome`,`?surreal`,`?facepalm`,`?danidev`,`?fortnite`,`?discord`")
             await ctx.send(embed = embed)
         except Exception as e:
-            if e == '403 Forbidden (error code: 50013): Missing Permissions':
+            if str(e) == '403 Forbidden (error code: 50013): Missing Permissions':
                 await ctx.send("I do not have enough permissions to send the message, something is stopping me! Please give me administrator permissions no i won't harm your server.")
             else:
                 await ctx.send(f'An error occured: {e}')
@@ -72,7 +72,7 @@ class helpcommand(Cog):
             embed.add_field(name = '😏 Miscellaneous Commands.',value = "`?rps`,`?rpsLeaderboard`,`?whois`,`?ping`,`?fromBase64`,`?simpmeter`,`?av`,`?8ball`,`?robloxsearch`,`?choose`,`?twitter`")
             await ctx.send(embed = embed)
         except Exception as e:
-            if e == '403 Forbidden (error code: 50013): Missing Permissions':
+            if str(e) == '403 Forbidden (error code: 50013): Missing Permissions':
                 await ctx.send("I do not have enough permissions to send the message, something is stopping me! Please give me administrator permissions no i won't harm your server.")
             else:
                 await ctx.send(f'An error occured: {e}')
@@ -85,7 +85,7 @@ class helpcommand(Cog):
             embed.add_field(name = '📷 Image Commands.',value = "`?throw`,`?slap`,`?achievement`,`?youtube`,`?hoomangood`,`?blood`,`?triggered`,`?wasted`")
             await ctx.send(embed = embed)
         except Exception as e:
-            if e == '403 Forbidden (error code: 50013): Missing Permissions':
+            if str(e) == '403 Forbidden (error code: 50013): Missing Permissions':
                 await ctx.send("I do not have enough permissions to send the message, something is stopping me! Please give me administrator permissions no i won't harm your server.")
             else:
                 await ctx.send(f'An error occured: {e}')
@@ -101,7 +101,7 @@ class helpcommand(Cog):
             embed.add_field(name="Invite The Bot", value="[Link](https://discord.com/api/oauth2/authorize?client_id=795963203804200980&permissions=8&scope=bot)")
             await ctx.send(embed = embed)
         except Exception as e:
-            if e == '403 Forbidden (error code: 50013): Missing Permissions':
+            if str(e) == '403 Forbidden (error code: 50013): Missing Permissions':
                 await ctx.send("I do not have enough permissions to send the message, something is stopping me! Please give me administrator permissions no i won't harm your server.")
             else:
                 await ctx.send(f'An error occured: {e}')
