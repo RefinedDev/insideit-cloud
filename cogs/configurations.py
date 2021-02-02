@@ -462,9 +462,7 @@ class config(Cog):
                                                 await ctx.send(f'Succesfully Edited AntiLink!')
                                             elif str.lower(idmsg2.content) == 'no':
                                                 guildid = str(ctx.guild.id)
-                                                sql = "INSERT INTO antilink (guildid,toggle) VALUES (%s, %s)"
-                                                val = (guildid,'OFF')
-                                                cursor.execute(sql,val)
+                                                cursor.execute("UPDATE antilink SET toggle = 'OFF', discordlink = 'NO', otherlink = 'NO' WHERE guildid = " + guildid)
                                                 db.commit()
                                                 await ctx.send('Succesfully Edited AntiLink, AntiLink is now off!')
             else:
