@@ -407,7 +407,10 @@ class config(Cog):
                                 await ctx.send(f'AntiLink is now off!')
                             else:
                                 await ctx.send('This configuration is already turned off!')
-                    elif str.lower(msg1.content) == 'edit':
+                    else:
+                        await ctx.send('Invalid Choice.')
+
+            elif str.lower(msg1.content) == 'edit':
                         cursor.execute('SELECT toggle FROM antilink WHERE guildid = ' + str(ctx.guild.id))
                         res = cursor.fetchall()
 
@@ -464,8 +467,6 @@ class config(Cog):
                                                 cursor.execute(sql,val)
                                                 db.commit()
                                                 await ctx.send('Succesfully Edited AntiLink, AntiLink is now off!')
-                    else:
-                        await ctx.send('Invalid Choice.')
             else:
                 await ctx.send("Invalid Choice")
         db.close()
