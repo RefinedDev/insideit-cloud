@@ -96,7 +96,7 @@ class helpcommand(Cog):
             embed.add_field(name = 'Description',value = 'InsideIt is a multipurpose powerful bot which has **a lot** of commands and also has configurations, more coming soon! **In BETA Mode**')
             embed.add_field(name = 'Version',value = '2.9',inline = False)
             embed.add_field(name = 'Servers',value = len(self.client.guilds))
-            embed.add_field(name = 'Creator',value = '`<@!429535933252239360>`')
+            embed.add_field(name = 'Creator',value = '<@!429535933252239360>')
             embed.set_thumbnail(url = self.client.user.avatar_url)
             embed.add_field(name="Invite The Bot", value="[Link](https://discord.com/api/oauth2/authorize?client_id=795963203804200980&permissions=2147483639&redirect_uri=http%3A%2F%2F127.0.0.1%3A5000%2Fl&scope=bot)")
             await ctx.send(embed = embed)
