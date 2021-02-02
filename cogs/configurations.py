@@ -407,7 +407,7 @@ class config(Cog):
                                 await ctx.send(f'AntiLink is now off!')
                             else:
                                 await ctx.send('This configuration is already turned off!')
-                    elif msg.content == 'edit':
+                    elif str.lower(msg1.content) == 'edit':
                         cursor.execute('SELECT toggle FROM antilink WHERE guildid = ' + str(ctx.guild.id))
                         res = cursor.fetchall()
 
@@ -472,7 +472,7 @@ class config(Cog):
         cursor.close()
 
     @commands.command()
-    @commands.cooldown(1,150,commands.BucketType.guild)
+    #@commands.cooldown(1,150,commands.BucketType.guild)
     @commands.has_permissions(administrator = True)
     async def showconfigs(self,ctx):
         try:
