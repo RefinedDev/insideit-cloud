@@ -208,7 +208,7 @@ async def nolink(message):
             )
 
             cursor = db.cursor()
-            cursor.execute('SELECT toggle,discordlink FROM antilink WHERE guildid = ' + str(message.guild.id))
+            cursor.execute('SELECT toggle,otherlink FROM antilink WHERE guildid = ' + str(message.guild.id))
             res = cursor.fetchall()
             if (len(res) == 0):
                 return
