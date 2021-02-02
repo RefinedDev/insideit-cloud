@@ -512,7 +512,7 @@ class config(Cog):
             
             if (len(res4) == 0):
                 embed.add_field(name = 'AntiLink',value = f'`OFF`',inline= False)
-            elif res[0][0] == 'OFF':
+            elif res4[0][0] == 'OFF':
                  embed.add_field(name = 'AntiLink',value = f'`OFF`',inline= False)
             else:
                 embed.add_field(name = 'AntiLink',value = f'`{res4[0][0]}`\n`NODiscordLink: {res4[0][1]}`\n`NOOtherLinks: {res4[0][2]}`',inline= False)
