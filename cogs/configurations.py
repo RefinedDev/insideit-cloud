@@ -410,7 +410,7 @@ class config(Cog):
                     else:
                         await ctx.send('Invalid Choice.')
 
-            elif str.lower(msg1.content) == 'edit':
+            elif str.lower(msg.content) == 'edit':
                         cursor.execute('SELECT toggle FROM antilink WHERE guildid = ' + str(ctx.guild.id))
                         res = cursor.fetchall()
 
