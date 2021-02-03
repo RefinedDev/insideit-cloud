@@ -178,9 +178,6 @@ class Tags(Cog):
     @tag.command()
     @commands.has_permissions(kick_members = True)
     async def show(self,ctx):
-        def join_tuple_string(strings_tuple) -> str:
-            return '\n'.join(strings_tuple)
-
         db = mysql.connector.connect(
                 host = "us-cdbr-east-02.cleardb.com",
                 user = "bc4de25d94d683",
@@ -192,8 +189,8 @@ class Tags(Cog):
         cursor.execute('SELECT name FROM tags WHERE guildid = ' + str(ctx.guild.id))
         res = cursor.fetchall()
         embed = discord.Embed()
-        result = map(join_tuple_string, res)
-        embed.add_field(name = 'All the tags of the guild', value = result)
+        li = [i for sub in res for i in sub]
+        embed.add_field(name = 'All the tags of the guild', value = '\n'.join(li))
         await ctx.send(embed = embed)
 
 
