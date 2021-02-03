@@ -91,7 +91,14 @@ class Tags(Cog):
     @tag.command()
     @commands.cooldown(1,60,commands.BucketType.user)
     @commands.has_permissions(kick_members = True)
-    async def remove(self,ctx,name):
+    async def remove(self,ctx,name = None):
+        if name == None:
+            embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
+            embeddd.add_field(name = "Missing Tag Name",value = "Specify the tag name pal.",inline= False)
+            embeddd.add_field(name = "Command Example",value = "`?tag remove joe `",inline= False)
+            await ctx.send(embed = embeddd,delete_after=5)
+            return
+            
         db = mysql.connector.connect(
                 host = "us-cdbr-east-02.cleardb.com",
                 user = "bc4de25d94d683",
@@ -119,6 +126,13 @@ class Tags(Cog):
     @commands.command()
     @commands.cooldown(1,10,commands.BucketType.user)
     async def plstag(self,ctx,name):
+        if name == None:
+            embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
+            embeddd.add_field(name = "Missing Tag Name",value = "Specify the tag name pal.",inline= False)
+            embeddd.add_field(name = "Command Example",value = "`?plstag joe `",inline= False)
+            await ctx.send(embed = embeddd,delete_after=5)
+            return
+
         db = mysql.connector.connect(
                 host = "us-cdbr-east-02.cleardb.com",
                 user = "bc4de25d94d683",
@@ -142,6 +156,13 @@ class Tags(Cog):
     @commands.cooldown(1,60,commands.BucketType.user)
     @commands.has_permissions(kick_members = True)
     async def edit(self,ctx,name):
+        if name == None:
+            embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
+            embeddd.add_field(name = "Missing Tag Name",value = "Specify the tag name pal.",inline= False)
+            embeddd.add_field(name = "Command Example",value = "`?tag edit joe `",inline= False)
+            await ctx.send(embed = embeddd,delete_after=5)
+            return
+
         db = mysql.connector.connect(
                 host = "us-cdbr-east-02.cleardb.com",
                 user = "bc4de25d94d683",
@@ -193,7 +214,7 @@ class Tags(Cog):
         cursor = db.cursor()
         cursor.execute('SELECT name FROM tags WHERE guildid = ' + str(ctx.guild.id))
         res = cursor.fetchall()
-        embed = discord.Embed()
+        embed = discord.Embed(color = ctx.author.color)
         li = [i for sub in res for i in sub]
         if len(li) == 0:
             embed.add_field(name = 'All the tags of the guild', value = 'No tags in this guild')
