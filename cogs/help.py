@@ -15,14 +15,14 @@ class helpcommand(Cog):
     async def help(self,ctx):
         if ctx.invoked_subcommand is None:
             em = discord.Embed(title = 'InsideIt Commands Help',color = ctx.author.color)
-            em.add_field(name=  "❓ Info",value="`?help info`")
-            em.add_field(name = "⚡ HighRank",value = '`?help highrank`')
-            em.add_field(name = "😏 Miscellaneous",value = '`?help misc`')
-            em.add_field(name = "😂 Memes",value = '`?help meme`')
-            em.add_field(name = "📷 Image",value = '`?help img`')
-            em.add_field(name = '🐶 Animals',value = '`?help animals`')
-            em.add_field(name = '⚙ Configurations',value = '`?config`')
-            em.add_field(name = '🏷 Tags',value = '`?tag`')
+            em.add_field(name=  "❓ Info",value="`?help info`",inline=False)
+            em.add_field(name = "⚡ HighRank",value = '`?help highrank`',inline=False)
+            em.add_field(name = "😏 Miscellaneous",value = '`?help misc`',inline=False)
+            em.add_field(name = "😂 Memes",value = '`?help meme`',inline=False)
+            em.add_field(name = "📷 Image",value = '`?help img`',inline=False)
+            em.add_field(name = '🐶 Animals',value = '`?help animals`',inline=False)
+            em.add_field(name = '⚙ Configurations',value = '`?config`',inline=False)
+            em.add_field(name = '🏷 Tags',value = '`?tag`',inline=False)
             em.add_field(name = '🥺 Support Me!',value = '[Invite Link](https://discord.com/api/oauth2/authorize?client_id=795963203804200980&permissions=2147483639&redirect_uri=http%3A%2F%2F127.0.0.1%3A5000%2Fl&scope=bot) • [Support Server](https://discord.gg/ZNG247NBVp)',inline= False)
             await ctx.send(embed=em)
     
