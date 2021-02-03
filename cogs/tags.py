@@ -169,7 +169,7 @@ class Tags(Cog):
             sql = f"UPDATE tags SET content = '{str(msg.content)}' WHERE guildid = {str(ctx.guild.id)} AND name = '{str(name)}'"
             cursor.execute(sql)
             db.commit()
-            await ctx.send(f"Tag `{name}`'s content has been changed to `{str(msg.content)}`")
+            await dm.send(f"Tag `{name}`'s content has been changed to `{str(msg.content)}`")
         
         cursor.close()
         db.close()
@@ -188,7 +188,8 @@ class Tags(Cog):
         cursor.execute('SELECT name FROM tags WHERE guildid = ' + str(ctx.guild.id))
         res = cursor.fetchall()
         embed = discord.Embed()
-        embed.add_field(name = 'All the tags of the guild', value = ['\n'.join(e) for e in res])
+        li = map(str,res)
+        embed.add_field(name = 'All the tags of the guild', value = '\n'.join(li))
         await ctx.send(embed = embed)
 
 
