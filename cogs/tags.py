@@ -34,11 +34,32 @@ class Tags(Cog):
         print('Tag cog is ready!')
 
     @commands.group()
-    async def tag(self,ctx):
-        if ctx.invoked_subcommand is None:
+    async def tag(self,ctx,name = None):
+        if name == None:
             embed = discord.Embed(title = 'TAGS',description = 'Shows a content of tag is it exists.',color = ctx.author.color)
-            embed.add_field(name = 'Commands',value = "`?tag create: Create a tag`\n`?tag remove (tag): Delete a tag`\n`?tag edit (tag): Edit a tag's content`\n`?plstag (tag): Reveal a tag's content aka use it.`\n`?tag show: Show existing tags in the guild.`")
+            embed.add_field(name = 'Commands',value = "`?tag create: Create a tag`\n`?tag remove (tag): Delete a tag`\n`?tag edit (tag): Edit a tag's content`\n`?tag (tag): Reveal a tag's content aka use it.`\n`?tag show: Show existing tags in the guild.`")
             await ctx.send(embed = embed)
+        else:
+            db = mysql.connector.connect(
+                    host = "us-cdbr-east-02.cleardb.com",
+                    user = "bc4de25d94d683",
+                    passwd = "0bf00100",
+                    database = "heroku_1d7c0ca78dfc2ef"
+            )
+
+            cursor = db.cursor()
+            sql = f"SELECT content FROM tags WHERE guildid = {str(ctx.guild.id)} AND name = '{str(name)}'"
+            cursor.execute(sql)
+            res = cursor.fetchall()
+            if len(res) == 0:
+                await ctx.send('No results found.')
+                return
+            
+            await ctx.send(str(res[0][0]))
+            cursor.close()
+            db.close()
+    
+
 
     @tag.command()
     @commands.cooldown(1,60,commands.BucketType.user)
@@ -123,34 +144,34 @@ class Tags(Cog):
         cursor.close()
         db.close()
     
-    @commands.command()
-    @commands.cooldown(1,10,commands.BucketType.user)
-    async def plstag(self,ctx,name):
-        if name == None:
-            embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
-            embeddd.add_field(name = "Missing Tag Name",value = "Specify the tag name pal.",inline= False)
-            embeddd.add_field(name = "Command Example",value = "`?plstag joe `",inline= False)
-            await ctx.send(embed = embeddd,delete_after=5)
-            return
+    # @commands.command()
+    # @commands.cooldown(1,10,commands.BucketType.user)
+    # async def plstag(self,ctx,name):
+    #     if name == None:
+    #         embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
+    #         embeddd.add_field(name = "Missing Tag Name",value = "Specify the tag name pal.",inline= False)
+    #         embeddd.add_field(name = "Command Example",value = "`?plstag joe `",inline= False)
+    #         await ctx.send(embed = embeddd,delete_after=5)
+    #         return
 
-        db = mysql.connector.connect(
-                host = "us-cdbr-east-02.cleardb.com",
-                user = "bc4de25d94d683",
-                passwd = "0bf00100",
-                database = "heroku_1d7c0ca78dfc2ef"
-        )
+    #     db = mysql.connector.connect(
+    #             host = "us-cdbr-east-02.cleardb.com",
+    #             user = "bc4de25d94d683",
+    #             passwd = "0bf00100",
+    #             database = "heroku_1d7c0ca78dfc2ef"
+    #     )
 
-        cursor = db.cursor()
-        sql = f"SELECT content FROM tags WHERE guildid = {str(ctx.guild.id)} AND name = '{str(name)}'"
-        cursor.execute(sql)
-        res = cursor.fetchall()
-        if len(res) == 0:
-            await ctx.send('No results found.')
-            return
+    #     cursor = db.cursor()
+    #     sql = f"SELECT content FROM tags WHERE guildid = {str(ctx.guild.id)} AND name = '{str(name)}'"
+    #     cursor.execute(sql)
+    #     res = cursor.fetchall()
+    #     if len(res) == 0:
+    #         await ctx.send('No results found.')
+    #         return
         
-        await ctx.send(str(res[0][0]))
-        cursor.close()
-        db.close()
+    #     await ctx.send(str(res[0][0]))
+    #     cursor.close()
+    #     db.close()
     
     @tag.command()
     @commands.cooldown(1,60,commands.BucketType.user)
