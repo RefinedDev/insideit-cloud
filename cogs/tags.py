@@ -105,9 +105,9 @@ class Tags(Cog):
             cursor.close()
             db.close()
             return
-        
-        cursor.execute('DELETE FROM tags WHERE guildid = ' + str(ctx.guild.id) + ' AND name = ' + str(name))
-        await ctx.send(f'Tag with name `{name}` is removed!')
+        else:
+            cursor.execute('DELETE FROM tags WHERE guildid = ' + str(ctx.guild.id) + ' AND name = ' + str(name))
+            await ctx.send(f'Tag with name `{name}` is removed!')
 
         cursor.close()
         db.close()
@@ -122,13 +122,13 @@ class Tags(Cog):
         )
 
         cursor = db.cursor()
-        cursor.execute("SELECT content FROM tags WHERE guildid = " + str(ctx.guild.id))
+        cursor.execute("SELECT name,content FROM tags WHERE guildid = " + str(ctx.guild.id))
         res = cursor.fetchall()
         if not (any(str(name) in i for i in res)):
             await ctx.send('No results found.')
             return
-        
-        await ctx.send(str(res[0][0]))
+        else:
+            await ctx.send(str(res[0][0]))
         cursor.close()
         db.close()
     
