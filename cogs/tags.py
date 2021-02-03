@@ -98,15 +98,16 @@ class Tags(Cog):
         )
 
         cursor = db.cursor()
-        cursor.execute('SELECT name FROM tags WHERE guildid = ' + str(ctx.guild.id) + ' AND name = ' + '{}').format(str(name))
+        sql = f"SELECT name FROM tags WHERE guildid = {str(ctx.guild.id)} AND name = '{str(name)}'"
+        cursor.execute(sql)
         res = cursor.fetchall()
         if len(res) == 0:
             await ctx.send('Tag does not exist')
             cursor.close()
             db.close()
             return
-        
-        cursor.execute('DELETE FROM tags WHERE guildid = ' + str(ctx.guild.id) + ' AND name = ' + '{}').format(str(name))
+        sql = f"DELETE FROM tags WHERE guildid = {str(ctx.guild.id)} AND name = '{str(name)}'"
+        cursor.execute(sql)
         await ctx.send(f'Tag with name `{name}` is removed!')
 
         cursor.close()
