@@ -98,9 +98,9 @@ class Tags(Cog):
         )
 
         cursor = db.cursor()
-        cursor.execute('SELECT name FROM tags WHERE guildid = ' + str(ctx.guild.id) + ' AND name = ' + str(name))
+        cursor.execute('SELECT name FROM tags WHERE guildid = ' + str(ctx.guild.id))
         res = cursor.fetchall()
-        if len(res) == 0:
+        if not (any(str(name) in i for i in res)):
             await ctx.send('Tag does not exist')
             cursor.close()
             db.close()
@@ -122,9 +122,9 @@ class Tags(Cog):
         )
 
         cursor = db.cursor()
-        cursor.execute("SELECT content FROM tags WHERE guildid = " + str(ctx.guild.id) + ' AND name = ' + str(name))
+        cursor.execute("SELECT content FROM tags WHERE guildid = " + str(ctx.guild.id))
         res = cursor.fetchall()
-        if len(res) == 0:
+        if not (any(str(name) in i for i in res)):
             await ctx.send('No results found.')
             return
         
@@ -143,10 +143,10 @@ class Tags(Cog):
         )
 
         cursor = db.cursor()
-        cursor.execute("SELECT content FROM tags WHERE guildid = " + str(ctx.guild.id) + ' AND name = ' + str(name))
+        cursor.execute("SELECT content FROM tags WHERE guildid = " + str(ctx.guild.id))
         res = cursor.fetchall()
 
-        if len(res) == 0:
+        if not (any(str(name) in i for i in res)):
             await ctx.send('Tag does not exist!')
             return
 
