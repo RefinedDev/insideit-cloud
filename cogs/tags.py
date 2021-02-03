@@ -37,7 +37,7 @@ class Tags(Cog):
     async def tag(self,ctx):
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(title = 'TAGS',description = 'Shows a content of tag is it exists.',color = ctx.author.color)
-            embed.add_field(name = 'Commands',value = '`?tag create`\n`?tag remove (tag)`\n`?tag edit (tag)`\n`?plstag (tag)`')
+            embed.add_field(name = 'Commands',value = '`?tag create`\n`?tag remove (tag)`\n`?tag edit (tag)`\n`?plstag (tag)`\n`?tag show`')
             await ctx.send(embed = embed)
 
     @tag.command()
@@ -166,12 +166,30 @@ class Tags(Cog):
             await ctx.send("Din't reply in time noob.")
             return
         else:
-            cursor.execute("UPDATE tags SET content = " + str(msg.content) + ' WHERE guildid = ' + str(ctx.guild.id) + ' AND name = ' + str(name))
+            sql = f"UPDATE tags SET content = {str(msg.content)} WHERE guildid = {str(ctx.guild.id)} AND name = '{str(name)}'"
+            cursor.execute(sql)
             db.commit()
             await ctx.send(f"Tag `{name}`'s content has been changed to `{str(msg.content)}`")
         
         cursor.close()
         db.close()
+
+    @tag.command()
+    @commands.has_permissions(kick_members = True)
+    async def show(self,ctx):
+        db = mysql.connector.connect(
+                host = "us-cdbr-east-02.cleardb.com",
+                user = "bc4de25d94d683",
+                passwd = "0bf00100",
+                database = "heroku_1d7c0ca78dfc2ef"
+        )
+
+        cursor = db.cursor()
+        cursor.execute('SELECT name FROM tags WHERE guildid = ' + str(ctx.guild.id))
+        res = cursor.fetchall()
+        embed = discord.Embed()
+        embed.add_field('All the tags of the guild', value = '\n'.join(prefixes))
+        await ctx.send(embed = embed)
 
 
     
