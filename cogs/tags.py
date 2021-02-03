@@ -51,7 +51,7 @@ class Tags(Cog):
         )
 
         cursor = db.cursor()
-        dm = await ctx.author.create_dm
+        dm = await ctx.author.create_dm()
         def check(m):
             return m.author == ctx.author and m.message == dm
 
@@ -153,7 +153,7 @@ class Tags(Cog):
             await ctx.send('Tag does not exist!')
             return
 
-        dm = await ctx.author.create_dm
+        dm = await ctx.author.create_dm()
         def check(m):
             return m.author == ctx.author and m.message == dm
 
