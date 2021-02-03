@@ -74,16 +74,16 @@ class Tags(Cog):
                     cursor.execute('SELECT name FROM tags WHERE guildid = ' + str(ctx.guild.id) + ' AND name = ' + str(msg.content))
                     res = cursor.fetchall()
                     if len(res) == 0:
-                        sql = "INSERT INTO tags (guildid,name,content) VALUES (%s, %s, %s)"
-                        val = (str(ctx.guild.id),str(msg.content),str(msg2.content))
-                        cursor.execute(sql,val)
-                        db.commit()
-                        await ctx.send('Tag created!')
+                        pass
                     else:
                         await dm.send('Tag already exists!')
                         return
-                except Exception as e:
-                    await dm.send(f'An error occured: {e}')
+                except mysql.connector.ProgrammingError:
+                    sql = "INSERT INTO tags (guildid,name,content) VALUES (%s, %s, %s)"
+                    val = (str(ctx.guild.id),str(msg.content),str(msg2.content))
+                    cursor.execute(sql,val)
+                    db.commit()
+                    await ctx.send('Tag created!')
         cursor.close()
         db.close()
 
