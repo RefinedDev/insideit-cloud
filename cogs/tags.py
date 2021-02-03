@@ -53,7 +53,7 @@ class Tags(Cog):
         cursor = db.cursor()
         dm = await ctx.author.create_dm()
         def check(m):
-            return m.author == ctx.author and m.message == dm
+            return m.author == ctx.author and m.channel == dm
 
         await ctx.send('Check your DMs')
         await dm.send('Enter the name for your tag.')
@@ -155,7 +155,7 @@ class Tags(Cog):
 
         dm = await ctx.author.create_dm()
         def check(m):
-            return m.author == ctx.author and m.message == dm
+            return m.author == ctx.author and m.channel == dm
 
         await ctx.send('Check your DMs')
         await dm.send(f'Enter the new content for the tag `{name}`\n\nOld Content -: `{res[0][0]}`')
