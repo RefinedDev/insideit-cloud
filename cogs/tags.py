@@ -108,6 +108,7 @@ class Tags(Cog):
             return
         sql = f"DELETE FROM tags WHERE guildid = {str(ctx.guild.id)} AND name = '{str(name)}'"
         cursor.execute(sql)
+        db.commit()
         await ctx.send(f'Tag with name `{name}` is removed!')
 
         cursor.close()
@@ -123,7 +124,8 @@ class Tags(Cog):
         )
 
         cursor = db.cursor()
-        cursor.execute("SELECT content FROM tags WHERE guildid = " + str(ctx.guild.id) + ' AND name = ' + str(name))
+        sql = f"SELECT content FROM tags WHERE guildid = {str(ctx.guild.id)} AND name = '{str(name)}'"
+        cursor.execute(sql)
         res = cursor.fetchall()
         if len(res) == 0:
             await ctx.send('No results found.')
@@ -144,7 +146,8 @@ class Tags(Cog):
         )
 
         cursor = db.cursor()
-        cursor.execute("SELECT content FROM tags WHERE guildid = " + str(ctx.guild.id) + ' AND name = ' + str(name))
+        sql = f"SELECT content FROM tags WHERE guildid = {str(ctx.guild.id)} AND name = '{str(name)}'"
+        cursor.execute(sql)
         res = cursor.fetchall()
 
         if len(res) == 0:
@@ -164,6 +167,7 @@ class Tags(Cog):
             return
         else:
             cursor.execute("UPDATE tags SET content = " + str(msg.content) + ' WHERE guildid = ' + str(ctx.guild.id) + ' AND name = ' + str(name))
+            db.commit()
             await ctx.send(f"Tag `{name}`'s content has been changed to `{str(msg.content)}`")
         
         cursor.close()
