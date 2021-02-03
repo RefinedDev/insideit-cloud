@@ -167,6 +167,8 @@ async def on_member_remove(member):
 
 @client.listen('on_message')
 async def botping(message):
+    if isinstance(message.channel, discord.channel.DMChannel):
+        return
     if message.content == '<@!795963203804200980>':
         embed = discord.Embed(color = message.author.color)
         embed.add_field(name = "Prefixes",value = '\n'.join(prefixes))
@@ -174,6 +176,9 @@ async def botping(message):
 
 @client.listen('on_message')
 async def nolink(message):
+    if isinstance(message.channel, discord.channel.DMChannel):
+        return
+
     if 'discord.gg' in message.content:
         try:
             db = mysql.connector.connect(
