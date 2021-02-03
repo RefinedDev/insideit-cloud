@@ -122,13 +122,16 @@ class Tags(Cog):
         )
 
         cursor = db.cursor()
-        cursor.execute("SELECT content FROM tags WHERE guildid = " + str(ctx.guild.id) + ' AND name = ' + str(name))
-        res = cursor.fetchall()
-        if len(res) == 0:
-            await ctx.send('No results found.')
+
+        try:
+            cursor.execute("SELECT content FROM tags WHERE guildid = " + str(ctx.guild.id) + ' AND name = ' + str(name))
+            res = cursor.fetchall()
+        except mysql.connector.ProgrammingError:
+            await ctx.send('Tag does not exist!')
             return
+        else:
+            await ctx.send(str(res[0][0]))
         
-        await ctx.send(str(res[0][0]))
         cursor.close()
         db.close()
     
