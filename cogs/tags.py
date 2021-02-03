@@ -73,7 +73,7 @@ class Tags(Cog):
                 try:
                     cursor.execute('SELECT name FROM tags WHERE guildid = ' + str(ctx.guild.id))
                     res = cursor.fetchall()
-                    if str(msg.content) in res == False:
+                    if not str(msg.content) in res:
                         sql = "INSERT INTO tags (guildid,name,content) VALUES (%s, %s, %s)"
                         val = (str(ctx.guild.id),str(msg.content),str(msg2.content))
                         cursor.execute(sql,val)
