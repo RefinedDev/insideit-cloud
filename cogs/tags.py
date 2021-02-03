@@ -98,16 +98,16 @@ class Tags(Cog):
         )
 
         cursor = db.cursor()
-        cursor.execute('SELECT name FROM tags WHERE guildid = ' + str(ctx.guild.id))
+        cursor.execute('SELECT name FROM tags WHERE guildid = ' + str(ctx.guild.id) + ' AND name = ' + '{}').format(str(name))
         res = cursor.fetchall()
-        if not (any(str(name) in i for i in res)):
+        if len(res) == 0:
             await ctx.send('Tag does not exist')
             cursor.close()
             db.close()
             return
-        else:
-            cursor.execute('DELETE FROM tags WHERE guildid = ' + str(ctx.guild.id) + ' AND name = ' + str(name))
-            await ctx.send(f'Tag with name `{name}` is removed!')
+        
+        cursor.execute('DELETE FROM tags WHERE guildid = ' + str(ctx.guild.id) + ' AND name = ' + '{}').format(str(name))
+        await ctx.send(f'Tag with name `{name}` is removed!')
 
         cursor.close()
         db.close()
@@ -122,13 +122,13 @@ class Tags(Cog):
         )
 
         cursor = db.cursor()
-        cursor.execute("SELECT name,content FROM tags WHERE guildid = " + str(ctx.guild.id))
+        cursor.execute("SELECT content FROM tags WHERE guildid = " + str(ctx.guild.id) + ' AND name = ' + str(name))
         res = cursor.fetchall()
-        if not (any(str(name) in i for i in res)):
+        if len(res) == 0:
             await ctx.send('No results found.')
             return
-        else:
-            await ctx.send(str(res[0][0]))
+        
+        await ctx.send(str(res[0][0]))
         cursor.close()
         db.close()
     
@@ -143,10 +143,10 @@ class Tags(Cog):
         )
 
         cursor = db.cursor()
-        cursor.execute("SELECT content FROM tags WHERE guildid = " + str(ctx.guild.id))
+        cursor.execute("SELECT content FROM tags WHERE guildid = " + str(ctx.guild.id) + ' AND name = ' + str(name))
         res = cursor.fetchall()
 
-        if not (any(str(name) in i for i in res)):
+        if len(res) == 0:
             await ctx.send('Tag does not exist!')
             return
 
