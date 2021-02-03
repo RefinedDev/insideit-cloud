@@ -166,7 +166,7 @@ class Tags(Cog):
             await ctx.send("Din't reply in time noob.")
             return
         else:
-            sql = f"UPDATE tags SET content = {str(msg.content)} WHERE guildid = {str(ctx.guild.id)} AND name = '{str(name)}'"
+            sql = f"UPDATE tags SET content = '{str(msg.content)}' WHERE guildid = {str(ctx.guild.id)} AND name = '{str(name)}'"
             cursor.execute(sql)
             db.commit()
             await ctx.send(f"Tag `{name}`'s content has been changed to `{str(msg.content)}`")
@@ -188,7 +188,7 @@ class Tags(Cog):
         cursor.execute('SELECT name FROM tags WHERE guildid = ' + str(ctx.guild.id))
         res = cursor.fetchall()
         embed = discord.Embed()
-        embed.add_field(name = 'All the tags of the guild', value = '\n'.join(res))
+        embed.add_field(name = 'All the tags of the guild', value = ['\n'.join(e) for e in res])
         await ctx.send(embed = embed)
 
 
