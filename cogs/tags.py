@@ -188,7 +188,7 @@ class Tags(Cog):
         cursor.execute('SELECT name FROM tags WHERE guildid = ' + str(ctx.guild.id))
         res = cursor.fetchall()
         embed = discord.Embed()
-        embed.add_field('All the tags of the guild', value = '\n'.join(prefixes))
+        embed.add_field('All the tags of the guild', value = '\n'.join(res))
         await ctx.send(embed = embed)
 
 
