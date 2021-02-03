@@ -22,6 +22,7 @@ class helpcommand(Cog):
             em.add_field(name = "📷 Image",value = '`?help img`')
             em.add_field(name = '🐶 Animals',value = '`?help animals`')
             em.add_field(name = '⚙ Configurations',value = '`?config`')
+            em.add_field(name = '🏷 Tags',value = '`?tag`')
             em.add_field(name = '🥺 Support Me!',value = '[Invite Link](https://discord.com/api/oauth2/authorize?client_id=795963203804200980&permissions=2147483639&redirect_uri=http%3A%2F%2F127.0.0.1%3A5000%2Fl&scope=bot) • [Support Server](https://discord.gg/ZNG247NBVp)',inline= False)
             await ctx.send(embed=em)
     

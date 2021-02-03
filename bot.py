@@ -223,7 +223,7 @@ async def nolink(message):
         except Exception as e:
             print(f'An error occured in no link {e}')
 
-cogslist = ['cogs.misc','cogs.help','cogs.APIscrape','cogs.RPS','cogs.configurations','cogs.highrank','cogs.img']
+cogslist = ['cogs.misc','cogs.help','cogs.APIscrape','cogs.RPS','cogs.configurations','cogs.highrank','cogs.img','cogs.tags']
 
 if __name__ == '__main__':
     for i in cogslist:
