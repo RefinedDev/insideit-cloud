@@ -73,12 +73,12 @@ class Tags(Cog):
                 try:
                     cursor.execute('SELECT name FROM tags WHERE guildid = ' + str(ctx.guild.id))
                     res = cursor.fetchall()
-                    if not str(msg.content) in res:
+                    if not (any(str(msg.content) in i for i in res)):
                         sql = "INSERT INTO tags (guildid,name,content) VALUES (%s, %s, %s)"
                         val = (str(ctx.guild.id),str(msg.content),str(msg2.content))
                         cursor.execute(sql,val)
                         db.commit()
-                        await ctx.send('Tag created!')
+                        await dm.send('Tag created!')
                     else:
                         await dm.send('Tag already exists!')
                         return
