@@ -14,7 +14,8 @@ class helpcommand(Cog):
     @commands.group()
     async def help(self,ctx):
         if ctx.invoked_subcommand is None:
-            em = discord.Embed(title = 'InsideIt Commands Help',color = ctx.author.color)
+            em = discord.Embed(color = ctx.author.color)
+            em.set_author(name = 'InsideIt commands help.',icon_url=self.client.user.avatar_url)
             em.add_field(name=  "❓ Info",value="`?help info`",inline=False)
             em.add_field(name = "⚡ HighRank",value = '`?help highrank`',inline=False)
             em.add_field(name = "😏 Miscellaneous",value = '`?help misc`',inline=False)
