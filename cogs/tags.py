@@ -73,9 +73,7 @@ class Tags(Cog):
                 try:
                     cursor.execute('SELECT name FROM tags WHERE guildid = ' + str(ctx.guild.id) + ' AND name = ' + str(msg.content))
                     res = cursor.fetchall()
-                    if len(res) == 0:
-                        pass
-                    else:
+                    if not len(res) == 0:
                         await dm.send('Tag already exists!')
                         return
                 except mysql.connector.ProgrammingError:
