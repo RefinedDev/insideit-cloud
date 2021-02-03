@@ -71,17 +71,19 @@ class Tags(Cog):
                 return
             else:
                 try:
-                    cursor.execute('SELECT name FROM tags WHERE guildid = ' + str(ctx.guild.id) + ' AND name = ' + str(msg.content))
+                    cursor.execute('SELECT EXISTS(SELECT name FROM tags WHERE guildid = ' + str(ctx.guild.id) + ' AND name = ' + str(msg.content) + ' )')
                     res = cursor.fetchall()
-                    if not len(res) == 0:
+                    if str(res[0][0]) == '0':
+                        sql = "INSERT INTO tags (guildid,name,content) VALUES (%s, %s, %s)"
+                        val = (str(ctx.guild.id),str(msg.content),str(msg2.content))
+                        cursor.execute(sql,val)
+                        db.commit()
+                        await ctx.send('Tag created!')
+                    else:
                         await dm.send('Tag already exists!')
                         return
-                except mysql.connector.ProgrammingError:
-                    sql = "INSERT INTO tags (guildid,name,content) VALUES (%s, %s, %s)"
-                    val = (str(ctx.guild.id),str(msg.content),str(msg2.content))
-                    cursor.execute(sql,val)
-                    db.commit()
-                    await ctx.send('Tag created!')
+                except Exception as e:
+                    await dm.send(f'An error occured: {e}')
         cursor.close()
         db.close()
 
@@ -120,16 +122,13 @@ class Tags(Cog):
         )
 
         cursor = db.cursor()
-
-        try:
-            cursor.execute("SELECT content FROM tags WHERE guildid = " + str(ctx.guild.id) + ' AND name = ' + str(name))
-            res = cursor.fetchall()
-        except mysql.connector.ProgrammingError:
-            await ctx.send('Tag does not exist!')
+        cursor.execute("SELECT content FROM tags WHERE guildid = " + str(ctx.guild.id) + ' AND name = ' + str(name))
+        res = cursor.fetchall()
+        if len(res) == 0:
+            await ctx.send('No results found.')
             return
-        else:
-            await ctx.send(str(res[0][0]))
         
+        await ctx.send(str(res[0][0]))
         cursor.close()
         db.close()
     
