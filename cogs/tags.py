@@ -71,10 +71,9 @@ class Tags(Cog):
                 return
             else:
                 try:
-                    cursor.execute('SELECT EXISTS(SELECT name FROM tags WHERE guildid = ' + str(ctx.guild.id) + ' AND name = ' + str(msg.content) + ')')
-                    print(cursor)
+                    cursor.execute('SELECT name FROM tags WHERE guildid = ' + str(ctx.guild.id))
                     res = cursor.fetchall()
-                    if str(res[0][0]) == '0':
+                    if str(msg.content) in res == False:
                         sql = "INSERT INTO tags (guildid,name,content) VALUES (%s, %s, %s)"
                         val = (str(ctx.guild.id),str(msg.content),str(msg2.content))
                         cursor.execute(sql,val)
