@@ -195,7 +195,10 @@ class Tags(Cog):
         res = cursor.fetchall()
         embed = discord.Embed()
         li = [i for sub in res for i in sub]
-        embed.add_field(name = 'All the tags of the guild', value = '\n'.join(li))
+        if len(li) == 0:
+            embed.add_field(name = 'All the tags of the guild', value = 'No tags in this guild')
+        else:
+            embed.add_field(name = 'All the tags of the guild', value = '\n'.join(li))
         await ctx.send(embed = embed)
 
 
