@@ -37,7 +37,7 @@ class Tags(Cog):
     async def tag(self,ctx):
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(title = 'TAGS',description = 'Shows a content of tag is it exists.',color = ctx.author.color)
-            embed.add_field(name = 'Commands',value = '`?tag create`\n`?tag remove (tag)`\n`?tag edit (tag)`\n`?plstag (tag)`\n`?tag show`')
+            embed.add_field(name = 'Commands',value = "`?tag create: Create a tag`\n`?tag remove (tag): Delete a tag`\n`?tag edit (tag): Edit a tag's content`\n`?plstag (tag): Reveal a tag's content aka use it.`\n`?tag show: Show existing tags in the guild.`")
             await ctx.send(embed = embed)
 
     @tag.command()
