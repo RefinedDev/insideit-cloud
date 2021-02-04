@@ -368,7 +368,10 @@ class apiscraping(Cog):
             embeddd.add_field(name = "Missing Argument",value = "Specify the text pal.")
             embeddd.add_field(name  = "Command Example",value = "`?fromBase64 bG9s`",inline=False)
             await ctx.send(embed = embeddd,delete_after=5)
-    
+
+    def cog_unload(self):
+        self.MemesForDankMeme.cancel()
+        
     @tasks.loop(minutes=5)
     async def MemesForDankMeme(self):
         subreddit = ['memes','dankmeme','danidev']
