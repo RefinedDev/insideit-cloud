@@ -371,7 +371,7 @@ class apiscraping(Cog):
 
     def cog_unload(self):
         self.MemesForDankMeme.cancel()
-        
+
     @tasks.loop(minutes=5)
     async def MemesForDankMeme(self):
         subreddit = ['memes','dankmeme','danidev']
@@ -396,7 +396,7 @@ class apiscraping(Cog):
                             embed.set_footer(text = f'👍 {likes} | 💬 {replies}')
                             await channel.send(embed=embed)
         except Exception as e:
-            await channel.send(f'An error occured: {e}',delete_after=10)
+            print(f'an error occured in memesfordankememe {e}')
 
 def setup(client):
     client.add_cog(apiscraping(client))
