@@ -372,7 +372,7 @@ class apiscraping(Cog):
     def cog_unload(self):
         self.MemesForDankMeme.cancel()
 
-    @tasks.loop(seconds=10)
+    @tasks.loop(minutes=5)
     async def MemesForDankMeme(self):
         print('lol')
         subreddit = ['memes','dankmeme','danidev']
