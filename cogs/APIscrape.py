@@ -371,25 +371,27 @@ class apiscraping(Cog):
     
     @tasks.loop(minutes=5)
     async def MemesForDankMeme(self):
-        guild = self.client.get_guild(749855517127737496)
-        channel = guild.get_channel(806741919240945704)
         subreddit = ['memes','dankmeme','danidev']
         subredditt = random.choice(subreddit)
         try:
-            async with aiohttp.ClientSession() as cs:
-                async with cs.get(f"https://www.reddit.com/r/{subredditt}/new.json?sort=hot,") as data:
-                    res = await data.json()
-                    choose = res['data']['children'] [random.randint(0, 25)]
-                    title = choose['data']['title']
-                    standard = 'https://www.reddit.com'
-                    lin = choose['data']['permalink']
-                    newlink = standard + lin
-                    embed = discord.Embed(description= f'[{title}]({newlink})')
-                    embed.set_image(url= choose['data']['url'] )
-                    likes = choose['data']['ups']
-                    replies = choose['data']['num_comments']
-                    embed.set_footer(text = f'👍 {likes} | 💬 {replies}')
-                    await channel.send(embed=embed)
+            for i in self.client.guilds:
+                guild = i
+                if int(guild.id) == 749855517127737496:
+                    channel = guild.get_channel(806741919240945704)
+                    async with aiohttp.ClientSession() as cs:
+                        async with cs.get(f"https://www.reddit.com/r/{subredditt}/new.json?sort=hot,") as data:
+                            res = await data.json()
+                            choose = res['data']['children'] [random.randint(0, 25)]
+                            title = choose['data']['title']
+                            standard = 'https://www.reddit.com'
+                            lin = choose['data']['permalink']
+                            newlink = standard + lin
+                            embed = discord.Embed(description= f'[{title}]({newlink})')
+                            embed.set_image(url= choose['data']['url'] )
+                            likes = choose['data']['ups']
+                            replies = choose['data']['num_comments']
+                            embed.set_footer(text = f'👍 {likes} | 💬 {replies}')
+                            await channel.send(embed=embed)
         except Exception as e:
             await channel.send(f'An error occured: {e}',delete_after=10)
 
