@@ -374,7 +374,6 @@ class apiscraping(Cog):
 
     @tasks.loop(minutes=2)
     async def MemesForDankMeme(self):
-        print('lol')
         subreddit = ['memes','dankmeme','danidev']
         subredditt = random.choice(subreddit)
         try:
