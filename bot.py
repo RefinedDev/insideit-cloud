@@ -179,7 +179,13 @@ async def nolink(message):
     if isinstance(message.channel, discord.channel.DMChannel):
         return
 
-    if 'discord.gg' in str.lower(message.content):
+    if message.guild.owner == message.author:
+        return    
+
+    if message.author.permissions.administrator:
+        return
+    
+    if 'discord.gg/' in str.lower(message.content):
         try:
             db = mysql.connector.connect(
                 host = "us-cdbr-east-02.cleardb.com",
