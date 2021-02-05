@@ -29,7 +29,7 @@ class Tags(Cog):
         else:
             print(error)
     
-    Cog.listener()
+    @Cog.listener()
     async def on_ready(self):
         print('Tag cog is ready!')
 
