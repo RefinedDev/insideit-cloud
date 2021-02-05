@@ -181,11 +181,11 @@ async def nolink(message):
 
     if message.guild.owner == message.author:
         return    
-    
-    for i in message.author.guild_permissions:
-        if str(i[0][0]) == 'administrator':
-            if i[0][1] == True:
-                return
+    print(type(message.author.guild_permissions))
+    # for i in message.author.guild_permissions:
+    #     if str(i[0][0]) == 'administrator':
+    #         if i[0][1] == True:
+    #             return
 
     if 'discord.gg/' in str.lower(message.content):
         try:
