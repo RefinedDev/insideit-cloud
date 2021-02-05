@@ -179,7 +179,7 @@ async def nolink(message):
     if isinstance(message.channel, discord.channel.DMChannel):
         return
 
-    if 'discord.gg' in message.content:
+    if 'discord.gg' in str.lower(message.content):
         try:
             db = mysql.connector.connect(
                 host = "us-cdbr-east-02.cleardb.com",
@@ -203,7 +203,7 @@ async def nolink(message):
         except Exception as e:
             print(f'An error occured in no link {e}')
         
-    if 'https://' in message.content or 'http://' in message.content:
+    if 'https://' in str.lower(message.content) or 'http://' in str.lower(message.content):
         try:
             db = mysql.connector.connect(
                 host = "us-cdbr-east-02.cleardb.com",
