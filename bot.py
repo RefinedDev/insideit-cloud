@@ -182,6 +182,9 @@ async def nolink(message):
     if message.guild.owner == message.author:
         return    
     
+    if message.author.guild_permissions.administrator:
+        return
+
     if 'discord.gg/' in str.lower(message.content):
         try:
             db = mysql.connector.connect(
