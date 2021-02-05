@@ -181,7 +181,7 @@ async def nolink(message):
 
     if message.guild.owner == message.author:
         return    
-   print(message.author.guild_permissions)
+    print(message.author.guild_permissions)
     # for i in message.author.guild_permissions:
     #     if str(i[0][0]) == 'administrator':
     #         if i[0][1] == True:
