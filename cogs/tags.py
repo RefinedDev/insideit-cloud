@@ -125,7 +125,7 @@ class Tags(Cog):
     
     @commands.command()
     @commands.cooldown(1,10,commands.BucketType.user)
-    async def plstag(self,ctx,name):
+    async def plstag(self,ctx,name = None):
         if name == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
             embeddd.add_field(name = "Missing Tag Name",value = "Specify the tag name pal.",inline= False)
@@ -155,7 +155,7 @@ class Tags(Cog):
     @tag.command()
     @commands.cooldown(1,60,commands.BucketType.user)
     @commands.has_permissions(kick_members = True)
-    async def edit(self,ctx,name):
+    async def edit(self,ctx,name = None):
         if name == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
             embeddd.add_field(name = "Missing Tag Name",value = "Specify the tag name pal.",inline= False)
