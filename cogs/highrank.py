@@ -80,7 +80,7 @@ class HighRank(Cog):
             await ctx.send(f'This channel has a slowmode of {ctx.channel.slowmode_delay} seconds.')
             return
         await ctx.channel.edit(slowmode_delay=seconds)
-        embed = discord.Embed(color = discord.Colour.green(),description = f'✅ Slowmode changed to {seconds}')
+        embed = discord.Embed(color = discord.Colour.green(),description = f'✅ Slowmode changed to {seconds} seconds')
         await ctx.send(embed = embed)
 
     @commands.command()
@@ -109,10 +109,10 @@ class HighRank(Cog):
         val = (str(user.id),str(reason),guildid,'Warn')
         cursor.execute(sql,val)
         db.commit()
-        embed = discord.Embed(color = discord.Colour.green(),description = f'✅ **{user.mention}** was warned | {str(reason)}')
+        embed = discord.Embed(color = discord.Colour.green(),description = f'✅ **{user.name}** was warned | {str(reason)}')
         await ctx.send(embed = embed)
         embed = discord.Embed(color = discord.Colour.green(),description = f'You were warned in {ctx.guild.name} | {str(reason)}')
-        await ctx.send(embed = embed)
+        await user.send(embed = embed)
         cursor.close()
         db.close()
     
