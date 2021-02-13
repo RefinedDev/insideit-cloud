@@ -84,6 +84,7 @@ class HighRank(Cog):
         await ctx.send(embed = embed)
 
     @commands.command()
+    @commands.cooldown(1,30,commands.BucketType.user)
     @commands.has_permissions(kick_members = True)
     async def warn(self,ctx,user : discord.Member = None,*,reason = 'Not Specified'):
         if user == ctx.author:
@@ -109,14 +110,15 @@ class HighRank(Cog):
         val = (str(user.id),str(reason),guildid,'Warn')
         cursor.execute(sql,val)
         db.commit()
-        embed = discord.Embed(color = discord.Colour.green(),description = f'✅ **{user.name}** was warned | {str(reason)}')
+        embed = discord.Embed(color = discord.Colour.green(),description = f'✅ **{user.name}** was warned | {str(reason)}.')
         await ctx.send(embed = embed)
-        embed = discord.Embed(color = discord.Colour.green(),description = f'You were warned in {ctx.guild.name} | {str(reason)}')
+        embed = discord.Embed(color = discord.Colour.green(),description = f'You were warned in **{ctx.guild.name}** | {str(reason)}.')
         await user.send(embed = embed)
         cursor.close()
         db.close()
     
     @commands.command(aliases = ['infraction','modlogs'])
+    @commands.cooldown(1,30,commands.BucketType.user)
     @commands.has_permissions(kick_members = True)
     async def inf(self,ctx,user : discord.Member = None):
         if user == None:
@@ -149,7 +151,7 @@ class HighRank(Cog):
 
     
     @commands.command()
-    @commands.cooldown(1,60,commands.BucketType.user)
+    @commands.cooldown(1,30,commands.BucketType.user)
     @commands.has_permissions(kick_members = True)
     async def revoke_inf(self,ctx,infid = None):
         if infid == None:
@@ -181,6 +183,7 @@ class HighRank(Cog):
         db.close()
 
     @commands.command()
+    @commands.cooldown(1,30,commands.BucketType.user)
     @commands.has_permissions(kick_members = True)
     async def kick(self,ctx,member : discord.Member = None,*, reason = 'Not Specified'):
         if member == ctx.author:
@@ -206,9 +209,9 @@ class HighRank(Cog):
             val = (str(member.id),str(reason),guildid,'Kick')
             cursor.execute(sql,val)
             db.commit()
-            embed = discord.Embed(color = discord.Colour.green(),description = f'✅ **{member.name}** was kicked | {str(reason)}')
+            embed = discord.Embed(color = discord.Colour.green(),description = f'✅ **{member.name}** was kicked | {str(reason)}.')
             await ctx.send(embed = embed)
-            embed = discord.Embed(color = discord.Colour.green(),description = f'You were kicked from {ctx.guild.name} | {str(reason)}')
+            embed = discord.Embed(color = discord.Colour.green(),description = f'You were kicked from **{ctx.guild.name}** | {str(reason)}.')
             await member.send(embed = embed)
             await member.kick(reason = reason)
             cursor.close() 
@@ -216,6 +219,7 @@ class HighRank(Cog):
 
 
     @commands.command()
+    @commands.cooldown(1,30,commands.BucketType.user)
     @commands.has_permissions(ban_members = True)
     async def ban(self,ctx,member : discord.Member = None,*, reason = 'Not Specified'):
         if member == ctx.author:
@@ -241,9 +245,9 @@ class HighRank(Cog):
             val = (str(member.id),str(reason),guildid,'Ban')
             cursor.execute(sql,val)
             db.commit()
-            embed = discord.Embed(color = discord.Colour.green(),description = f'✅ **{member.name}** was banned | {str(reason)}')
+            embed = discord.Embed(color = discord.Colour.green(),description = f'✅ **{member.name}** was banned | {str(reason)}.')
             await ctx.send(embed = embed)
-            embed = discord.Embed(color = discord.Colour.green(),description = f'You were banned from {ctx.guild.name} | {str(reason)}')
+            embed = discord.Embed(color = discord.Colour.green(),description = f'You were banned from {ctx.guild.name} | {str(reason)}.')
             await member.send(embed = embed)
             await member.ban(reason = reason)
             cursor.close() 
@@ -253,7 +257,7 @@ class HighRank(Cog):
         self.mute_loop.cancel()
         
     @commands.command()
-    @commands.cooldown(1,60,commands.BucketType.user)
+    @commands.cooldown(1,30,commands.BucketType.user)
     @commands.has_permissions(kick_members = True)
     async def mute(self,ctx,user : discord.Member = None,time = None,*,reason = 'Not Specified'):
         if user == ctx.author:
@@ -319,9 +323,9 @@ class HighRank(Cog):
                 cursor.execute(sql,val)
                 db.commit()
                 await user.add_roles(role)
-                embed = discord.Embed(color = discord.Colour.green(),description = f'✅ **{user.name}** was muted | {str(reason)}')
+                embed = discord.Embed(color = discord.Colour.green(),description = f'✅ **{user.name}** was muted | {str(reason)}.')
                 await ctx.send(embed = embed)
-                embed = discord.Embed(color = discord.Colour.green(),description = f'You were muted in {ctx.guild.name} | {str(reason)}')
+                embed = discord.Embed(color = discord.Colour.green(),description = f'You were muted in {ctx.guild.name} | {str(reason)}.')
                 await user.send(embed = embed)
                 if newtime < 300:
                     await asyncio.sleep(newtime)
@@ -348,7 +352,7 @@ class HighRank(Cog):
 
     @commands.command()
     @commands.has_permissions(kick_members = True)
-    @commands.cooldown(1,60,commands.BucketType.user)
+    @commands.cooldown(1,30,commands.BucketType.user)
     async def unmute(self,ctx,user : discord.Member = None):
         if user == None:
             embeddd = discord.Embed(colour= discord.Colour.red())
