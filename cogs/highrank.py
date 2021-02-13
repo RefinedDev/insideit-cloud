@@ -65,7 +65,7 @@ class HighRank(Cog):
             return
         channel = self.client.get_channel(int(channelid))
         if channel != None:
-            embed = discord.Embed()
+            embed = discord.Embed(color = ctx.author.color)
             embed.add_field(name = f'Announcement By {ctx.author.name}',value = text)
             await channel.send(embed = embed)
         else:
@@ -80,7 +80,8 @@ class HighRank(Cog):
             await ctx.send(f'This channel has a slowmode of {ctx.channel.slowmode_delay} seconds.')
             return
         await ctx.channel.edit(slowmode_delay=seconds)
-        await ctx.send(f"Slowmode Changed To {seconds}!")
+        embed = discord.Embed(color = discord.Colour.green(),description = f'✅ Slowmode changed to {seconds}')
+        await ctx.send(embed = embed)
 
     @commands.command()
     @commands.has_permissions(kick_members = True)
@@ -108,8 +109,10 @@ class HighRank(Cog):
         val = (str(user.id),str(reason),guildid,'Warn')
         cursor.execute(sql,val)
         db.commit()
-        await ctx.send(f'{user.mention} was warned: {str(reason)}')
-        await user.send(f'You were warned in {ctx.guild.name} reason: {str(reason)}')
+        embed = discord.Embed(color = discord.Colour.green(),description = f'✅ {user.mention} was warned | {str(reason)}')
+        await ctx.send(embed = embed)
+        embed = discord.Embed(color = discord.Colour.green(),description = f'You were warned in {ctx.guild.name} | {str(reason)}')
+        await ctx.send(embed = embed)
         cursor.close()
         db.close()
     
@@ -172,7 +175,8 @@ class HighRank(Cog):
         else:
             cursor.execute('DELETE FROM logs WHERE infid = ' + str(infid))
             db.commit()
-            await ctx.send(f'Warn with id {infid} was revoked.')
+            embed = discord.Embed(color = discord.Colour.green(),description = f'✅ Warn with id {infid} was revoked.')
+            await ctx.send(embed = embed)
         cursor.close()
         db.close()
 
@@ -202,6 +206,10 @@ class HighRank(Cog):
             val = (str(member.id),str(reason),guildid,'Kick')
             cursor.execute(sql,val)
             db.commit()
+            embed = discord.Embed(color = discord.Colour.green(),description = f'✅ {member.mention} was kicked | {str(reason)}')
+            await ctx.send(embed = embed)
+            embed = discord.Embed(color = discord.Colour.green(),description = f'You were kicked from {ctx.guild.name} | {str(reason)}')
+            await member.send(embed = embed)
             await member.kick(reason = reason)
             cursor.close() 
             db.close()
@@ -233,6 +241,10 @@ class HighRank(Cog):
             val = (str(member.id),str(reason),guildid,'Ban')
             cursor.execute(sql,val)
             db.commit()
+            embed = discord.Embed(color = discord.Colour.green(),description = f'✅ {member.mention} was banned | {str(reason)}')
+            await ctx.send(embed = embed)
+            embed = discord.Embed(color = discord.Colour.green(),description = f'You were banned from {ctx.guild.name} | {str(reason)}')
+            await member.send(embed = embed)
             await member.ban(reason = reason)
             cursor.close() 
             db.close()
@@ -307,7 +319,10 @@ class HighRank(Cog):
                 cursor.execute(sql,val)
                 db.commit()
                 await user.add_roles(role)
-                await ctx.send(f'Muted {user.mention} for {time}: {str(reason)}')
+                embed = discord.Embed(color = discord.Colour.green(),description = f'✅ {user.mention} was muted | {str(reason)}')
+                await ctx.send(embed = embed)
+                embed = discord.Embed(color = discord.Colour.green(),description = f'You were muted in {ctx.guild.name} | {str(reason)}')
+                await user.send(embed = embed)
                 if newtime < 300:
                     await asyncio.sleep(newtime)
                     db = mysql.connector.connect(
@@ -362,7 +377,8 @@ class HighRank(Cog):
             cursor.execute('DELETE FROM mutedata WHERE userid = ' + str(user.id) + " AND guildid = " + str(ctx.guild.id))
             db.commit()
             await user.remove_roles(role)
-            await ctx.send(f'Successfully unmuted {user.mention}!')
+            embed = discord.Embed(color = discord.Colour.green(),description = f'✅ {user.mention} was unmuted.')
+            await ctx.send(embed = embed)
         cursor.close()
         db.close()
 
