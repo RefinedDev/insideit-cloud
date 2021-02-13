@@ -87,6 +87,12 @@ class HighRank(Cog):
     @commands.cooldown(1,30,commands.BucketType.user)
     @commands.has_permissions(kick_members = True)
     async def warn(self,ctx,user : discord.Member = None,*,reason = 'Not Specified'):
+        if user.top_role > ctx.author.top_role:
+            embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
+            embeddd.add_field(name = "eyo calmdown",value = "The user has a higher role than you.",inline= False)
+            await ctx.send(embed = embeddd,delete_after=5)
+            return
+        
         if user == ctx.author:
             await ctx.send('look at this dood tryna warn himself.')
             return
@@ -186,6 +192,12 @@ class HighRank(Cog):
     @commands.cooldown(1,30,commands.BucketType.user)
     @commands.has_permissions(kick_members = True)
     async def kick(self,ctx,member : discord.Member = None,*, reason = 'Not Specified'):
+        if member.top_role > ctx.author.top_role:
+            embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
+            embeddd.add_field(name = "eyo calmdown",value = "The user has a higher role than you.",inline= False)
+            await ctx.send(embed = embeddd,delete_after=5)
+            return
+
         if member == ctx.author:
             await ctx.send('look at this dood tryna kick himself.')
             return
@@ -222,6 +234,12 @@ class HighRank(Cog):
     @commands.cooldown(1,30,commands.BucketType.user)
     @commands.has_permissions(ban_members = True)
     async def ban(self,ctx,member : discord.Member = None,*, reason = 'Not Specified'):
+        if member.top_role > ctx.author.top_role:
+            embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
+            embeddd.add_field(name = "eyo calmdown",value = "The user has a higher role than you.",inline= False)
+            await ctx.send(embed = embeddd,delete_after=5)
+            return
+
         if member == ctx.author:
             await ctx.send('look at this dood tryna ban himself.')
             return
@@ -260,6 +278,12 @@ class HighRank(Cog):
     @commands.cooldown(1,30,commands.BucketType.user)
     @commands.has_permissions(kick_members = True)
     async def mute(self,ctx,user : discord.Member = None,time = None,*,reason = 'Not Specified'):
+        if user.top_role > ctx.author.top_role:
+            embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
+            embeddd.add_field(name = "eyo calmdown",value = "The user has a higher role than you.",inline= False)
+            await ctx.send(embed = embeddd,delete_after=5)
+            return
+
         if user == ctx.author:
             await ctx.send('look at this dood tryna mute himself.')
             return
@@ -354,6 +378,12 @@ class HighRank(Cog):
     @commands.has_permissions(kick_members = True)
     @commands.cooldown(1,30,commands.BucketType.user)
     async def unmute(self,ctx,user : discord.Member = None):
+        if user.top_role > ctx.author.top_role:
+            embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
+            embeddd.add_field(name = "eyo calmdown",value = "The user has a higher role than you.",inline= False)
+            await ctx.send(embed = embeddd,delete_after=5)
+            return
+            
         if user == None:
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "Missing User",value = "Specify the user pal.",inline= False)
