@@ -9,7 +9,7 @@ from dateutil.relativedelta import relativedelta
 class HighRank(Cog):
     def __init__(self,client):
         self.client = client
-
+    
     @Cog.listener()
     async def on_ready(self):
         print("High Rank Cog Is Ready!")
@@ -419,7 +419,7 @@ class HighRank(Cog):
                                     cursor.execute("DELETE FROM mutedata WHERE userid = " + str(i[0]) + " AND guildid = " + str(i[2]))
                                     db.commit()
                                     print(f'Unmuted {member.mention} With Loop!')
-            except Exception as e:
+            except Exception as e: 
                 print(f'AN Error Occured in mute loop {e}')
             cursor.close()
             db.close()
