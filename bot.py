@@ -7,8 +7,7 @@ import asyncio
 import random
 
 intents = discord.Intents.all()
-prefixes = ["?", "!","peg "]
-client = commands.Bot(command_prefix=prefixes,intents = intents)
+client = commands.Bot(command_prefix='peg',intents = intents)
 
 # token = "Nzk1OTYzMjAzODA0MjAwOTgw.X_RAgA.aciIvaEGbyz8jEGII1iwMNZ9ugE"
 
@@ -170,9 +169,7 @@ async def botping(message):
     if isinstance(message.channel, discord.channel.DMChannel):
         return
     if message.content == '<@!795963203804200980>':
-        embed = discord.Embed(color = message.author.color)
-        embed.add_field(name = "Prefixes",value = '\n'.join(prefixes))
-        await message.channel.send(embed =  embed)
+        await message.channel.send('My prefix is `peg`')
 
 @client.listen('on_message')
 async def nolink(message):
