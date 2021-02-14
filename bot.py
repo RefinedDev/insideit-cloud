@@ -5,26 +5,12 @@ from datetime import datetime
 import mysql.connector
 import asyncio
 import random
-import json
-
-def get_prefix(client, message):
-    with open('cogs/prefixes.json', 'r') as f:
-        prefixes = json.load(f)
-
-    if not prefixes[str(message.guild.id)]:
-        prefixes[str(message.guild.id)] = 'peg'
-
-    with open('cpgs/prefixes.json', 'w') as f:
-            json.dump(prefixes, f, indent=4)
-
-    return prefixes[str(message.guild.id)]
 
 intents = discord.Intents.all()
-#prefixes = ["?", "!","peg "]
-client = commands.Bot(command_prefix=get_prefix,intents = intents)
+prefixes = ["?", "!","peg "]
+client = commands.Bot(command_prefix=prefixes,intents = intents)
 
 # token = "Nzk1OTYzMjAzODA0MjAwOTgw.X_RAgA.aciIvaEGbyz8jEGII1iwMNZ9ugE"
-
 
 @client.event
 async def on_command_error(ctx,error):
@@ -184,12 +170,9 @@ async def botping(message):
     if isinstance(message.channel, discord.channel.DMChannel):
         return
     if message.content == '<@!795963203804200980>':
-        with open('cogs/prefixes.json', 'r') as f:
-            prefixes = json.load(f)
-
-        prefix = prefixes[str(message.guild.id)]
-
-        await message.channel.send(f"My prefix is `{prefix}`")
+        embed = discord.Embed(color = message.author.color)
+        embed.add_field(name = "Prefixes",value = '\n'.join(prefixes))
+        await message.channel.send(embed =  embed)
 
 @client.listen('on_message')
 async def nolink(message):
