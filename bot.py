@@ -184,7 +184,7 @@ async def botping(message):
     if isinstance(message.channel, discord.channel.DMChannel):
         return
     if message.content == '<@!795963203804200980>':
-        with open('prefixes.json', 'r') as f:
+        with open('cogs/prefixes.json', 'r') as f:
             prefixes = json.load(f)
 
         prefix = prefixes[str(message.guild.id)]
