@@ -7,7 +7,7 @@ import asyncio
 import random
 
 intents = discord.Intents.all()
-client = commands.Bot(command_prefix='peg',intents = intents)
+client = commands.Bot(command_prefix='peg ',intents = intents)
 
 # token = "Nzk1OTYzMjAzODA0MjAwOTgw.X_RAgA.aciIvaEGbyz8jEGII1iwMNZ9ugE"
 

@@ -24,7 +24,7 @@ class helpcommand(Cog):
             em.add_field(name = '🐶 Animals',value = '`peg help animals`',inline=False)
             em.add_field(name = '⚙ Configurations',value = '`peg config`',inline=False)
             em.add_field(name = '🏷 Tags',value = '`peg tag`',inline=False)
-            em.add_field(name = '🥺 Support Me!',value = '[Invite Link](https://discord.com/api/oauth2/authorizepeg client_id=795963203804200980&permissions=2147483639&redirect_uri=http%3A%2F%2F127.0.0.1%3A5000%2Fl&scope=bot) • [Support Server](https://discord.gg/ZNG247NBVp)',inline= False)
+            em.add_field(name = '🥺 Support Me!',value = '[Invite Link](https://discord.com/api/oauth2/authorize? client_id=795963203804200980&permissions=2147483639&redirect_uri=http%3A%2F%2F127.0.0.1%3A5000%2Fl&scope=bot) • [Support Server](https://discord.gg/ZNG247NBVp)',inline= False)
             await ctx.send(embed=em)
     
     @help.command()
