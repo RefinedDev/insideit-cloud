@@ -42,7 +42,7 @@ class HighRank(Cog):
         if amount == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
             embeddd.add_field(name = "Missing Number",value = "Please specify a Integer of how many messages you want to purge.",inline= False)
-            embeddd.add_field(name = "Command Example",value = "`?purge 100`",inline= False)
+            embeddd.add_field(name = "Command Example",value = "`peg purge 100`",inline= False)
             await ctx.send(embed = embeddd,delete_after=5)
             return
 
@@ -54,13 +54,13 @@ class HighRank(Cog):
         if channelid == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
             embeddd.add_field(name = "Missing ChannelId",value = "Please specify channelid.",inline= False)
-            embeddd.add_field(name = "Command Example",value = "`?announce 4209409582859589 Hello everyone`",inline= False)
+            embeddd.add_field(name = "Command Example",value = "`peg announce 4209409582859589 Hello everyone`",inline= False)
             await ctx.send(embed = embeddd,delete_after=5)
             return
         if text == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
             embeddd.add_field(name = "Missing Text",value = "Please specify the text.",inline= False)
-            embeddd.add_field(name = "Command Example",value = "`?announce 4209409582859589 Hello everyone`",inline= False)
+            embeddd.add_field(name = "Command Example",value = "`peg announce 4209409582859589 Hello everyone`",inline= False)
             await ctx.send(embed = embeddd,delete_after=5)
             return
         channel = self.client.get_channel(int(channelid))
@@ -99,7 +99,7 @@ class HighRank(Cog):
         if user == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
             embeddd.add_field(name = "Missing User Or Reason",value = "Specify the user and reason pal.",inline= False)
-            embeddd.add_field(name = "Command Example",value = "`?warn 1938194824019 idk cuh`",inline= False)
+            embeddd.add_field(name = "Command Example",value = "`peg warn 1938194824019 idk cuh`",inline= False)
             await ctx.send(embed = embeddd,delete_after=5)
             return
 
@@ -130,7 +130,7 @@ class HighRank(Cog):
         if user == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
             embeddd.add_field(name = "Missing User",value = "Specify the user pal.",inline= False)
-            embeddd.add_field(name = "Command Example",value = "`?inf 1938194824019 `",inline= False)
+            embeddd.add_field(name = "Command Example",value = "`peg inf 1938194824019 `",inline= False)
             await ctx.send(embed = embeddd,delete_after=5)
             return
 
@@ -150,7 +150,7 @@ class HighRank(Cog):
         else:
             for i in res:
                 embed.add_field(name = f'Infraction Id: **{i[1]}**',value = f'Type: {i[2]}\nReason: `{str(i[0])}`',inline = False)
-        embed.set_footer(text = 'To revoke a warn use the ?revoke_inf (infID) command.')
+        embed.set_footer(text = 'To revoke a warn use the peg revoke_inf (infID) command.')
         await ctx.send(embed = embed)
         cursor.close()
         db.close()
@@ -163,8 +163,8 @@ class HighRank(Cog):
         if infid == None:
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "Missing InfractionID",value = "Specify the infractionID pal.",inline= False)
-            embeddd.add_field(name = "Command Example",value = "`?warn_revoke 1`",inline= False)
-            embeddd.set_footer(text  = "PS: To get the ID of the infraction run the ?inf (userID) command and get the id of infraction.")
+            embeddd.add_field(name = "Command Example",value = "`peg warn_revoke 1`",inline= False)
+            embeddd.set_footer(text  = "PS: To get the ID of the infraction run the peg inf (userID) command and get the id of infraction.")
             await ctx.send(embed = embeddd,delete_after=5)
             return
 
@@ -204,7 +204,7 @@ class HighRank(Cog):
         if member == None:
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "Missing User",value = "Specify the user pal.",inline= False)
-            embeddd.add_field(name = "Command Example",value = "`?kick 472985252805298 idk cuh`",inline= False)
+            embeddd.add_field(name = "Command Example",value = "`peg kick 472985252805298 idk cuh`",inline= False)
             await ctx.send(embed = embeddd,delete_after=5)
             return
         else:
@@ -246,7 +246,7 @@ class HighRank(Cog):
         if member == None:
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "Missing User",value = "Specify the user pal.",inline= False)
-            embeddd.add_field(name = "Command Example",value = "`?ban 472985252805298 idk cuh`",inline= False)
+            embeddd.add_field(name = "Command Example",value = "`peg ban 472985252805298 idk cuh`",inline= False)
             await ctx.send(embed = embeddd,delete_after=5)
             return
         else:
@@ -297,14 +297,14 @@ class HighRank(Cog):
         if user == None:
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "Missing User",value = "Specify the user pal.",inline= False)
-            embeddd.add_field(name = "Command Example",value = "`?mute 4289358298 10hr idk cuh`",inline= False)
+            embeddd.add_field(name = "Command Example",value = "`peg mute 4289358298 10hr idk cuh`",inline= False)
             await ctx.send(embed = embeddd,delete_after=5)
             return
 
         if time == None:
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "Missing Duration",value = "Specify the duration pal.",inline= False)
-            embeddd.add_field(name = "Command Example",value = "`?mute 4289358298 10hr idk cuh`",inline= False)
+            embeddd.add_field(name = "Command Example",value = "`peg mute 4289358298 10hr idk cuh`",inline= False)
             await ctx.send(embed = embeddd,delete_after=5)
             return
 
@@ -387,7 +387,7 @@ class HighRank(Cog):
         if user == None:
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "Missing User",value = "Specify the user pal.",inline= False)
-            embeddd.add_field(name = "Command Example",value = "`?mute 4289358298 10hr idk cuh`",inline= False)
+            embeddd.add_field(name = "Command Example",value = "`peg mute 4289358298 10hr idk cuh`",inline= False)
             await ctx.send(embed = embeddd,delete_after=5)
             return
         role = discord.utils.get(ctx.guild.roles, name="Muted")

@@ -37,7 +37,7 @@ class Tags(Cog):
     async def tag(self,ctx):
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(title = 'TAGS',description = 'Shows a content of tag is it exists.',color = ctx.author.color)
-            embed.add_field(name = 'Commands',value = "`?tag create: Create a tag`\n`?tag remove (tag): Delete a tag`\n`?tag edit (tag): Edit a tag's content`\n`?plstag (tag): Reveal a tag's content aka use it.`\n`?tag show: Show existing tags in the guild.`")
+            embed.add_field(name = 'Commands',value = "`peg tag create: Create a tag`\n`peg tag remove (tag): Delete a tag`\n`peg tag edit (tag): Edit a tag's content`\n`peg plstag (tag): Reveal a tag's content aka use it.`\n`peg tag show: Show existing tags in the guild.`")
             await ctx.send(embed = embed)
 
     @tag.command()
@@ -95,7 +95,7 @@ class Tags(Cog):
         if name == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
             embeddd.add_field(name = "Missing Tag Name",value = "Specify the tag name pal.",inline= False)
-            embeddd.add_field(name = "Command Example",value = "`?tag remove joe `",inline= False)
+            embeddd.add_field(name = "Command Example",value = "`peg tag remove joe `",inline= False)
             await ctx.send(embed = embeddd,delete_after=5)
             return
             
@@ -129,7 +129,7 @@ class Tags(Cog):
         if name == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
             embeddd.add_field(name = "Missing Tag Name",value = "Specify the tag name pal.",inline= False)
-            embeddd.add_field(name = "Command Example",value = "`?plstag joe `",inline= False)
+            embeddd.add_field(name = "Command Example",value = "`peg plstag joe `",inline= False)
             await ctx.send(embed = embeddd,delete_after=5)
             return
 
@@ -159,7 +159,7 @@ class Tags(Cog):
         if name == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
             embeddd.add_field(name = "Missing Tag Name",value = "Specify the tag name pal.",inline= False)
-            embeddd.add_field(name = "Command Example",value = "`?tag edit joe `",inline= False)
+            embeddd.add_field(name = "Command Example",value = "`peg tag edit joe `",inline= False)
             await ctx.send(embed = embeddd,delete_after=5)
             return
 

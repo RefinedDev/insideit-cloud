@@ -16,22 +16,22 @@ class helpcommand(Cog):
         if ctx.invoked_subcommand is None:
             em = discord.Embed(color = ctx.author.color)
             em.set_author(name = 'InsideIt commands help.',icon_url=self.client.user.avatar_url)
-            em.add_field(name=  "❓ Info",value="`?help info`",inline=False)
-            em.add_field(name = "⚡ HighRank",value = '`?help highrank`',inline=False)
-            em.add_field(name = "😏 Miscellaneous",value = '`?help misc`',inline=False)
-            em.add_field(name = "😂 Memes",value = '`?help meme`',inline=False)
-            em.add_field(name = "📷 Image",value = '`?help img`',inline=False)
-            em.add_field(name = '🐶 Animals',value = '`?help animals`',inline=False)
-            em.add_field(name = '⚙ Configurations',value = '`?config`',inline=False)
-            em.add_field(name = '🏷 Tags',value = '`?tag`',inline=False)
-            em.add_field(name = '🥺 Support Me!',value = '[Invite Link](https://discord.com/api/oauth2/authorize?client_id=795963203804200980&permissions=2147483639&redirect_uri=http%3A%2F%2F127.0.0.1%3A5000%2Fl&scope=bot) • [Support Server](https://discord.gg/ZNG247NBVp)',inline= False)
+            em.add_field(name=  "❓ Info",value="`peg help info`",inline=False)
+            em.add_field(name = "⚡ HighRank",value = '`peg help highrank`',inline=False)
+            em.add_field(name = "😏 Miscellaneous",value = '`peg help misc`',inline=False)
+            em.add_field(name = "😂 Memes",value = '`peg help meme`',inline=False)
+            em.add_field(name = "📷 Image",value = '`peg help img`',inline=False)
+            em.add_field(name = '🐶 Animals',value = '`peg help animals`',inline=False)
+            em.add_field(name = '⚙ Configurations',value = '`peg config`',inline=False)
+            em.add_field(name = '🏷 Tags',value = '`peg tag`',inline=False)
+            em.add_field(name = '🥺 Support Me!',value = '[Invite Link](https://discord.com/api/oauth2/authorizepeg client_id=795963203804200980&permissions=2147483639&redirect_uri=http%3A%2F%2F127.0.0.1%3A5000%2Fl&scope=bot) • [Support Server](https://discord.gg/ZNG247NBVp)',inline= False)
             await ctx.send(embed=em)
     
     @help.command()
     async def highrank(self,ctx):
         try:
             embed = discord.Embed(colour = ctx.author.color)
-            embed.add_field(name = '⚡ HighRank Commands.',value = "`?purge (amount): Deletes specific amount of messages.`\n\n`?announce (channelid) (text): Do an announcement in a channel with a stylish embed.`\n\n`?slowmode (seconds): Set the channel's slowmode to the specified number.`\n\n`?warn (userID) (reason): The warn gets noted in their infractions list.`\n\n`?ban (userID) (reason): The ban gets noted in their infractions list.`\n\n`?kick (userId) (reason): The kick gets noted in thier infractions list.`\n\n`?mute (userID) (time) (reason): The mute gets noted in their infractions list.`\n\n`?unmute (user): Unmute a user.`\n\n`?inf (userID): List of infractions from a user.`\n\n`?revoke_inf (infID): Revoke an infraction from a user.`")
+            embed.add_field(name = '⚡ HighRank Commands.',value = "`peg purge (amount): Deletes specific amount of messages.`\n\n`peg announce (channelid) (text): Do an announcement in a channel with a stylish embed.`\n\n`peg slowmode (seconds): Set the channel's slowmode to the specified number.`\n\n`peg warn (userID) (reason): The warn gets noted in their infractions list.`\n\n`peg ban (userID) (reason): The ban gets noted in their infractions list.`\n\n`peg kick (userId) (reason): The kick gets noted in thier infractions list.`\n\n`peg mute (userID) (time) (reason): The mute gets noted in their infractions list.`\n\n`peg unmute (user): Unmute a user.`\n\n`peg inf (userID): List of infractions from a user.`\n\n`peg revoke_inf (infID): Revoke an infraction from a user.`")
             await ctx.send(embed = embed)
         except Exception as e:
             if str(e) == '403 Forbidden (error code: 50013): Missing Permissions':
@@ -43,7 +43,7 @@ class helpcommand(Cog):
     async def animals(self,ctx):
         try:
             embed = discord.Embed(colour = ctx.author.color)
-            embed.add_field(name = '🐶 Animal Commands.',value = "`?dog`,`?cat`,`?fox`,`?panda`,`?bird`,`?koala`")
+            embed.add_field(name = '🐶 Animal Commands.',value = "`peg dog`,`peg cat`,`peg fox`,`peg panda`,`peg bird`,`peg koala`")
             await ctx.send(embed = embed)
         except Exception as e:
             if str(e) == '403 Forbidden (error code: 50013): Missing Permissions':
@@ -55,7 +55,7 @@ class helpcommand(Cog):
     async def meme(self,ctx):
         try:
             embed = discord.Embed(colour = ctx.author.color)
-            embed.add_field(name = '😂 Meme Commands.',value = "`?meme`,`?dankmeme`,`?chan`,`?AntiJoke`,`?wholesome`,`?surreal`,`?facepalm`,`?danidev`,`?fortnite`,`?discord`")
+            embed.add_field(name = '😂 Meme Commands.',value = "`peg meme`,`peg dankmeme`,`peg chan`,`peg AntiJoke`,`peg wholesome`,`peg surreal`,`peg facepalm`,`peg danidev`,`peg fortnite`,`peg discord`")
             await ctx.send(embed = embed)
         except Exception as e:
             if str(e) == '403 Forbidden (error code: 50013): Missing Permissions':
@@ -67,7 +67,7 @@ class helpcommand(Cog):
     async def misc(self,ctx):
         try:
             embed = discord.Embed(colour = ctx.author.color)
-            embed.add_field(name = '😏 Miscellaneous Commands.',value = "`?rps`,`?rpsLeaderboard`,`?whois`,`?ping`,`?fromBase64`,`?simpmeter`,`?av`,`?8ball`,`?robloxsearch`,`?choose`,`?twitter`")
+            embed.add_field(name = '😏 Miscellaneous Commands.',value = "`peg rps`,`peg rpsLeaderboard`,`peg whois`,`peg ping`,`peg fromBase64`,`peg simpmeter`,`peg av`,`peg 8ball`,`peg robloxsearch`,`peg choose`,`peg twitter`")
             await ctx.send(embed = embed)
         except Exception as e:
             if str(e) == '403 Forbidden (error code: 50013): Missing Permissions':
@@ -79,7 +79,7 @@ class helpcommand(Cog):
     async def img(self,ctx):
         try:
             embed = discord.Embed(colour = ctx.author.color)
-            embed.add_field(name = '📷 Image Commands.',value = "`?throw`,`?slap`,`?achievement`,`?youtube`,`?hoomangood`,`?blood`,`?triggered`,`?wasted`")
+            embed.add_field(name = '📷 Image Commands.',value = "`peg throw`,`peg slap`,`peg achievement`,`peg youtube`,`peg hoomangood`,`peg blood`,`peg triggered`,`peg wasted`")
             await ctx.send(embed = embed)
         except Exception as e:
             if str(e) == '403 Forbidden (error code: 50013): Missing Permissions':
@@ -95,7 +95,7 @@ class helpcommand(Cog):
             embed.add_field(name = 'Servers',value = len(self.client.guilds))
             embed.add_field(name = 'Creator',value = '<@!429535933252239360>')
             embed.set_thumbnail(url = self.client.user.avatar_url)
-            embed.add_field(name="Invite The Bot", value="[Link](https://discord.com/api/oauth2/authorize?client_id=795963203804200980&permissions=2147483639&redirect_uri=http%3A%2F%2F127.0.0.1%3A5000%2Fl&scope=bot)")
+            embed.add_field(name="Invite The Bot", value="[Link](https://discord.com/api/oauth2/authorize? client_id=795963203804200980&permissions=2147483639&redirect_uri=http%3A%2F%2F127.0.0.1%3A5000%2Fl&scope=bot)")
             await ctx.send(embed = embed)
         except Exception as e:
             if str(e) == '403 Forbidden (error code: 50013): Missing Permissions':

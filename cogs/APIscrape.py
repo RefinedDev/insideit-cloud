@@ -366,7 +366,7 @@ class apiscraping(Cog):
         if isinstance(error,commands.MissingRequiredArgument):
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
             embeddd.add_field(name = "Missing Argument",value = "Specify the text pal.")
-            embeddd.add_field(name  = "Command Example",value = "`?fromBase64 bG9s`",inline=False)
+            embeddd.add_field(name  = "Command Example",value = "`peg fromBase64 bG9s`",inline=False)
             await ctx.send(embed = embeddd,delete_after=5)
 
 def setup(client):

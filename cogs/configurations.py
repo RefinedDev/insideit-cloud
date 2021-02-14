@@ -26,7 +26,7 @@ class config(Cog):
     @commands.has_permissions(administrator = True)
     async def config(self,ctx):
         if ctx.invoked_subcommand is None:
-            embed = discord.Embed(title = '⚙ Configurations.',description = 'Use `?config [nameofconfig]` to configure, you can also use `?showconfigs` to see what configurations are on or off.',color = ctx.author.color)
+            embed = discord.Embed(title = '⚙ Configurations.',description = 'Use `peg config [nameofconfig]` to configure, you can also use `peg showconfigs` to see what configurations are on or off.',color = ctx.author.color)
             embed.add_field(name = 'You can configure the following.',value = '`WelcomeMessage`\n`WelcomeRole`\n`LeaveMessage`\n`AntiLink`')
             await ctx.send(embed = embed)
 

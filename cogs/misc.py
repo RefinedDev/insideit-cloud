@@ -96,7 +96,7 @@ class MiscCmds(Cog):
         if isinstance(error,commands.MissingRequiredArgument):
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "Missing Argument or User doesn't exist",value = "Specify the user pal.")
-            embeddd.add_field(name  = "Command Example",value = "`?twitter OHrefineddev`",inline=False)
+            embeddd.add_field(name  = "Command Example",value = "`peg twitter OHrefineddev`",inline=False)
             await ctx.send(embed = embeddd,delete_after=5) 
 
     
@@ -127,7 +127,7 @@ class MiscCmds(Cog):
         if isinstance(error,commands.MissingRequiredArgument):
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
             embeddd.add_field(name = "Missing Argument",value = "Specify the args pal.")
-            embeddd.add_field(name  = "Command Example",value = "`?choose pizza burger`",inline=False)
+            embeddd.add_field(name  = "Command Example",value = "`peg choose pizza burger`",inline=False)
             await ctx.send(embed = embeddd,delete_after=5)
 
     @commands.command()
@@ -159,7 +159,7 @@ class MiscCmds(Cog):
         if isinstance(error,commands.MissingRequiredArgument):
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
             embeddd.add_field(name = "Missing Argument or User doesn't exist",value = "Specify the user pal")
-            embeddd.add_field(name  = "Command Example",value = "`?robloxsearch RefinedDev`",inline=False)
+            embeddd.add_field(name  = "Command Example",value = "`peg robloxsearch RefinedDev`",inline=False)
             await ctx.send(embed = embeddd,delete_after=5)
 
     @commands.command()
@@ -186,7 +186,7 @@ class MiscCmds(Cog):
         if isinstance(error,commands.MissingRequiredArgument):
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
             embeddd.add_field(name = "Missing Argument",value = "Specify your question pal.")
-            embeddd.add_field(name  = "Command Example",value = "`?8ball am i hooman`",inline=False)
+            embeddd.add_field(name  = "Command Example",value = "`peg 8ball am i hooman`",inline=False)
             await ctx.message.delete()
             await ctx.send(embed = embeddd,delete_after=5)
 
