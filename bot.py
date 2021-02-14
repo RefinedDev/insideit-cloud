@@ -56,7 +56,14 @@ async def on_guild_remove(guild):
         print(f'An Error Occured in on_guild_remove {e}')
 
 def memberjoin(member):
-    sentences = [f'{member.mention} has joined the server, we have {len(member.guild.members)} now!',f'{member.mention} fell from the sky we have {len(member.guild.members)} now!',f'{member.mention} showed up!',f'{member.mention} somehow became visible we have {len(member.guild.members)} now!']
+    sentences = [
+    f'{member.mention} has joined the server, we have {len(member.guild.members)} now!',
+    f'{member.mention} fell from the sky we have {len(member.guild.members)} now!',f'{member.mention} showed up!',
+    f'{member.mention} somehow became visible we have {len(member.guild.members)} now!',
+    f'Welcome {member.mention} enjoy your stay! :D',
+    f'Nice to meet you {member.mention}! We have {len(member.guild.members)} now!',
+    f'Welcome {member.mention}, we hope you brought some snacks!'
+    ]
     value = random.choice(sentences)
     return value
 
@@ -129,7 +136,13 @@ async def on_member_join(member):
         print(f"An error occured on_member_join {e}")
 
 def memberleave(member):
-    sentences = [f'{member.mention} decided to head out.',f'{member.mention} withered away.',f'{member.mention} disappeared.']
+    sentences = [
+    f'{member.mention} decided to head out.',
+    f'{member.mention} withered away.',
+    f'{member.mention} disappeared.',
+    f'Cya {member.mention} it was a good time.',
+    f'We lost {member.mention}'
+    ]
     value = random.choice(sentences)
     return value
 
