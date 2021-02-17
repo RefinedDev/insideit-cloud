@@ -32,7 +32,7 @@ class config(Cog):
 
 
     @config.command()
-    @commands.cooldown(1,150,commands.BucketType.guild)
+    @commands.cooldown(1,60,commands.BucketType.guild)
     @commands.has_permissions(administrator= True)
     async def WelcomeMessage(self,ctx):
         db = mysql.connector.connect(
@@ -113,7 +113,7 @@ class config(Cog):
 
 
     @config.command()
-    @commands.cooldown(1,150,commands.BucketType.guild)
+    @commands.cooldown(1,60,commands.BucketType.guild)
     @commands.has_permissions(administrator= True)
     async def LeaveMessage(self,ctx):
         db = mysql.connector.connect(
@@ -193,7 +193,7 @@ class config(Cog):
         cursor.close()
 
     @config.command()
-    @commands.cooldown(1,150,commands.BucketType.guild)
+    @commands.cooldown(1,60,commands.BucketType.guild)
     @commands.has_permissions(administrator= True)
     async def WelcomeRole(self,ctx):
         db = mysql.connector.connect(
@@ -273,7 +273,7 @@ class config(Cog):
         cursor.close()
 
     @config.command()
-    @commands.cooldown(1,150,commands.BucketType.guild)
+    @commands.cooldown(1,60,commands.BucketType.guild)
     @commands.has_permissions(administrator= True)
     async def AntiLink(self,ctx):
         db = mysql.connector.connect(
@@ -471,7 +471,7 @@ class config(Cog):
         cursor.close()
 
     @commands.command()
-    @commands.cooldown(1,150,commands.BucketType.guild)
+    @commands.cooldown(1,60,commands.BucketType.guild)
     @commands.has_permissions(administrator = True)
     async def showconfigs(self,ctx):
         try:
