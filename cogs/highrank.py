@@ -207,6 +207,11 @@ class HighRank(Cog):
                 embeddd.add_field(name = "eyo calmdown",value = "The user has a higher role than you.",inline= False)
                 await ctx.send(embed = embeddd,delete_after=5)
                 return
+        elif member.top_role > self.client.user.top_role:
+            embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
+            embeddd.add_field(name = "eyo calmdown",value = "The user has a higher role than me.",inline= False)
+            await ctx.send(embed = embeddd,delete_after=5)
+            return
         else:
             db = mysql.connector.connect(
                 host = "us-cdbr-east-02.cleardb.com",
@@ -248,6 +253,11 @@ class HighRank(Cog):
                 embeddd.add_field(name = "eyo calmdown",value = "The user has a higher role than you.",inline= False)
                 await ctx.send(embed = embeddd,delete_after=5)
                 return
+        elif member.top_role > self.client.user.top_role:
+            embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
+            embeddd.add_field(name = "eyo calmdown",value = "The user has a higher role than me.",inline= False)
+            await ctx.send(embed = embeddd,delete_after=5)
+            return
         else:
             db = mysql.connector.connect(
                 host = "us-cdbr-east-02.cleardb.com",
@@ -384,7 +394,7 @@ class HighRank(Cog):
             embeddd.add_field(name = "Command Example",value = "`peg mute 4289358298 10hr idk cuh`",inline= False)
             await ctx.send(embed = embeddd,delete_after=5)
             return
-            
+
         if user.top_role > ctx.author.top_role:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
             embeddd.add_field(name = "eyo calmdown",value = "The user has a higher role than you.",inline= False)
