@@ -55,11 +55,11 @@ async def on_guild_remove(guild):
     except Exception as e:
         print(f'An Error Occured in on_guild_remove {e}')
 
-@client.event
-async def on_raw_reaction_add(payload):
-    emoji = str(payload.emoji)
-    encode = emoji.encode(encoding = 'utf_7')
-    print(encode)
+# @client.event
+# async def on_raw_reaction_add(payload):
+#     emoji = str(payload.emoji)
+#     encode = emoji.encode(encoding = 'utf_7')
+#     print(encode)
 
 def memberjoin(member):
     sentences = [
