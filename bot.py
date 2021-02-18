@@ -57,7 +57,9 @@ async def on_guild_remove(guild):
 
 @client.event
 async def on_raw_reaction_add(payload):
-    print(str(payload.emoji.encode(encoding = 'utf_7')))
+    emoji = str(payload.emoji)
+    encode = emoji.encode(encoding = 'utf_7')
+    print(encode)
 
 def memberjoin(member):
     sentences = [
