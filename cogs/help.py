@@ -34,10 +34,7 @@ class helpcommand(Cog):
             embed.add_field(name = '⚡ HighRank Commands.',value = "`peg purge (amount): Deletes specific amount of messages.`\n\n`peg announce (channelid) (text): Do an announcement in a channel with a stylish embed.`\n\n`peg slowmode (seconds): Set the channel's slowmode to the specified number.`\n\n`peg warn (userID) (reason): The warn gets noted in their infractions list.`\n\n`peg ban (userID) (reason): The ban gets noted in their infractions list.`\n\n`peg kick (userId) (reason): The kick gets noted in thier infractions list.`\n\n`peg mute (userID) (time) (reason): The mute gets noted in their infractions list.`\n\n`peg unmute (user): Unmute a user.`\n\n`peg inf (userID): List of infractions from a user.`\n\n`peg revoke_inf (infID): Revoke an infraction from a user.`")
             await ctx.send(embed = embed)
         except Exception as e:
-            if str(e) == '403 Forbidden (error code: 50013): Missing Permissions':
-                await ctx.send(f"I do not have enough permissions to send the message, something is stopping me! Please give me permissions no i won't harm your server.\n`{e}`")
-            else:
-                await ctx.send(f'An error occured: {e}')
+            await ctx.send(f'An error occured: {e}')
 
     @help.command()
     async def animals(self,ctx):
@@ -46,10 +43,7 @@ class helpcommand(Cog):
             embed.add_field(name = '🐶 Animal Commands.',value = "`peg dog`,`peg cat`,`peg fox`,`peg panda`,`peg bird`,`peg koala`")
             await ctx.send(embed = embed)
         except Exception as e:
-            if str(e) == '403 Forbidden (error code: 50013): Missing Permissions':
-                await ctx.send(f"I do not have enough permissions to send the message, something is stopping me! Please give me permissions no i won't harm your server.\n`{e}`")
-            else:
-                await ctx.send(f'An error occured: {e}')
+            await ctx.send(f'An error occured: {e}')
 
     @help.command()
     async def meme(self,ctx):
@@ -58,10 +52,7 @@ class helpcommand(Cog):
             embed.add_field(name = '😂 Meme Commands.',value = "`peg meme`,`peg dankmeme`,`peg chan`,`peg AntiJoke`,`peg wholesome`,`peg surreal`,`peg facepalm`,`peg danidev`,`peg fortnite`,`peg discord`")
             await ctx.send(embed = embed)
         except Exception as e:
-            if str(e) == '403 Forbidden (error code: 50013): Missing Permissions':
-                await ctx.send(f"I do not have enough permissions to send the message, something is stopping me! Please give me permissions no i won't harm your server.\n`{e}`")
-            else:
-                await ctx.send(f'An error occured: {e}')
+            await ctx.send(f'An error occured: {e}')
 
     @help.command()
     async def misc(self,ctx):
@@ -70,10 +61,7 @@ class helpcommand(Cog):
             embed.add_field(name = '😏 Miscellaneous Commands.',value = "`peg rps`,`peg rpsLeaderboard`,`peg whois`,`peg ping`,`peg fromBase64`,`peg simpmeter`,`peg av`,`peg 8ball`,`peg robloxsearch`,`peg choose`,`peg twitter`")
             await ctx.send(embed = embed)
         except Exception as e:
-            if str(e) == '403 Forbidden (error code: 50013): Missing Permissions':
-                await ctx.send(f"I do not have enough permissions to send the message, something is stopping me! Please give me permissions no i won't harm your server.\n`{e}`")
-            else:
-                await ctx.send(f'An error occured: {e}')
+            await ctx.send(f'An error occured: {e}')
 
     @help.command(aliases =['image'])
     async def img(self,ctx):
@@ -82,10 +70,7 @@ class helpcommand(Cog):
             embed.add_field(name = '📷 Image Commands.',value = "`peg throw`,`peg slap`,`peg achievement`,`peg youtube`,`peg hoomangood`,`peg blood`,`peg triggered`,`peg wasted`")
             await ctx.send(embed = embed)
         except Exception as e:
-            if str(e) == '403 Forbidden (error code: 50013): Missing Permissions':
-                await ctx.send(f"I do not have enough permissions to send the message, something is stopping me! Please give me permissions no i won't harm your server.\n`{e}`")
-            else:
-                await ctx.send(f'An error occured: {e}')
+            await ctx.send(f'An error occured: {e}')
     @help.command()
     async def info(self,ctx):
         try:
@@ -98,10 +83,7 @@ class helpcommand(Cog):
             embed.add_field(name="Invite The Bot", value="[Link](https://discord.com/api/oauth2/authorize?client_id=795963203804200980&permissions=2147483639&redirect_uri=http%3A%2F%2F127.0.0.1%3A5000%2Fl&scope=bot)")
             await ctx.send(embed = embed)
         except Exception as e:
-            if str(e) == '403 Forbidden (error code: 50013): Missing Permissions':
-                await ctx.send(f"I do not have enough permissions to send the message, something is stopping me! Please give me permissions no i won't harm your server.\n`{e}`")
-            else:
-                await ctx.send(f'An error occured: {e}')
+            await ctx.send(f'An error occured: {e}')
 
 
 def setup(client):
