@@ -188,7 +188,10 @@ async def botping(message):
     if isinstance(message.channel, discord.channel.DMChannel):
         return
     if message.content == '<@!795963203804200980>':
-        await message.channel.send('My prefix is `peg`')
+        try:
+            await message.channel.send('My prefix is `peg`')
+        except Exception as e:
+            print(f'Error in botping: {e}')
 
 @client.listen('on_message')
 async def nolink(message):
