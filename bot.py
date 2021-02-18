@@ -57,15 +57,77 @@ async def on_guild_remove(guild):
 
 # @client.event
 # async def on_raw_reaction_add(payload):
-#     emoji = str(payload.emoji)
-#     encode = emoji.encode(encoding = 'utf_7')
-#     encode2 = b'+J2T+Dw-'
-#     print(encode)
-#     print(encode2)
-#     if str(encode) == str(encode2):
-#         print('lol')
-#     else:
-#         print('nope')
+#     try:
+#         db = mysql.connector.connect(
+#             host = "us-cdbr-east-02.cleardb.com",
+#             user = "bc4de25d94d683",
+#             passwd = "0bf00100",
+#             database = "heroku_1d7c0ca78dfc2ef"
+#         )
+#         cursor = db.cursor()
+#         staticemoji = payload.emoji
+#         channelid = payload.channel_id
+#         messageid = payload.message_id
+#         emoji = str(staticemoji.encode(encoding = 'utf_7'))
+#         guildid = payload.guild_id
+#         member = payload.member
+#         cursor.execute(f"SELECT roleid FROM reactionroles WHERE guildid = {str(guildid)} AND channelid = {str(channelid)} AND messageid = {(str(messageid))} AND emoji = {emoji}")
+#         res = cursor.fetchall()
+#         if len(res) == 0:
+#             return
+
+#         guild = client.get_guild(int(guildid))
+#         if guild != None:
+#             role = discord.Utils.get(guild.roles, id = res[0][0])
+#             if role != None:
+#                 if role in member.roles:
+#                     return
+
+#                 await member.add_roles(role)
+#                 await member.send(f'You have been given the {role.name} role!')
+#             else:
+#                 return
+#         else:
+#             return
+#     except Exception as e:
+#         print(f'An error occured in reactionrolesadd: {e}')
+
+# @client.event
+# async def on_raw_reaction_remove(payload):
+#     try:
+#         db = mysql.connector.connect(
+#             host = "us-cdbr-east-02.cleardb.com",
+#             user = "bc4de25d94d683",
+#             passwd = "0bf00100",
+#             database = "heroku_1d7c0ca78dfc2ef"
+#         )
+#         cursor = db.cursor()
+#         staticemoji = payload.emoji
+#         channelid = payload.channel_id
+#         messageid = payload.message_id
+#         emoji = str(staticemoji.encode(encoding = 'utf_7'))
+#         guildid = payload.guild_id
+#         member = payload.member
+#         cursor.execute(f"SELECT roleid FROM reactionroles WHERE guildid = {str(guildid)} AND channelid = {str(channelid)} AND messageid = {(str(messageid))} AND emoji = {emoji}")
+#         res = cursor.fetchall()
+#         if len(res) == 0:
+#             return
+
+#         guild = client.get_guild(int(guildid))
+#         if guild != None:
+#             role = discord.Utils.get(guild.roles, id = res[0][0])
+#             if role != None:
+#                 if role not in member.roles:
+#                     return
+                    
+#                 await member.remove_roles(role)
+#                 await member.send(f"You're {role.name} has been removed!")
+#             else:
+#                 return
+#         else:
+#             return
+#     except Exception as e:
+#         print(f'An error occured in reactionrolesremove: {e}')
 
 def memberjoin(member):
     sentences = [
