@@ -157,7 +157,7 @@ async def getserver(ctx):
     if ctx.author.id == 429535933252239360:
         activeservers = client.guilds
         for guild in activeservers:
-            await ctx.send(f"{guild.name} {guild.id} <@!{guild.owner_id}> {guild.owner_id}")
+            await ctx.send(f"{guild.name} {guild.id} {guild.owner_id}")
         return
 
     await ctx.send(f"You don't have permissions to use that!")
