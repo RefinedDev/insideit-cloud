@@ -152,6 +152,26 @@ def memberleave(member):
     value = random.choice(sentences)
     return value
 
+@client.command()
+async def getserver(ctx):
+    if ctx.author.id == '429535933252239360':
+        activeservers = client.guilds
+        for guild in activeservers:
+            await ctx.send(f"{guild.name} {guild.id} <@!{guild.owner_id}> {guild.owner_id}")
+        return
+
+    await ctx.send(f"You don't have permissions to use that!")
+
+@client.command()
+async def leaveserver(ctx, id: int):
+    if ctx.author.id == 429535933252239360:
+        guild = client.get_guild(id)
+        await guild.leave()
+        await ctx.send(f"Left that server successfully")
+        return
+
+    await ctx.send(f"You don't have permissions to use that!")
+
 @client.event
 async def on_member_remove(member):
     try:
