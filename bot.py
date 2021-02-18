@@ -89,6 +89,8 @@ async def on_guild_remove(guild):
 #                 return
 #         else:
 #             return
+#       cursor.close()
+#       db.close()
 #     except Exception as e:
 #         print(f'An error occured in reactionrolesadd: {e}')
 
@@ -126,6 +128,7 @@ async def on_guild_remove(guild):
 #                 return
 #         else:
 #             return
+
 #     except Exception as e:
 #         print(f'An error occured in reactionrolesremove: {e}')
 
