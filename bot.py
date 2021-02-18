@@ -59,7 +59,7 @@ async def on_guild_remove(guild):
 async def on_raw_reaction_add(payload):
     emoji = str(payload.emoji)
     encode = emoji.encode(encoding = 'utf_7')
-    e = '♥'
+    e = '❤'
     encode2 = e.encode(encoding = 'utf_7')
     print(encode)
     print(encode2)
