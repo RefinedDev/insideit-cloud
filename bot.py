@@ -61,8 +61,12 @@ async def on_raw_reaction_add(payload):
     encode = emoji.encode(encoding = 'utf_7')
     e = '♥'
     encode2 = e.encode(encoding = 'utf_7')
+    print(encode)
+    print(encode2)
     if str(encode) == str(encode2):
         print('lol')
+    else:
+        print('nope')
 
 def memberjoin(member):
     sentences = [
