@@ -638,8 +638,10 @@ class config(Cog):
 
             if (len(res5) == 0):
                 embed.add_field(name = 'ReactionRoles',value = f'`0 ReactionRoles`',inline= False)
+            elif len(res5 == 1): 
+                embed.add_field(name = 'ReactionRoles',value = f'`1 ReactionRole`',inline= False)
             else:
-                embed.add_field(name = 'ReactionRoles',value = f'{len(res5)} ReactionRoles',inline= False)
+                embed.add_field(name = 'ReactionRoles',value = f'`{len(res5)} ReactionRoles`',inline= False)
                 
             await ctx.send(embed = embed)
             db.close()
