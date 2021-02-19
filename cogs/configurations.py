@@ -558,8 +558,8 @@ class config(Cog):
                         await ctx.send("Din't reply in time noob.")
                         return
                     else:
-                        msg = await channel.fetch_message(int(denymsg2.content))
-                        if msg == None:
+                        msge = await channel.fetch_message(int(denymsg2.content))
+                        if msge == None:
                             await ctx.send('Message not found!')
                             return
                         await ctx.send('Okay, last but not least write the emoji of the reaction role that you want to remove without context.')
@@ -577,8 +577,9 @@ class config(Cog):
                             if len(res) == 0:
                                 await ctx.send(f'Could not find the reaction role with emoji {staticemoji}')
                             else:
+                                print(emoji)
                                 role = discord.utils.get(ctx.guild.roles,id = res[0][0])
-                                cursor.execute(f"DELETE FROM reactionroles guildid = {str(ctx.guild.id)} AND channelid = {str(channel.id)} AND emoji = '{emoji}' AND messageid = {msg.id}")
+                                cursor.execute(f"DELETE FROM reactionroles guildid = {str(ctx.guild.id)} AND channelid = {str(channel.id)} AND emoji = '{emoji}' AND messageid = {msge.id}")
                                 await ctx.send(f'Reaction role which gave users the {role.name} role has been removed!')
                             
             else:
