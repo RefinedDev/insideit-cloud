@@ -547,7 +547,7 @@ class config(Cog):
                     await ctx.send("Din't reply in time noob.")
                     return
                 else:
-                    if str.lower(denymsg) == 'Yes':
+                    if str.lower(denymsg.content) == 'Yes':
                         await ctx.send('Okay, write the `ReactionRoleId`.')
                         try:
                             denymsg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
