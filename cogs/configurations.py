@@ -572,7 +572,9 @@ class config(Cog):
                             staticemoji = denymsg3.content
                             emoji2 = staticemoji.encode(encoding = 'utf_7')
                             emoji = emoji2.decode().split('b')[0]
-                            cursor.execute(f"SELECT roleid FROM reactionroles WHERE guildid = {str(ctx.guild.id)} AND channelid = {str(channel.id)} AND messageid = {str(msg.id)} AND emoji = '{emoji}'")
+                            print(msg.id)
+                            id = str(msg.id)
+                            cursor.execute(f"SELECT roleid FROM reactionroles WHERE guildid = {str(ctx.guild.id)} AND channelid = {str(channel.id)} AND messageid = {id} AND emoji = '{emoji}'")
                             res = cursor.fetchall()
                             if len(res) == 0:
                                 await ctx.send(f'Could not find the reaction role with emoji {staticemoji}')
