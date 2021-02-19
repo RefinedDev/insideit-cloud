@@ -555,12 +555,12 @@ class config(Cog):
                             await ctx.send("Din't reply in time noob.")
                             return
                         else:
-                            cursor.execute(f'SELECT * FROM reactionroles WHERE reactionroleid = {str(denymsg2)}')
+                            cursor.execute(f'SELECT * FROM reactionroles WHERE reactionroleid = {str(denymsg2.content)}')
                             res = cursor.fetchall()
                             if len(res) == 0:
                                 await ctx.send('Reaction role not found')
                             else:
-                                cursor.execute(f'DELETE FROM reactionroles WHERE reactionroleid = {str(denymsg2)}')
+                                cursor.execute(f'DELETE FROM reactionroles WHERE reactionroleid = {str(denymsg2.content)}')
                                 await ctx.send('Reaction role removed!')
                     else:
                         await ctx.send('Oki Bye.')
