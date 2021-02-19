@@ -574,8 +574,8 @@ class config(Cog):
                 else:
                     for i in res:
                         channel = ctx.guild.get_channel(int(i[1]))
-                        role = discord.utils.get(ctx.guild.roles,id = int(i[2]))
-                        msg = await channel.fetch_message(int(i[4]))
+                        role = discord.utils.get(ctx.guild.roles,id = int(i[4]))
+                        msg = await channel.fetch_message(int(i[2]))
                         emoji = f"b'{i[3]}'"
                         print(emoji)
                         realemoji = emoji.encode(encoding = 'utf-8')
