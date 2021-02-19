@@ -470,60 +470,107 @@ class config(Cog):
         db.close()
         cursor.close()
     
-    # @config.command()
-    # @commands.cooldown(1,60,commands.BucketType.guild)
-    # @commands.has_permissions(administrator= True)
-    # async def ReactionRoles(self,ctx):
-    #     db = mysql.connector.connect(
-    #         host = "us-cdbr-east-02.cleardb.com",
-    #         user = "bc4de25d94d683",
-    #         passwd = "0bf00100",
-    #         database = "heroku_1d7c0ca78dfc2ef"
-    #     )
+    @config.command()
+    #@commands.cooldown(1,60,commands.BucketType.guild)
+    @commands.has_permissions(administrator= True)
+    async def ReactionRoles(self,ctx):
+        db = mysql.connector.connect(
+            host = "us-cdbr-east-02.cleardb.com",
+            user = "bc4de25d94d683",
+            passwd = "0bf00100",
+            database = "heroku_1d7c0ca78dfc2ef"
+        )
 
-    #     cursor = db.cursor()
-    #     def check(message):
-    #         return message.author == ctx.author and message.channel == ctx.channel
+        cursor = db.cursor()
+        def check(message):
+            return message.author == ctx.author and message.channel == ctx.channel
 
-    #     await ctx.send('What ya want to configure?\n`add`\n`remove`\n`show`')
-    #     try:
-    #         msg = await self.client.wait_for('message',timeout = 50.0,check = check)
-    #     except asyncio.TimeoutError:
-    #         await ctx.send("Din't reply in time noob.")
-    #         return
-    #     else:
-    #         if msg.content == 'add':
-    #             pass
-    #         elif msg.content == 'remove':
-    #             await ctx.send("Write the `ReactionRoleID` of the reaction role you want to remove\nTo get the `ReactionRoleID`, next time select the `show` option, find the ReactonRole and get it's id then write the `ReactionRoleId` here.\nIf you have the ID then say `Yes` so you can continue otherwise say `No` or anything else random to cancel.")
-    #             try:
-    #                 denymsg = await self.client.wait_for('message',timeout = 50.0,check = check)
-    #             except asyncio.TimeoutError:
-    #                 await ctx.send("Din't reply in time noob.")
-    #                 return
-    #             else:
-    #                 if str.lower(denymsg) == 'Yes':
-    #                     await ctx.send('Okay, write the `ReactionRoleId`.')
-    #                     try:
-    #                         denymsg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
-    #                     except asyncio.TimeoutError:
-    #                         await ctx.send("Din't reply in time noob.")
-    #                         return
-    #                     else:
-    #                         cursor.execute(f'SELECT * FROM reactionroles WHERE reactionroleid = {str(denymsg2)}')
-    #                         res = cursor.fetchall()
-    #                         if len(res) == 0:
-    #                             await ctx.send('Reaction role not found')
-    #                         else:
-    #                             cursor.execute(f'DELETE FROM reactionroles WHERE reactionroleid = {str(denymsg2)}')
-    #                             await ctx.send('Reaction role removed!')
-    #                 else:
-    #                     await ctx.send('Oki Bye.')
-    #         elif msg.content == 'show':
-    #             pass
+        await ctx.send('What ya want to configure?\n`add`\n`remove`\n`show`')
+        try:
+            msg = await self.client.wait_for('message',timeout = 50.0,check = check)
+        except asyncio.TimeoutError:
+            await ctx.send("Din't reply in time noob.")
+            return
+        else:
+            if msg.content == 'add':
+                await ctx.send('Okay, write the channel id where the reaction role will be.')
+                try:
+                    addmsg = await self.client.wait_for('message',timeout = 50.0,check = check)
+                except asyncio.TimeoutError:
+                    await ctx.send("Din't reply in time noob.")
+                    return
+                else:
+                    channel = ctx.guild.get_channel(int(addmsg.content))
+                    if channel == None:
+                        await ctx.send('Channel not found.')
+                        return
+                    await ctx.send('Okay, now write the message id of the reaction role.')
+                    try:
+                        addmsg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
+                    except asyncio.TimeoutError:
+                        await ctx.send("Din't reply in time noob.")
+                        return
+                    else:
+                        msg = await channel.fetch_message(int(addmsg2.content))
+                        if msg == None:
+                            await ctx.send('Message not found!')
+                            return
+                        await ctx.send('Okay, now write the roleid that users will recieve when reacted.')
+                        try:
+                            addmsg3 = await self.client.wait_for('message',timeout = 50.0,check = check)
+                        except asyncio.TimeoutError:
+                            await ctx.send("Din't reply in time noob.")
+                            return
+                        else:
+                            role = discord.utils.get(ctx.guild.roles,id = int(addmsg3.content))
+                            if role == None:
+                                await ctx.send('Role not found!')
+                                return
+                            await ctx.send('Okay, last but not least write the  emoji without any context like\n😀')
+                            try:
+                                addmsg4 = await self.client.wait_for('message',timeout = 50.0,check = check)
+                            except asyncio.TimeoutError:
+                                await ctx.send("Din't reply in time noob.")
+                                return
+                            else: 
+                                emoji = str(addmsg4.content).encode(encoding = 'utf_7')
+                                sql = "INSERT INTO reactionroles (guildid,channelid,messageid,roleid,emoji) VALUES (%s, %s,%s,%s,%s)"
+                                val = (str(ctx.guild.id),channel.id,msg.id,role.id,emoji)
+                                cursor.execute(sql,val)
+                                db.commit()
+                                await ctx.send(f'Reaction role created, users will recieve the `{role.name}` role when reacting to {addmsg4.content}')
+            elif msg.content == 'remove':
+                await ctx.send("Write the `ReactionRoleID` of the reaction role you want to remove\nTo get the `ReactionRoleID`, next time select the `show` option, find the ReactonRole and get it's id then write the `ReactionRoleId` here.\nIf you have the ID then say `Yes` so you can continue otherwise say `No` or anything else random to cancel.")
+                try:
+                    denymsg = await self.client.wait_for('message',timeout = 50.0,check = check)
+                except asyncio.TimeoutError:
+                    await ctx.send("Din't reply in time noob.")
+                    return
+                else:
+                    if str.lower(denymsg) == 'Yes':
+                        await ctx.send('Okay, write the `ReactionRoleId`.')
+                        try:
+                            denymsg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
+                        except asyncio.TimeoutError:
+                            await ctx.send("Din't reply in time noob.")
+                            return
+                        else:
+                            cursor.execute(f'SELECT * FROM reactionroles WHERE reactionroleid = {str(denymsg2)}')
+                            res = cursor.fetchall()
+                            if len(res) == 0:
+                                await ctx.send('Reaction role not found')
+                            else:
+                                cursor.execute(f'DELETE FROM reactionroles WHERE reactionroleid = {str(denymsg2)}')
+                                await ctx.send('Reaction role removed!')
+                    else:
+                        await ctx.send('Oki Bye.')
+            elif msg.content == 'show':
+                await ctx.send("Option doesn't function yet!")
+            else:
+                await ctx.send('Invalid choice')
         
-    #     db.close()
-    #     cursor.close()
+        db.close()
+        cursor.close()
 
     @commands.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
