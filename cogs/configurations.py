@@ -566,7 +566,15 @@ class config(Cog):
                     else:
                         await ctx.send('Oki Bye.')
             elif msg.content == 'show':
-                await ctx.send("Option doesn't function yet!")
+                cursor.execute(f'SELECT * FROM reactionroles WHERE guildid = {ctx.guild.id}')
+                res = cursor.fetchall()
+                print(res)
+                embed = discord.Embed(title = f'Reaction roles in {ctx.guild.name}', color = ctx.author.color)
+                if len(res) == 0:
+                    embed.add_field(name = 'Nope',value = 'No reaction roles in this guild.')
+                else:
+                    for i in res:
+                        pass
             else:
                 await ctx.send('Invalid choice')
         
