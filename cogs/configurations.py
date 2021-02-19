@@ -583,6 +583,7 @@ class config(Cog):
                         realemoji = emoji.encode(encoding = 'utf-8')
                         print(realemoji)
                         embed.add_field(name = f'ReactionRoleId: {i[5]}',value = 'lol')
+                await ctx.send(embed = embed)
             else:
                 await ctx.send('Invalid choice')
         
