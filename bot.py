@@ -79,7 +79,7 @@ async def on_raw_reaction_add(payload):
 
         guild = client.get_guild(int(guildid))
         if guild != None:
-            role = discord.Utils.get(guild.roles, id = res[0][0])
+            role = discord.utils.get(guild.roles, id = res[0][0])
             if role != None:
                 if role in member.roles:
                     return
@@ -119,7 +119,7 @@ async def on_raw_reaction_remove(payload):
 
         guild = client.get_guild(int(guildid))
         if guild != None:
-            role = discord.Utils.get(guild.roles, id = res[0][0])
+            role = discord.utils.get(guild.roles, id = res[0][0])
             if role != None:
                 if role not in member.roles:
                     return
