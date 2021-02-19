@@ -533,7 +533,8 @@ class config(Cog):
                                 await ctx.send("Din't reply in time noob.")
                                 return
                             else: 
-                                emoji = str(addmsg4.content).encode(encoding = 'utf_7')
+                                emoji2 = str(addmsg4.content).encode(encoding = 'utf_7')
+                                emoji = emoji2.decode('utf-8')
                                 sql = "INSERT INTO reactionroles (guildid,channelid,messageid,roleid,emoji) VALUES (%s, %s,%s,%s,%s)"
                                 val = (str(ctx.guild.id),channel.id,msg.id,role.id,emoji)
                                 cursor.execute(sql,val)
