@@ -27,7 +27,7 @@ class config(Cog):
     async def config(self,ctx):
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(title = '⚙ Configurations.',description = 'Use `peg config [nameofconfig]` to configure, you can also use `peg showconfigs` to see what configurations are on or off.',color = ctx.author.color)
-            embed.add_field(name = 'You can configure the following.',value = '`WelcomeMessage`\n`WelcomeRole`\n`LeaveMessage`\n`AntiLink`')
+            embed.add_field(name = 'You can configure the following.',value = '`WelcomeMessage`\n`WelcomeRole`\n`LeaveMessage`\n`AntiLink`\n`ReactionRoles`')
             await ctx.send(embed = embed)
 
 
@@ -610,7 +610,9 @@ class config(Cog):
             res3 = cursor.fetchall()
             cursor.execute("SELECT toggle,discordlink,otherlink from antilink WHERE guildid = " + guildid)  
             res4 = cursor.fetchall()
-
+            cursor.execute("SELECT roleid from reactionroles WHERE guildid = " + guildid)  
+            res5 = cursor.fetchall()
+ 
             embed = discord.Embed()
             if (len(res2) == 0):
                 embed.add_field(name = 'WelcomeMessage',value = '`OFF`')
@@ -633,6 +635,12 @@ class config(Cog):
                  embed.add_field(name = 'AntiLink',value = f'`OFF`',inline= False)
             else:
                 embed.add_field(name = 'AntiLink',value = f'`{res4[0][0]}`\n`NODiscordLink: {res4[0][1]}`\n`NOOtherLinks: {res4[0][2]}`',inline= False)
+
+            if (len(res5) == 0):
+                embed.add_field(name = 'ReactionRoles',value = f'`0 ReactionRoles`',inline= False)
+            else:
+                embed.add_field(name = 'ReactionRoles',value = f'{len(res5)} ReactionRoles',inline= False)
+                
             await ctx.send(embed = embed)
             db.close()
             cursor.close()
