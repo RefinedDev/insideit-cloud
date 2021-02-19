@@ -121,7 +121,7 @@ async def on_raw_reaction_remove(payload):
         if guild != None:
             role = discord.utils.get(guild.roles, id = res[0][0])
             if role != None:
-                if role not in member.roles:
+                if not role in member.roles:
                     return
                     
                 await member.remove_roles(role)
