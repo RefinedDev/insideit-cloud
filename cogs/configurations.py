@@ -561,6 +561,7 @@ class config(Cog):
                                 await ctx.send('Reaction role not found')
                             else:
                                 cursor.execute(f'DELETE FROM reactionroles WHERE reactionroleid = {str(denymsg2.content)}')
+                                db.commit()
                                 await ctx.send('Reaction role removed!')
                     else:
                         await ctx.send('Oki Bye.')
