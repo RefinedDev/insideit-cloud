@@ -492,7 +492,7 @@ class config(Cog):
             await ctx.send("Din't reply in time noob.")
             return
         else:
-            if msg.content == 'add':
+            if str.lower(msg.content) == 'add':
                 await ctx.send('Okay, write the channel id where the reaction role will be.')
                 try:
                     addmsg = await self.client.wait_for('message',timeout = 50.0,check = check)
@@ -539,7 +539,7 @@ class config(Cog):
                                 cursor.execute(sql,val)
                                 db.commit()
                                 await ctx.send(f'Reaction role created, users will recieve the `{role.name}` role when reacting to {addmsg4.content}')
-            elif msg.content == 'remove':
+            elif str.lower(msg.content) == 'remove':
                 await ctx.send("Write the `ReactionRoleID` of the reaction role you want to remove\n**To get the `ReactionRoleID`, next time select the `show` option, find the ReactonRole and get it's id then write the `ReactionRoleId` here.**\nIf you have the ID then say `Yes` so you can continue otherwise say `No` or anything else random to cancel.")
                 try:
                     denymsg = await self.client.wait_for('message',timeout = 50.0,check = check)
@@ -565,7 +565,7 @@ class config(Cog):
                                 await ctx.send('Reaction role removed!')
                     else:
                         await ctx.send('Oki Bye.')
-            elif msg.content == 'show':
+            elif str.lower(msg.content) == 'show':
                 cursor.execute(f'SELECT * FROM reactionroles WHERE guildid = {ctx.guild.id}')
                 res = cursor.fetchall()
                 embed = discord.Embed(title = f'Reaction roles in {ctx.guild.name}', color = ctx.author.color)
@@ -575,8 +575,6 @@ class config(Cog):
                     for i in res:
                         channel = ctx.guild.get_channel(int(i[1]))
                         role = discord.utils.get(ctx.guild.roles,id = int(i[2]))
-                        if channel or role == None:
-                            return
                         msg = await channel.fetch_message(int(i[4]))
                         emoji = f"b'{i[3]}'"
                         print(emoji)
