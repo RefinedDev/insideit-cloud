@@ -65,10 +65,10 @@ async def on_raw_reaction_add(payload):
             database = "heroku_1d7c0ca78dfc2ef"
         )
         cursor = db.cursor()
-        staticemoji = payload.emoji
+        staticemoji = str(payload.emoji)
         channelid = payload.channel_id
         messageid = payload.message_id
-        emoji = str(staticemoji.encode(encoding = 'utf_7'))
+        emoji = staticemoji.encode(encoding = 'utf_7')
         guildid = payload.guild_id
         member = payload.member
         cursor.execute(f"SELECT roleid FROM reactionroles WHERE guildid = {str(guildid)} AND channelid = {str(channelid)} AND messageid = {(str(messageid))} AND emoji = {emoji}")
@@ -104,10 +104,10 @@ async def on_raw_reaction_remove(payload):
             database = "heroku_1d7c0ca78dfc2ef"
         )
         cursor = db.cursor()
-        staticemoji = payload.emoji
+        staticemoji = str(payload.emoji)
         channelid = payload.channel_id
         messageid = payload.message_id
-        emoji = str(staticemoji.encode(encoding = 'utf_7'))
+        emoji = staticemoji.encode(encoding = 'utf_7')
         guildid = payload.guild_id
         member = payload.member
         cursor.execute(f"SELECT roleid FROM reactionroles WHERE guildid = {str(guildid)} AND channelid = {str(channelid)} AND messageid = {(str(messageid))} AND emoji = {emoji}")
