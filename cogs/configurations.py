@@ -540,7 +540,47 @@ class config(Cog):
                                 db.commit()
                                 await ctx.send(f'Reaction role created, users will recieve the `{role.name}` role when reacting to {addmsg4.content}')
             elif str.lower(msg.content) == 'remove':
-                pass
+                await ctx.send('Okay, write the channel id where the reaction role is.')
+                try:
+                    denymsg = await self.client.wait_for('message',timeout = 50.0,check = check)
+                except asyncio.TimeoutError:
+                    await ctx.send("Din't reply in time noob.")
+                    return
+                else:
+                    channel = ctx.guild.get_channel(int(denymsg.content))
+                    if channel == None:
+                        await ctx.send('Channel not found.')
+                        return
+                    await ctx.send('Okay, now write the message id where the reaction role is.')
+                    try:
+                        denymsg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
+                    except asyncio.TimeoutError:
+                        await ctx.send("Din't reply in time noob.")
+                        return
+                    else:
+                        msg = await channel.fetch_message(int(denymsg2.content))
+                        if msg == None:
+                            await ctx.send('Message not found!')
+                            return
+                        await ctx.send('Okay, last but not least write the emoji of the reaction role that you want to remove without context.')
+                        try:
+                            denymsg3 = await self.client.wait_for('message',timeout = 50.0,check = check)
+                        except asyncio.TimeoutError:
+                            await ctx.send("Din't reply in time noob.")
+                            return
+                        else:
+                            staticemoji = denymsg3.content
+                            emoji2 = staticemoji.encode(encoding = 'utf_7')
+                            emoji = emoji2.decode().split('b')[0]
+                            cursor.execute(f"SELECT roleid FROM reactionroles WHERE guildid = {str(ctx.guild.id)} AND channelid = {str(channel.id)} AND messageid = {(str(msg.id))} AND emoji = '{emoji}'")
+                            res = cursor.fetchall()
+                            if len(res) == 0:
+                                await ctx.send(f'Could not find the reaction role with emoji {staticemoji}')
+                            else:
+                                role = discord.utils.get(ctx.guild.roles,id = res[0][0])
+                                cursor.execute(f"DELETE FROM reactionroles guildid = {str(ctx.guild.id)} AND channelid = {str(channel.id)} AND messageid = {(str(msg.id))} AND emoji = '{emoji}'")
+                                await ctx.send(f'Reaction role which gave users the {role.name} role has been removed!')
+                            
             else:
                 await ctx.send('Invalid choice')
         

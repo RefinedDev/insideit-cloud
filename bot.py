@@ -85,7 +85,7 @@ async def on_raw_reaction_add(payload):
                     return
 
                 await member.add_roles(role)
-                await member.send(f'You have been given the {role.name} role!')
+                await member.send(f'You have been given the `{role.name}` role!')
             else:
                 return
         else:
@@ -126,7 +126,7 @@ async def on_raw_reaction_remove(payload):
                     return
                     
                 await member.remove_roles(role)
-                await member.send(f"You're {role.name} has been removed!")
+                await member.send(f"You're `{role.name}` role has been removed!")
             else:
                 return
         else:
