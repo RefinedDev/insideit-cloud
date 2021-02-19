@@ -571,17 +571,15 @@ class config(Cog):
                         else:
                             staticemoji = denymsg3.content
                             emoji2 = staticemoji.encode(encoding = 'utf_7')
-                            emoji = emoji2.decode().split(emoji2[:1])[0]
-                            print(emoji2)
-                            print(emoji)
-                            # cursor.execute(f"SELECT roleid FROM reactionroles WHERE guildid = {str(ctx.guild.id)} AND channelid = {str(channel.id)} AND emoji = '{emoji}' AND messageid = {msg.id}")
-                            # res = cursor.fetchall()
-                            # if len(res) == 0:
-                            #     await ctx.send(f'Could not find the reaction role with emoji {staticemoji}')
-                            # else:
-                            #     role = discord.utils.get(ctx.guild.roles,id = res[0][0])
-                            #     cursor.execute(f"DELETE FROM reactionroles guildid = {str(ctx.guild.id)} AND channelid = {str(channel.id)} AND emoji = '{emoji}' AND messageid = {msg.id}")
-                            #     await ctx.send(f'Reaction role which gave users the {role.name} role has been removed!')
+                            emoji = emoji2.decode().split('b')[0]
+                            cursor.execute(f"SELECT roleid FROM reactionroles WHERE guildid = {str(ctx.guild.id)} AND channelid = {str(channel.id)} AND emoji = '{emoji}' AND messageid = {msg.id}")
+                            res = cursor.fetchall()
+                            if len(res) == 0:
+                                await ctx.send(f'Could not find the reaction role with emoji {staticemoji}')
+                            else:
+                                role = discord.utils.get(ctx.guild.roles,id = res[0][0])
+                                cursor.execute(f"DELETE FROM reactionroles guildid = {str(ctx.guild.id)} AND channelid = {str(channel.id)} AND emoji = '{emoji}' AND messageid = {msg.id}")
+                                await ctx.send(f'Reaction role which gave users the {role.name} role has been removed!')
                             
             else:
                 await ctx.send('Invalid choice')
