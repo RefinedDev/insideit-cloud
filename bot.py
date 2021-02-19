@@ -108,7 +108,7 @@ async def on_raw_reaction_remove(payload):
         channelid = payload.channel_id
         messageid = payload.message_id
         emoji = staticemoji.encode(encoding = 'utf_7')
-        emoji2 = emoji.split('b')
+        emoji2 = emoji.decode().split('b')
         print(emoji2)
         # guildid = payload.guild_id
         # member = payload.member
