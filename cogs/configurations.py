@@ -574,7 +574,7 @@ class config(Cog):
                     embed.add_field(name = 'Nope',value = 'No reaction roles in this guild.')
                 else:
                     for i in res:
-                        channel = await ctx.guild.fetch_channel(int(i[1]))
+                        channel = ctx.guild.get_channel(int(i[1]))
                         role = discord.utils.get(ctx.guild.roles,id = int(i[2]))
                         if channel or role == None:
                             return
