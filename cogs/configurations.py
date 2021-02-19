@@ -572,13 +572,13 @@ class config(Cog):
                             staticemoji = denymsg3.content
                             emoji2 = staticemoji.encode(encoding = 'utf_7')
                             emoji = emoji2.decode('utf-8')
-                            cursor.execute(f"SELECT roleid FROM reactionroles WHERE guildid = {ctx.guild.id} AND emoji = '{emoji}' AND messageid = {int(denymsg2.content)}")
+                            cursor.execute(f"SELECT roleid FROM reactionroles WHERE guildid = {str(ctx.guild.id)} AND channelid = {str(channel.id)} AND emoji = '{emoji}' AND messageid = {denymsg2.content}")
                             res = cursor.fetchall()
                             if len(res) == 0:
                                 await ctx.send(f'Could not find the reaction role with emoji {staticemoji}')
                             else:
                                 role = discord.utils.get(ctx.guild.roles,id = res[0][0])
-                                cursor.execute(f"DELETE FROM reactionroles guildid = {ctx.guild.id} AND emoji = '{emoji}' AND messageid = {int(denymsg2.content)}")
+                                cursor.execute(f"DELETE FROM reactionroles WHERE guildid = {str(ctx.guild.id)} AND channelid = {str(channel.id)} AND emoji = '{emoji}' AND messageid = {denymsg2.content}")
                                 await ctx.send(f'Reaction role which gave users the {role.name} role has been removed!')
                             
             else:
