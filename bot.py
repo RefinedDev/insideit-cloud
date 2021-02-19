@@ -109,7 +109,7 @@ async def on_raw_reaction_remove(payload):
         channelid = payload.channel_id
         messageid = payload.message_id
         emoji2 = staticemoji.encode(encoding = 'utf_7')
-        emoji = emoji2.decode().split('b')[0]
+        emoji = emoji2.decode('utf-8')
         guildid = payload.guild_id
         #member = payload.member
         cursor.execute(f"SELECT roleid FROM reactionroles WHERE guildid = {str(guildid)} AND channelid = {str(channelid)} AND messageid = {(str(messageid))} AND emoji = '{emoji}'")

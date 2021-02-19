@@ -571,7 +571,7 @@ class config(Cog):
                         else:
                             staticemoji = denymsg3.content
                             emoji2 = staticemoji.encode(encoding = 'utf_7')
-                            emoji = emoji2.decode().split('b')[0]
+                            emoji = emoji2.decode('utf-8')
                             cursor.execute(f"SELECT roleid FROM reactionroles WHERE guildid = {str(ctx.guild.id)} AND channelid = {str(channel.id)} AND emoji = '{emoji}' AND messageid = {msg.id}")
                             res = cursor.fetchall()
                             if len(res) == 0:
