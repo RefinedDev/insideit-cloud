@@ -579,6 +579,7 @@ class config(Cog):
                             else:
                                 role = discord.utils.get(ctx.guild.roles,id = res[0][0])
                                 cursor.execute(f"DELETE FROM reactionroles WHERE guildid = {str(ctx.guild.id)} AND channelid = {str(channel.id)} AND emoji = '{emoji}' AND messageid = {denymsg2.content}")
+                                db.commit()
                                 await ctx.send(f'Reaction role which gave users the {role.name} role has been removed!')
                             
             else:
