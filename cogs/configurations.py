@@ -540,14 +540,14 @@ class config(Cog):
                                 db.commit()
                                 await ctx.send(f'Reaction role created, users will recieve the `{role.name}` role when reacting to {addmsg4.content}')
             elif msg.content == 'remove':
-                await ctx.send("Write the `ReactionRoleID` of the reaction role you want to remove\nTo get the `ReactionRoleID`, next time select the `show` option, find the ReactonRole and get it's id then write the `ReactionRoleId` here.\nIf you have the ID then say `Yes` so you can continue otherwise say `No` or anything else random to cancel.")
+                await ctx.send("Write the `ReactionRoleID` of the reaction role you want to remove\n**To get the `ReactionRoleID`, next time select the `show` option, find the ReactonRole and get it's id then write the `ReactionRoleId` here.**\nIf you have the ID then say `Yes` so you can continue otherwise say `No` or anything else random to cancel.")
                 try:
                     denymsg = await self.client.wait_for('message',timeout = 50.0,check = check)
                 except asyncio.TimeoutError:
                     await ctx.send("Din't reply in time noob.")
                     return
                 else:
-                    if str.lower(denymsg.content) == 'Yes':
+                    if str.lower(denymsg.content) == 'yes':
                         await ctx.send('Okay, write the `ReactionRoleId`.')
                         try:
                             denymsg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
