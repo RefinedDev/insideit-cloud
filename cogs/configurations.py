@@ -574,7 +574,15 @@ class config(Cog):
                     embed.add_field(name = 'Nope',value = 'No reaction roles in this guild.')
                 else:
                     for i in res:
-                        pass
+                        channel = await ctx.guild.fetch_channel(int(i[1]))
+                        role = discord.utils.get(ctx.guild.roles,id = int(i[2]))
+                        if channel or role == None:
+                            return
+                        msg = await channel.fetch_message(int(i[4]))
+                        emoji = f"b'{i[3]}'"
+                        realemoji = emoji.encode(encoding = 'utf-8')
+                        print(realemoji)
+                        embed.add_field(name = f'ReactionRoleId: {i[5]}',value = 'lol')
             else:
                 await ctx.send('Invalid choice')
         
