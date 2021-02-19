@@ -568,7 +568,6 @@ class config(Cog):
             elif msg.content == 'show':
                 cursor.execute(f'SELECT * FROM reactionroles WHERE guildid = {ctx.guild.id}')
                 res = cursor.fetchall()
-                print(res)
                 embed = discord.Embed(title = f'Reaction roles in {ctx.guild.name}', color = ctx.author.color)
                 if len(res) == 0:
                     embed.add_field(name = 'Nope',value = 'No reaction roles in this guild.')
@@ -580,6 +579,7 @@ class config(Cog):
                             return
                         msg = await channel.fetch_message(int(i[4]))
                         emoji = f"b'{i[3]}'"
+                        print(emoji)
                         realemoji = emoji.encode(encoding = 'utf-8')
                         print(realemoji)
                         embed.add_field(name = f'ReactionRoleId: {i[5]}',value = 'lol')
