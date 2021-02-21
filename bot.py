@@ -5,16 +5,6 @@ from datetime import datetime
 import mysql.connector
 import asyncio
 import random
-import firebase_admin
-from firebase_admin import db
-from firebase_admin import credentials
-
-cred = credentials.Certificate("serviceAccountKey.json")
-
-firebase_admin.initialize_app(cred, {
-'databaseURL': 'https://insideitdatabase-default-rtdb.firebaseio.com/reactionroles',
-'name': 'other'
-})
 
 intents = discord.Intents.all()
 client = commands.Bot(command_prefix='peg ',intents = intents)
@@ -65,61 +55,6 @@ async def on_guild_remove(guild):
     except Exception as e:
         print(f'An Error Occured in on_guild_remove {e}')
 
-@client.event
-async def on_raw_reaction_add(payload):
-    try:
-        ref = db.reference('/reactionroles')
-        staticemoji = str(payload.emoji)
-        emoji2 = staticemoji.encode(encoding = 'utf_7')
-        emoji = emoji2.decode('utf-8')
-        guildid = payload.guild_id
-        member = payload.member
-        e = ref.get()
-        if f'{str(emoji)}{str(guildid)}' in e:
-            roleid = e[f'{str(emoji)}{str(guildid)}']['roleid']
-            guild = client.get_guild(int(guildid))
-            if guild != None:
-                role = discord.utils.get(guild.roles, id =  roleid)
-                if role != None:
-                    if role in member.roles:
-                        return
-
-                    await member.add_roles(role)
-                    await member.send(f'You have been given the `{role.name}` role!')
-                else:
-                    return
-            else:
-                return
-    except Exception as e:
-        print(f'An error occured in reactionrolesadd: {e}')
-
-@client.event
-async def on_raw_reaction_remove(payload):
-    try:
-        ref = db.reference('/reactionroles')
-        staticemoji = str(payload.emoji)
-        emoji2 = staticemoji.encode(encoding = 'utf_7')
-        emoji = emoji2.decode('utf-8')
-        guildid = payload.guild_id
-        member = payload.member
-        e = ref.get()
-        if f'{str(emoji)}{str(guildid)}' in e:
-            roleid = e[f'{str(emoji)}{str(guildid)}']['roleid']
-            guild = client.get_guild(int(guildid))
-            if guild != None:
-                role = discord.utils.get(guild.roles, id =  roleid)
-                if role != None:
-                    if not role in member.roles:
-                        return
-
-                    await member.remove_roles(role)
-                    await member.send(f"You're `{role.name}` role has been removed!")
-                else:
-                    return
-            else:
-                return
-    except Exception as e:
-        print(f'An error occured in reactionrolesremove: {e}')
 
 def memberjoin(member):
     sentences = [
