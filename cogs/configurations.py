@@ -482,6 +482,10 @@ class config(Cog):
     #@commands.cooldown(1,60,commands.BucketType.guild)
     @commands.has_permissions(administrator= True)
     async def ReactionRoles(self,ctx):
+        if not ctx.author.id == 429535933252239360:
+            await ctx.send('This configuration is in maintainence, please try again later.')
+            return
+            
         def check(message):
             return message.author == ctx.author and message.channel == ctx.channel
 
