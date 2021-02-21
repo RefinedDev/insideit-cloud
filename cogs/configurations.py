@@ -667,7 +667,7 @@ class config(Cog):
                 print(roleid)
                 guild = self.client.get_guild(int(guildid))
                 if guild != None:
-                    role = discord.utils.get(guild.roles, id =  roleid)
+                    role = discord.utils.get(guild.roles, id =  int(roleid))
                     if role != None:
                         if role in member.roles:
                             return
@@ -675,10 +675,8 @@ class config(Cog):
                         await member.add_roles(role)
                         await member.send(f'You have been given the `{role.name}` role!')
                     else:
-                        print('rolenone')
                         return
                 else:
-                    print('guildnone')
                     return
         except Exception as e:
             print(f'An error occured in reactionrolesadd: {e}')
@@ -697,7 +695,7 @@ class config(Cog):
                 roleid = e[f'{str(emoji)}{str(guildid)}']['roleid']
                 guild = self.client.get_guild(int(guildid))
                 if guild != None:
-                    role = discord.utils.get(guild.roles, id =  roleid)
+                    role = discord.utils.get(guild.roles, id =  int(roleid))
                     if role != None:
                         if not role in member.roles:
                             return
