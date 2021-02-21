@@ -474,120 +474,122 @@ class config(Cog):
     #@commands.cooldown(1,60,commands.BucketType.guild)
     @commands.has_permissions(administrator= True)
     async def ReactionRoles(self,ctx):
-        db = mysql.connector.connect(
-            host = "us-cdbr-east-02.cleardb.com",
-            user = "bc4de25d94d683",
-            passwd = "0bf00100",
-            database = "heroku_1d7c0ca78dfc2ef"
-        )
+        await ctx.send('This configuration is in maintainence, please try again later.')
+        return
+        # db = mysql.connector.connect(
+        #     host = "us-cdbr-east-02.cleardb.com",
+        #     user = "bc4de25d94d683",
+        #     passwd = "0bf00100",
+        #     database = "heroku_1d7c0ca78dfc2ef"
+        # )
 
-        cursor = db.cursor()
-        def check(message):
-            return message.author == ctx.author and message.channel == ctx.channel
+        # cursor = db.cursor()
+        # def check(message):
+        #     return message.author == ctx.author and message.channel == ctx.channel
 
-        await ctx.send('What ya want to configure?\n`add`\n`remove`')
-        try:
-            msg = await self.client.wait_for('message',timeout = 50.0,check = check)
-        except asyncio.TimeoutError:
-            await ctx.send("Din't reply in time noob.")
-            return
-        else:
-            if str.lower(msg.content) == 'add':
-                await ctx.send('Okay, write the channel id where the reaction role will be.')
-                try:
-                    addmsg = await self.client.wait_for('message',timeout = 50.0,check = check)
-                except asyncio.TimeoutError:
-                    await ctx.send("Din't reply in time noob.")
-                    return
-                else:
-                    channel = ctx.guild.get_channel(int(addmsg.content))
-                    if channel == None:
-                        await ctx.send('Channel not found.')
-                        return
-                    await ctx.send('Okay, now write the message id of the reaction role.')
-                    try:
-                        addmsg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
-                    except asyncio.TimeoutError:
-                        await ctx.send("Din't reply in time noob.")
-                        return
-                    else:
-                        msg = await channel.fetch_message(int(addmsg2.content))
-                        if msg == None:
-                            await ctx.send('Message not found!')
-                            return
-                        await ctx.send('Okay, now write the roleid that users will recieve when reacted.')
-                        try:
-                            addmsg3 = await self.client.wait_for('message',timeout = 50.0,check = check)
-                        except asyncio.TimeoutError:
-                            await ctx.send("Din't reply in time noob.")
-                            return
-                        else:
-                            role = discord.utils.get(ctx.guild.roles,id = int(addmsg3.content))
-                            if role == None:
-                                await ctx.send('Role not found!')
-                                return
-                            await ctx.send('Okay, last but not least write the  emoji without any context like\n😀')
-                            try:
-                                addmsg4 = await self.client.wait_for('message',timeout = 50.0,check = check)
-                            except asyncio.TimeoutError:
-                                await ctx.send("Din't reply in time noob.")
-                                return
-                            else: 
-                                emoji2 = str(addmsg4.content).encode(encoding = 'utf_7')
-                                emoji = emoji2.decode('utf-8')
-                                sql = "INSERT INTO reactionroles (guildid,channelid,messageid,roleid,emoji) VALUES (%s, %s,%s,%s,%s)"
-                                val = (str(ctx.guild.id),channel.id,msg.id,role.id,emoji)
-                                cursor.execute(sql,val)
-                                db.commit()
-                                await ctx.send(f'Reaction role created, users will recieve the `{role.name}` role when reacting to {addmsg4.content}')
-            elif str.lower(msg.content) == 'remove':
-                await ctx.send('Okay, write the channel id where the reaction role is.')
-                try:
-                    denymsg = await self.client.wait_for('message',timeout = 50.0,check = check)
-                except asyncio.TimeoutError:
-                    await ctx.send("Din't reply in time noob.")
-                    return
-                else:
-                    channel = ctx.guild.get_channel(int(denymsg.content))
-                    if channel == None:
-                        await ctx.send('Channel not found.')
-                        return
-                    await ctx.send('Okay, now write the message id where the reaction role is.')
-                    try:
-                        denymsg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
-                    except asyncio.TimeoutError:
-                        await ctx.send("Din't reply in time noob.")
-                        return
-                    else:
-                        msge = await channel.fetch_message(int(denymsg2.content))
-                        if msge == None:
-                            await ctx.send('Message not found!')
-                            return
-                        await ctx.send('Okay, last but not least write the emoji of the reaction role that you want to remove without context.')
-                        try:
-                            denymsg3 = await self.client.wait_for('message',timeout = 50.0,check = check)
-                        except asyncio.TimeoutError:
-                            await ctx.send("Din't reply in time noob.")
-                            return
-                        else:
-                            staticemoji = denymsg3.content
-                            emoji2 = staticemoji.encode(encoding = 'utf_7')
-                            emoji = emoji2.decode('utf-8')
-                            cursor.execute(f"SELECT roleid FROM reactionroles WHERE guildid = {str(ctx.guild.id)} AND channelid = {str(channel.id)} AND emoji = '{emoji}' AND messageid = {denymsg2.content}")
-                            res = cursor.fetchall()
-                            if len(res) == 0:
-                                await ctx.send(f'Could not find the reaction role with emoji {staticemoji}')
-                            else:
-                                role = discord.utils.get(ctx.guild.roles,id = res[0][0])
-                                cursor.execute(f"DELETE FROM reactionroles WHERE guildid = {str(ctx.guild.id)} AND channelid = {str(channel.id)} AND emoji = '{emoji}' AND messageid = {denymsg2.content}")
-                                db.commit()
-                                await ctx.send(f'Reaction role which gave users the {role.name} role has been removed!')
+        # await ctx.send('What ya want to configure?\n`add`\n`remove`')
+        # try:
+        #     msg = await self.client.wait_for('message',timeout = 50.0,check = check)
+        # except asyncio.TimeoutError:
+        #     await ctx.send("Din't reply in time noob.")
+        #     return
+        # else:
+        #     if str.lower(msg.content) == 'add':
+        #         await ctx.send('Okay, write the channel id where the reaction role will be.')
+        #         try:
+        #             addmsg = await self.client.wait_for('message',timeout = 50.0,check = check)
+        #         except asyncio.TimeoutError:
+        #             await ctx.send("Din't reply in time noob.")
+        #             return
+        #         else:
+        #             channel = ctx.guild.get_channel(int(addmsg.content))
+        #             if channel == None:
+        #                 await ctx.send('Channel not found.')
+        #                 return
+        #             await ctx.send('Okay, now write the message id of the reaction role.')
+        #             try:
+        #                 addmsg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
+        #             except asyncio.TimeoutError:
+        #                 await ctx.send("Din't reply in time noob.")
+        #                 return
+        #             else:
+        #                 msg = await channel.fetch_message(int(addmsg2.content))
+        #                 if msg == None:
+        #                     await ctx.send('Message not found!')
+        #                     return
+        #                 await ctx.send('Okay, now write the roleid that users will recieve when reacted.')
+        #                 try:
+        #                     addmsg3 = await self.client.wait_for('message',timeout = 50.0,check = check)
+        #                 except asyncio.TimeoutError:
+        #                     await ctx.send("Din't reply in time noob.")
+        #                     return
+        #                 else:
+        #                     role = discord.utils.get(ctx.guild.roles,id = int(addmsg3.content))
+        #                     if role == None:
+        #                         await ctx.send('Role not found!')
+        #                         return
+        #                     await ctx.send('Okay, last but not least write the  emoji without any context like\n😀')
+        #                     try:
+        #                         addmsg4 = await self.client.wait_for('message',timeout = 50.0,check = check)
+        #                     except asyncio.TimeoutError:
+        #                         await ctx.send("Din't reply in time noob.")
+        #                         return
+        #                     else: 
+        #                         emoji2 = str(addmsg4.content).encode(encoding = 'utf_7')
+        #                         emoji = emoji2.decode('utf-8')
+        #                         sql = "INSERT INTO reactionroles (guildid,channelid,messageid,roleid,emoji) VALUES (%s, %s,%s,%s,%s)"
+        #                         val = (str(ctx.guild.id),channel.id,msg.id,role.id,emoji)
+        #                         cursor.execute(sql,val)
+        #                         db.commit()
+        #                         await ctx.send(f'Reaction role created, users will recieve the `{role.name}` role when reacting to {addmsg4.content}')
+        #     elif str.lower(msg.content) == 'remove':
+        #         await ctx.send('Okay, write the channel id where the reaction role is.')
+        #         try:
+        #             denymsg = await self.client.wait_for('message',timeout = 50.0,check = check)
+        #         except asyncio.TimeoutError:
+        #             await ctx.send("Din't reply in time noob.")
+        #             return
+        #         else:
+        #             channel = ctx.guild.get_channel(int(denymsg.content))
+        #             if channel == None:
+        #                 await ctx.send('Channel not found.')
+        #                 return
+        #             await ctx.send('Okay, now write the message id where the reaction role is.')
+        #             try:
+        #                 denymsg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
+        #             except asyncio.TimeoutError:
+        #                 await ctx.send("Din't reply in time noob.")
+        #                 return
+        #             else:
+        #                 msge = await channel.fetch_message(int(denymsg2.content))
+        #                 if msge == None:
+        #                     await ctx.send('Message not found!')
+        #                     return
+        #                 await ctx.send('Okay, last but not least write the emoji of the reaction role that you want to remove without context.')
+        #                 try:
+        #                     denymsg3 = await self.client.wait_for('message',timeout = 50.0,check = check)
+        #                 except asyncio.TimeoutError:
+        #                     await ctx.send("Din't reply in time noob.")
+        #                     return
+        #                 else:
+        #                     staticemoji = denymsg3.content
+        #                     emoji2 = staticemoji.encode(encoding = 'utf_7')
+        #                     emoji = emoji2.decode('utf-8')
+        #                     cursor.execute(f"SELECT roleid FROM reactionroles WHERE guildid = {str(ctx.guild.id)} AND channelid = {str(channel.id)} AND emoji = '{emoji}' AND messageid = {denymsg2.content}")
+        #                     res = cursor.fetchall()
+        #                     if len(res) == 0:
+        #                         await ctx.send(f'Could not find the reaction role with emoji {staticemoji}')
+        #                     else:
+        #                         role = discord.utils.get(ctx.guild.roles,id = res[0][0])
+        #                         cursor.execute(f"DELETE FROM reactionroles WHERE guildid = {str(ctx.guild.id)} AND channelid = {str(channel.id)} AND emoji = '{emoji}' AND messageid = {denymsg2.content}")
+        #                         db.commit()
+        #                         await ctx.send(f'Reaction role which gave users the {role.name} role has been removed!')
                             
-            else:
-                await ctx.send('Invalid choice')
+        #     else:
+        #         await ctx.send('Invalid choice')
         
-        db.close()
-        cursor.close()
+        # db.close()
+        # cursor.close()
 
     @commands.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
@@ -611,8 +613,8 @@ class config(Cog):
             res3 = cursor.fetchall()
             cursor.execute("SELECT toggle,discordlink,otherlink from antilink WHERE guildid = " + guildid)  
             res4 = cursor.fetchall()
-            cursor.execute("SELECT roleid from reactionroles WHERE guildid = " + guildid)  
-            res5 = cursor.fetchall()
+            # cursor.execute("SELECT roleid from reactionroles WHERE guildid = " + guildid)  
+            # res5 = cursor.fetchall()
  
             embed = discord.Embed()
             if (len(res2) == 0):
@@ -637,12 +639,12 @@ class config(Cog):
             else:
                 embed.add_field(name = 'AntiLink',value = f'`{res4[0][0]}`\n`NODiscordLink: {res4[0][1]}`\n`NOOtherLinks: {res4[0][2]}`',inline= False)
 
-            if (len(res5) == 0):
-                embed.add_field(name = 'ReactionRoles',value = f'`0 ReactionRoles`',inline= False)
-            elif (len(res5) == 1): 
-                embed.add_field(name = 'ReactionRoles',value = f'`1 ReactionRole`',inline= False)
-            else:
-                embed.add_field(name = 'ReactionRoles',value = f'`{len(res5)} ReactionRoles`',inline= False)
+            # if (len(res5) == 0):
+            #     embed.add_field(name = 'ReactionRoles',value = f'`0 ReactionRoles`',inline= False)
+            # elif (len(res5) == 1): 
+            #     embed.add_field(name = 'ReactionRoles',value = f'`1 ReactionRole`',inline= False)
+            # else:
+            #     embed.add_field(name = 'ReactionRoles',value = f'`{len(res5)} ReactionRoles`',inline= False)
                 
             await ctx.send(embed = embed)
             db.close()
