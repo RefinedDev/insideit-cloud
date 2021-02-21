@@ -546,7 +546,7 @@ class config(Cog):
                                     'messageid': '{}'.format(msg.id)
                                 }
                                 ref = db.reference('/reactionroles')
-                                ref.child(f'{str(emoji)}{str(ctx.guild.id)}').set(reactionset)
+                                ref.child(f'{str(emoji)}{str(ctx.guild.id)}{str(channel.id)}{str(msg.id)}').set(reactionset)
                                 await ctx.send(f'Reaction role created, users will recieve the `{role.name}` role when reacting to {addmsg4.content}')
             elif str.lower(msg.content) == 'remove':
                 await ctx.send('Okay, write the channel id where the reaction role is.')
@@ -583,8 +583,8 @@ class config(Cog):
                             emoji = emoji2.decode('utf-8')
                             ref = db.reference('/reactionroles')
                             e = ref.get()
-                            if f'{str(emoji)}{str(ctx.guild.id)}' in e:
-                                ref.child(f'{str(emoji)}{str(ctx.guild.id)}').delete()
+                            if f'{str(emoji)}{str(ctx.guild.id)}{str(channel.id)}{str(msg.id)}' in e:
+                                ref.child(f'{str(emoji)}{str(ctx.guild.id)}{str(channel.id)}{str(msg.id)}').delete()
                                 await ctx.send('Reaction role succesfully removed!')
                             else:
                                 await ctx.send('Reaction role was not found.')                  
@@ -659,12 +659,13 @@ class config(Cog):
             staticemoji = str(payload.emoji)
             emoji2 = staticemoji.encode(encoding = 'utf_7')
             emoji = emoji2.decode('utf-8')
+            channelid = payload.channel_id
+            msgid = payload.message_id
             guildid = payload.guild_id
             member = payload.member
             e = ref.get()
-            if f'{str(emoji)}{str(guildid)}' in e:
-                roleid = e[f'{str(emoji)}{str(guildid)}']['roleid']
-                print(roleid)
+            if f'{str(emoji)}{str(guildid)}{str(channelid)}{str(msgid)}' in e:
+                roleid = e[f'{str(emoji)}{str(guildid)}{str(channelid)}{str(msgid)}']['roleid']
                 guild = self.client.get_guild(int(guildid))
                 if guild != None:
                     role = discord.utils.get(guild.roles, id =  int(roleid))
@@ -688,10 +689,12 @@ class config(Cog):
             staticemoji = str(payload.emoji)
             emoji2 = staticemoji.encode(encoding = 'utf_7')
             emoji = emoji2.decode('utf-8')
+            channelid = payload.channel_id
+            msgid = payload.message_id
             guildid = payload.guild_id
             e = ref.get()
-            if f'{str(emoji)}{str(guildid)}' in e:
-                roleid = e[f'{str(emoji)}{str(guildid)}']['roleid']
+            if f'{str(emoji)}{str(guildid)}{str(channelid)}{str(msgid)}' in e:
+                roleid = e[f'{str(emoji)}{str(guildid)}{str(channelid)}{str(msgid)}']['roleid']
                 guild = self.client.get_guild(int(guildid))
                 if guild != None:
                     member = await guild.fetch_member(payload.user_id)
