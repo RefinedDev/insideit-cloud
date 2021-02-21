@@ -652,7 +652,7 @@ class config(Cog):
         except Exception as e:
             print(f"An Error Occured In showconfigs {e}")
 
-    @Cog.listener
+    @Cog.listener()
     async def on_raw_reaction_add(self,payload):
         try:
             ref = db.reference('/reactionroles')
@@ -680,7 +680,7 @@ class config(Cog):
         except Exception as e:
             print(f'An error occured in reactionrolesadd: {e}')
 
-    @Cog.listener
+    @Cog.listener()
     async def on_raw_reaction_remove(self,payload):
         try:
             ref = db.reference('/reactionroles')
