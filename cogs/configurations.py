@@ -654,7 +654,6 @@ class config(Cog):
 
     @Cog.listener()
     async def on_raw_reaction_add(self,payload):
-        print('cool')
         try:
             ref = db.reference('/reactionroles')
             staticemoji = str(payload.emoji)
@@ -664,8 +663,8 @@ class config(Cog):
             member = payload.member
             e = ref.get()
             if f'{str(emoji)}{str(guildid)}' in e:
-                print('yay')
                 roleid = e[f'{str(emoji)}{str(guildid)}']['roleid']
+                print(roleid)
                 guild = self.client.get_guild(int(guildid))
                 if guild != None:
                     role = discord.utils.get(guild.roles, id =  roleid)
@@ -676,15 +675,16 @@ class config(Cog):
                         await member.add_roles(role)
                         await member.send(f'You have been given the `{role.name}` role!')
                     else:
+                        print('rolenone')
                         return
                 else:
+                    print('guildnone')
                     return
         except Exception as e:
             print(f'An error occured in reactionrolesadd: {e}')
 
     @Cog.listener()
     async def on_raw_reaction_remove(self,payload):
-        print('not cool')
         try:
             ref = db.reference('/reactionroles')
             staticemoji = str(payload.emoji)
@@ -694,7 +694,6 @@ class config(Cog):
             member = payload.member
             e = ref.get()
             if f'{str(emoji)}{str(guildid)}' in e:
-                print('yay')
                 roleid = e[f'{str(emoji)}{str(guildid)}']['roleid']
                 guild = self.client.get_guild(int(guildid))
                 if guild != None:
