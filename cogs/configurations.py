@@ -11,7 +11,7 @@ from firebase_admin import credentials
 cred = credentials.Certificate("serviceAccountKey.json")
 
 firebase_admin.initialize_app(cred, {
-'databaseURL': 'https://insideitdatabase-default-rtdb.firebaseio.com/'
+'databaseURL': 'https://insideitdatabase-default-rtdb.firebaseio.com/reactionroles'
 })
 
 class config(Cog):
@@ -485,7 +485,7 @@ class config(Cog):
         if not ctx.author.id == 429535933252239360:
             await ctx.send('This configuration is in maintainence, please try again later.')
             return
-            
+
         def check(message):
             return message.author == ctx.author and message.channel == ctx.channel
 

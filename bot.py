@@ -12,7 +12,8 @@ from firebase_admin import credentials
 cred = credentials.Certificate("serviceAccountKey.json")
 
 firebase_admin.initialize_app(cred, {
-'databaseURL': 'https://insideitdatabase-default-rtdb.firebaseio.com/'
+'databaseURL': 'https://insideitdatabase-default-rtdb.firebaseio.com/reactionroles',
+'name': 'other'
 })
 
 intents = discord.Intents.all()
