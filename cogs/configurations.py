@@ -689,14 +689,14 @@ class config(Cog):
             emoji2 = staticemoji.encode(encoding = 'utf_7')
             emoji = emoji2.decode('utf-8')
             guildid = payload.guild_id
-            member = payload.member
             e = ref.get()
             if f'{str(emoji)}{str(guildid)}' in e:
                 roleid = e[f'{str(emoji)}{str(guildid)}']['roleid']
                 guild = self.client.get_guild(int(guildid))
                 if guild != None:
+                    member = await guild.fetch_member(payload.user_id)
                     role = discord.utils.get(guild.roles, id =  int(roleid))
-                    if role != None:
+                    if role and member != None:
                         if not role in member.roles:
                             return
 
