@@ -482,10 +482,6 @@ class config(Cog):
     #@commands.cooldown(1,60,commands.BucketType.guild)
     @commands.has_permissions(administrator= True)
     async def ReactionRoles(self,ctx):
-        if not ctx.author.id == 429535933252239360:
-            await ctx.send('This configuration is in maintainence, please try again later.')
-            return
-
         def check(message):
             return message.author == ctx.author and message.channel == ctx.channel
 
@@ -546,8 +542,13 @@ class config(Cog):
                                     'messageid': '{}'.format(msg.id)
                                 }
                                 ref = db.reference('/reactionroles')
-                                ref.child(f'{str(emoji)}{str(ctx.guild.id)}{str(channel.id)}{str(msg.id)}').set(reactionset)
-                                await ctx.send(f'Reaction role created, users will recieve the `{role.name}` role when reacting to {addmsg4.content}')
+                                res = ref.get()
+                                if f'{str(emoji)}{str(ctx.guild.id)}{str(channel.id)}{str(msg.id)}' in res:
+                                    await ctx.send(f'There is already a reactionrole which uses the {addmsg4.content} emoji, use any other emoji which is not in the reactionrole with messageid: {msg.id} and channelid: {channel.id}')
+                                    return
+                                else:
+                                    ref.child(f'{str(emoji)}{str(ctx.guild.id)}{str(channel.id)}{str(msg.id)}').set(reactionset)
+                                    await ctx.send(f'Reaction role created, users will recieve the `{role.name}` role when reacting to {addmsg4.content}')
             elif str.lower(msg.content) == 'remove':
                 await ctx.send('Okay, write the channel id where the reaction role is.')
                 try:
@@ -613,8 +614,6 @@ class config(Cog):
             res3 = cursor.fetchall()
             cursor.execute("SELECT toggle,discordlink,otherlink from antilink WHERE guildid = " + guildid)  
             res4 = cursor.fetchall()
-            # cursor.execute("SELECT roleid from reactionroles WHERE guildid = " + guildid)  
-            # res5 = cursor.fetchall()
  
             embed = discord.Embed()
             if (len(res2) == 0):
@@ -637,15 +636,7 @@ class config(Cog):
             elif res4[0][0] == 'OFF':
                  embed.add_field(name = 'AntiLink',value = f'`OFF`',inline= False)
             else:
-                embed.add_field(name = 'AntiLink',value = f'`{res4[0][0]}`\n`NODiscordLink: {res4[0][1]}`\n`NOOtherLinks: {res4[0][2]}`',inline= False)
-
-            # if (len(res5) == 0):
-            #     embed.add_field(name = 'ReactionRoles',value = f'`0 ReactionRoles`',inline= False)
-            # elif (len(res5) == 1): 
-            #     embed.add_field(name = 'ReactionRoles',value = f'`1 ReactionRole`',inline= False)
-            # else:
-            #     embed.add_field(name = 'ReactionRoles',value = f'`{len(res5)} ReactionRoles`',inline= False)
-                
+                embed.add_field(name = 'AntiLink',value = f'`{res4[0][0]}`\n`NODiscordLink: {res4[0][1]}`\n`NOOtherLinks: {res4[0][2]}`',inline= False)               
             await ctx.send(embed = embed)
             db.close()
             cursor.close()
