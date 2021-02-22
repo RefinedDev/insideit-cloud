@@ -142,7 +142,7 @@ def memberleave(member):
     f'{member.mention} withered away.',
     f'{member.mention} disappeared.',
     f'Cya {member.mention} it was a good time.',
-    f'We lost {member.mention}, we have {len(member.guild.member)} left.'
+    f'We lost {member.mention}, we have {len(member.guild.members)} left.'
     ]
     value = random.choice(sentences)
     return value
