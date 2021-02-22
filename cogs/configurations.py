@@ -544,7 +544,7 @@ class config(Cog):
                                 ref = db.reference('/reactionroles')
                                 res = ref.get()
                                 if f'{str(emoji)}{str(ctx.guild.id)}{str(channel.id)}{str(msg.id)}' in res:
-                                    await ctx.send(f'There is already a reactionrole which uses the {addmsg4.content} emoji, use any other emoji which is not in the reactionrole with messageid: {msg.id} and channelid: {channel.id}')
+                                    await ctx.send(f'There is already a reactionrole which uses the `{addmsg4.content}` emoji, use **any** other emoji which is not in the reactionrole with messageid: `{msg.id}` and channelid: `{channel.id}`')
                                     return
                                 else:
                                     ref.child(f'{str(emoji)}{str(ctx.guild.id)}{str(channel.id)}{str(msg.id)}').set(reactionset)
