@@ -35,7 +35,7 @@ class config(Cog):
     async def config(self,ctx):
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(title = '⚙ Configurations.',description = 'Use `peg config [nameofconfig]` to configure, you can also use `peg showconfigs` to see what configurations are on or off.',color = ctx.author.color)
-            embed.add_field(name = 'You can configure the following.',value = '`WelcomeMessage`\n`WelcomeRole`\n`LeaveMessage`\n`AntiLink`\n`ReactionRoles`')
+            embed.add_field(name = 'You can configure the following.',value = '`WelcomeMessage: Messages in a specific channel when a member joins.`\n`WelcomeRole: New members recieve the specified role.`\n`LeaveMessage: Messages in a specific channel when a member leaves.`\n`AntiLink: Prevent links.`\n`ReactionRoles: You should know what this does.`')
             await ctx.send(embed = embed)
 
 
@@ -593,7 +593,7 @@ class config(Cog):
                 await ctx.send('Invalid choice')
     
     @config.command()
-    @commands.cooldown(1,60,commands.BucketType.guild)
+ #   @commands.cooldown(1,60,commands.BucketType.guild)
     @commands.has_permissions(administrator = True)
     async def Minage(self,ctx):
         def check(message):
@@ -607,9 +607,46 @@ class config(Cog):
             return
         else:
             if str.lower(msg.content) == 'toggle':
-                pass
+                await ctx.send('Would you like to turn Minage `On` Or `Off`?')
+                try:
+                    msg1 = await self.client.wait_for('message',timeout = 50.0,check = check)
+                except asyncio.TimeoutError:
+                    await ctx.send("Din't reply in time noob.")
+                    return
+                else:
+                    if str.lower(msg1.content) == 'on':
+                        ref = db.reference('/minage')
+                        res = ref.get()
+                        if not str(ctx.guild.id) in res:
+                            await ctx.send("What minimumage would you like to set for your server?\n**New members under the specified age will be kicked**\nExample: **7** Make sure there is only a number without context.")
+                            try:
+                                msg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
+                            except asyncio.TimeoutError:
+                                await ctx.send("Din't reply in time noob.")
+                                return
+                            else:
+                                lol = {
+                                    'toggle': '{}'.format('ON'),
+                                    'age': '{}'.format(msg2.content)
+                                }
+                                ref.child(str(ctx.guild.id)).set(lol)
+                                await ctx.send(f"Minage is now on! Users who's account age is under {msg2.content} days will be kicked")
+                        else:
+                            await ctx.send('Minage is already on!')
+                    elif str.lower(msg1.content) == 'off':
+                        ref = db.reference('/minage')
+                        res = ref.get()
+                        if not str(ctx.guild.id) in res:
+                            await ctx.send('Minage is already off!')
+                        else:
+                            toggle = res[str(ctx.guild.id)]['toggle']
+                            if toggle == 'OFF':
+                                await ctx.send('Minage is already off!')
+                            else:
+                                ref.child(str(ctx.guild.id)).delete()
+                                await ctx.send('Minage is now off!')
             elif str.lower(msg.content) == 'edit':
-                pass
+                await ctx.send('Nope')
             else:
                 await ctx.send("Invalid Choice")
 
