@@ -123,6 +123,7 @@ class HighRank(Cog):
         cursor.close()
         db.close()
     
+    
     @commands.command(aliases = ['infraction','modlogs'])
     @commands.cooldown(1,30,commands.BucketType.user)
     @commands.has_permissions(kick_members = True)
