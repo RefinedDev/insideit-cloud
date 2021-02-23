@@ -37,21 +37,7 @@ async def on_guild_join(guild):
 @client.event
 async def on_guild_remove(guild):
     try:
-        db = mysql.connector.connect(
-            host = "us-cdbr-east-02.cleardb.com",
-            user = "bc4de25d94d683",
-            passwd = "0bf00100",
-            database = "heroku_1d7c0ca78dfc2ef"
-        )
-        cursor = db.cursor()
-        cursor.execute('DELETE FROM leavemsg WHERE guildid = ' + str(guild.id))
-        cursor.execute('DELETE FROM welcomemsg WHERE guildid = ' + str(guild.id))
-        cursor.execute('DELETE FROM welcomeroles WHERE guildid = ' + str(guild.id))
-        cursor.execute('DELETE FROM antilink WHERE guildid = ' + str(guild.id))
-        db.commit()
         await  client.change_presence(activity =discord.Activity(type= discord.ActivityType.watching,name= f'for free ({len(client.guilds)} Servers)'))
-        cursor.close()
-        db.close()
     except Exception as e:
         print(f'An Error Occured in on_guild_remove {e}')
 
