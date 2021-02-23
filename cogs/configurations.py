@@ -479,7 +479,7 @@ class config(Cog):
         cursor.close()
     
     @config.command()
-    #@commands.cooldown(1,60,commands.BucketType.guild)
+    @commands.cooldown(1,60,commands.BucketType.guild)
     @commands.has_permissions(administrator= True)
     async def ReactionRoles(self,ctx):
         def check(message):
@@ -591,6 +591,27 @@ class config(Cog):
                                 await ctx.send('Reaction role was not found.')                  
             else:
                 await ctx.send('Invalid choice')
+    
+    @config.command()
+    @commands.cooldown(1,60,commands.BucketType.guild)
+    @commands.has_permissions(administrator = True)
+    async def Minage(self,ctx):
+        def check(message):
+            return message.author == ctx.author and message.channel == ctx.channel
+
+        await ctx.send('What ya want to configure?\n`toggle`\n`edit`')
+        try:
+            msg = await self.client.wait_for('message',timeout = 50.0,check = check)
+        except asyncio.TimeoutError:
+            await ctx.send("Din't reply in time noob.")
+            return
+        else:
+            if str.lower(msg.content) == 'toggle':
+                pass
+            elif str.lower(msg.content) == 'edit':
+                pass
+            else:
+                await ctx.send("Invalid Choice")
 
     @commands.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
