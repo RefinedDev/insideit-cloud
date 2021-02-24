@@ -32,7 +32,8 @@ class config(Cog):
             print(realage)
             ref = db.reference('/minage')
             res = ref.get()
-            if member.guild.id in res:
+            if f'{member.guild.id}' in res:
+                print('hmm')
                 toggle = res[str(member.guild.id)]['toggle']
                 print(toggle)
                 if toggle == 'ON':
