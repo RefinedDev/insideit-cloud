@@ -33,13 +33,16 @@ class config(Cog):
             ref = db.reference('/minage')
             res = ref.get()
             if member.guild.id in res:
-                if res[str(member.guild.id)]['toggle'] == 'ON':
+                toggle = res[str(member.guild.id)]['toggle']
+                print(toggle)
+                if toggle == 'ON':
                     print('yay')
                     dbage = res[str(member.guild.id)]['age']
                     print(dbage)
                     if int(dbage) > int(realage):
                         await member.send(f"You're account age needs to be over {dbage}")
                         await member.kick('Account age too low.')
+                        print('Kick someoned')
 
 
     
