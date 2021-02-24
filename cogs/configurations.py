@@ -616,11 +616,6 @@ class config(Cog):
                 else:
                     if str.lower(msg1.content) == 'on':
                         ref = db.reference('/minage')
-                        lol = {
-                                    'toggle': '{}'.format('idkcuh'),
-                                    'age': '{}'.format('xd')
-                                }
-                        ref.child('LOL').set(lol)
                         res = ref.get()
                         if not f'{str(ctx.guild.id)}' in res:
                             await ctx.send("What minimumage would you like to set for your server?\n**New members under the specified age will be kicked**\nExample: **7** Make sure there is only a number without context.")
