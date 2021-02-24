@@ -646,7 +646,25 @@ class config(Cog):
                                 ref.child(str(ctx.guild.id)).delete()
                                 await ctx.send('Minage is now off!')
             elif str.lower(msg.content) == 'edit':
-                await ctx.send('Nope')
+                ref = db.reference('/minage')
+                res = ref.get()
+                toggle = res[str(ctx.guild.id)]['toggle']
+                if toggle == 'OFF':
+                    await ctx.send('Minage is currently off, turn it on before editing it.')
+                    return
+                await ctx.send("What minimumage would you like to set for your server?\n**New members under the specified age will be kicked**\nExample: **'7'** :Make sure there is only a number without context.")
+                try:
+                    msg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
+                except asyncio.TimeoutError:
+                    await ctx.send("Din't reply in time noob.")
+                    return
+                else:
+                    lol = {
+                        'toggle': '{}'.format('ON'),
+                        'age': '{}'.format(msg2.content)
+                    }
+                    ref.child(str(ctx.guild.id)).set(lol)
+                    await ctx.send(f"Minage is now on! Users who's account age is under {msg2.content} days will be kicked")
             else:
                 await ctx.send("Invalid Choice")
 
