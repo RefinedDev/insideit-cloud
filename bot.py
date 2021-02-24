@@ -56,7 +56,7 @@ def memberjoin(member):
 
 @client.event
 async def on_member_join(member):
-    print(datetime.now - member.created_at)
+    print(datetime.now() - member.created_at)
     try:
         db = mysql.connector.connect(
             host = "us-cdbr-east-02.cleardb.com",
