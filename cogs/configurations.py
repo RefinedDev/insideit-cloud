@@ -26,7 +26,19 @@ class config(Cog):
     @Cog.listener()
     async def on_member_join(self,member):
         age = datetime.now() - member.created_at
-        print(str(age).split(',')[0])
+        eage = str(age).split(',')[0]
+        realage = str(eage).split('days')[0]
+        print(realage)
+        ref = db.reference('/minage')
+        res = ref.get()
+        if f'{member.guild.id in res}':
+            if res[str(member.guild.id)]['toggle'] == 'ON':
+                dbage = res[str(member.guild.id)]['age']
+                if int(dbage) > int(realage):
+                    await member.send(f"You're account age needs to be over {dbage}")
+                    await member.kick('Account age too low.')
+
+
     
     async def cog_command_error(self,ctx,exc):
         if isinstance(exc,commands.CommandOnCooldown):
