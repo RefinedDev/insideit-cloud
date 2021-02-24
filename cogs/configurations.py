@@ -25,8 +25,8 @@ class config(Cog):
 
     @Cog.listener()
     async def on_member_join(self,member):
-        age = datetime.now() - member.created_at.split(',')[0]
-        print(age)
+        age = datetime.now() - member.created_at
+        print(str(age).split(',')[0])
     
     async def cog_command_error(self,ctx,exc):
         if isinstance(exc,commands.CommandOnCooldown):
