@@ -54,7 +54,7 @@ class config(Cog):
     async def config(self,ctx):
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(title = '⚙ Configurations.',description = 'Use `peg config [nameofconfig]` to configure, you can also use `peg showconfigs` to see what configurations are on or off.',color = ctx.author.color)
-            embed.add_field(name = 'You can configure the following.',value = '`WelcomeMessage: Messages in a specific channel when a member joins.`\n`WelcomeRole: New members recieve the specified role.`\n`LeaveMessage: Messages in a specific channel when a member leaves.`\n`AntiLink: Prevent links.`\n`ReactionRoles: You should know what this does.`\n`Minage: Set a minimum age limit for your servers, new members under that age will be kicked (usefull to prvent raids.)`')
+            embed.add_field(name = 'You can configure the following.',value = '`WelcomeMessage: Messages in a specific channel when a member joins.`\n\n`WelcomeRole: New members recieve the specified role.`\n\n`LeaveMessage: Messages in a specific channel when a member leaves.`\n\n`AntiLink: Prevent links.`\n\n`ReactionRoles: You should know what this does.`\n\n`Minage: Set a minimum age limit for your servers, new members under that age will be kicked (usefull to prvent raids.)`')
             await ctx.send(embed = embed)
 
 
