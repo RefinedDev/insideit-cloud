@@ -7,6 +7,7 @@ import random
 import firebase_admin
 from firebase_admin import db
 from firebase_admin import credentials
+from datetime import datetime
 
 cred = credentials.Certificate("serviceAccountKey.json")
 
@@ -21,6 +22,11 @@ class config(Cog):
     @Cog.listener()
     async def on_ready(self):
         print("Config Cog Is Ready!")
+
+    @Cog.listener()
+    async def on_member_join(self,member):
+        age = datetime.now() - member.created_at.split(',')[0]
+        print(age)
     
     async def cog_command_error(self,ctx,exc):
         if isinstance(exc,commands.CommandOnCooldown):
