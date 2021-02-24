@@ -31,7 +31,7 @@ class config(Cog):
         print(realage)
         ref = db.reference('/minage')
         res = ref.get()
-        if f'{member.guild.id in res}':
+        if member.guild.id in res:
             if res[str(member.guild.id)]['toggle'] == 'ON':
                 dbage = res[str(member.guild.id)]['age']
                 if int(dbage) > int(realage):
