@@ -36,8 +36,8 @@ class config(Cog):
                 if toggle == 'ON':
                     dbage = res[str(member.guild.id)]['age']
                     if int(dbage) > int(realage):
-                        await member.send(f"You're account age needs to be over {dbage} days before you can join the server.")
-                        await member.kick(reason = 'Account age too low.')
+                        await member.send(f"You're account age needs to be over {dbage} days before you can join this server.")
+                        await member.kick(reason = f'Account age lower than the specified minimum age amount')
 
 
     
