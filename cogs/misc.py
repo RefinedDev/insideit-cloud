@@ -109,9 +109,15 @@ class MiscCmds(Cog):
         number = random.randint(1,100)
 
         if user.name == ctx.author.name:
-            await ctx.send(f'You have a rating of {number}% on the simpmeter!')
+            if str(number) == '69':
+                await ctx.send(f'You have a rating of {number}% on the simpmeter!\n**noice**')
+            else:
+                await ctx.send(f'You have a rating of {number}% on the simpmeter!')
         else:
-            await ctx.send(f'{user.name} has a rating of {number}% on the simpmeter!')
+            if str(number) == '69':
+                await ctx.send(f'{user.name} has a rating of {number}% on the simpmeter!\n**noice**')
+            else:
+                await ctx.send(f'{user.name} has a rating of {number}% on the simpmeter!')
 
     @commands.command()
     @commands.cooldown(1,1,commands.BucketType.user)

@@ -26,7 +26,7 @@ class apiscraping(Cog):
             print(exc)
 
     @commands.command()
-    @commands.cooldown(1,5,commands.BucketType.user)
+    @commands.cooldown(1,1,commands.BucketType.user)
     async def meme(self,ctx):
         try:
             # link = "https://www.reddit.com/r/facepalm/new.json?sort=hot,"
@@ -50,7 +50,7 @@ class apiscraping(Cog):
 
 
     @commands.command()
-    @commands.cooldown(1,5,commands.BucketType.user)
+    @commands.cooldown(1,1,commands.BucketType.user)
     async def dankmeme(self,ctx):
         try:
             # link = "https://www.reddit.com/r/facepalm/new.json?sort=hot,"
@@ -73,7 +73,7 @@ class apiscraping(Cog):
             await ctx.send(f'An error occured: {e}',delete_after=10)
 
     @commands.command()
-    @commands.cooldown(1,5,commands.BucketType.user)
+    @commands.cooldown(1,1,commands.BucketType.user)
     async def chan(self,ctx):
         try:
             # link = "https://www.reddit.com/r/facepalm/new.json?sort=hot,"
@@ -96,7 +96,7 @@ class apiscraping(Cog):
             await ctx.send(f'An error occured: {e}',delete_after=10)
 
     @commands.command()
-    @commands.cooldown(1,5,commands.BucketType.user)
+    @commands.cooldown(1,1,commands.BucketType.user)
     async def AntiJoke(self,ctx):
         try:
             # link = "https://www.reddit.com/r/facepalm/new.json?sort=hot,"
@@ -120,7 +120,7 @@ class apiscraping(Cog):
 
 
     @commands.command()
-    @commands.cooldown(1,5,commands.BucketType.user)
+    @commands.cooldown(1,1,commands.BucketType.user)
     async def wholesome(self,ctx):
         try:
             # link = "https://www.reddit.com/r/facepalm/new.json?sort=hot,"
@@ -144,7 +144,7 @@ class apiscraping(Cog):
 
 
     @commands.command()
-    @commands.cooldown(1,5,commands.BucketType.user)
+    @commands.cooldown(1,1,commands.BucketType.user)
     async def surreal(self,ctx):
         try:
             # link = "https://www.reddit.com/r/facepalm/new.json?sort=hot,"
@@ -167,7 +167,7 @@ class apiscraping(Cog):
             await ctx.send(f'An error occured: {e}',delete_after=10)
 
     @commands.command()
-    @commands.cooldown(1,5,commands.BucketType.user)
+    @commands.cooldown(1,1,commands.BucketType.user)
     async def facepalm(self,ctx):
         try:
             # link = "https://www.reddit.com/r/facepalm/new.json?sort=hot,"
@@ -190,7 +190,7 @@ class apiscraping(Cog):
             await ctx.send(f'An error occured: {e}',delete_after=10)
 
     @commands.command()
-    @commands.cooldown(1,5,commands.BucketType.user)
+    @commands.cooldown(1,1,commands.BucketType.user)
     async def danidev(self,ctx):
         try:
             # link = "https://www.reddit.com/r/facepalm/new.json?sort=hot,"
@@ -213,7 +213,7 @@ class apiscraping(Cog):
             await ctx.send(f'An error occured: {e}',delete_after=10)
 
     @commands.command()
-    @commands.cooldown(1,5,commands.BucketType.user)
+    @commands.cooldown(1,1,commands.BucketType.user)
     async def fortnite(self,ctx):
         try:
             # link = "https://www.reddit.com/r/facepalm/new.json?sort=hot,"
@@ -237,7 +237,7 @@ class apiscraping(Cog):
 
 
     @commands.command()
-    @commands.cooldown(1,5,commands.BucketType.user)
+    @commands.cooldown(1,1,commands.BucketType.user)
     async def discord(self,ctx):
         try:
             # link = "https://www.reddit.com/r/facepalm/new.json?sort=hot,"
