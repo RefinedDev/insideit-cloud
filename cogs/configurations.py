@@ -24,7 +24,7 @@ class config(Cog):
         print("Config Cog Is Ready!")
 
     @Cog.listener()
-    async def on_message(message):
+    async def on_message(self,message):
         if isinstance(message.channel, discord.channel.DMChannel):
             return
 
