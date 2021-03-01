@@ -33,50 +33,35 @@ class config(Cog):
 
         if 'discord.gg/' in str.lower(message.content):
             try:
-                db = mysql.connector.connect(
-                    host = "us-cdbr-east-02.cleardb.com",
-                    user = "bc4de25d94d683",
-                    passwd = "0bf00100",
-                    database = "heroku_1d7c0ca78dfc2ef"
-                )
-
-                cursor = db.cursor()
-                cursor.execute('SELECT toggle,discordlink FROM antilink WHERE guildid = ' + str(message.guild.id))
-                res = cursor.fetchall()
-                if (len(res) == 0):
-                    return
-                if res[0][0] == "ON":
-                    if res[0][1] == 'YES':
-                        await message.delete()
+                ref = db.reference('/antilink')
+                res = ref.get()
+                if f'{message.guild.id}' in res:
+                    toggle = res[f'{str(message.guild.id)}']['toggle']
+                    if toggle == 'OFF':
+                        return
+                    discordmsg = res[f'{str(message.guild.id)}']['discordlink']
+                    if discordmsg == 'NO':
+                        return
+                    await message.delete()
                 else:
-                    pass
-                cursor.close()
-                db.close()
+                    return
             except Exception as e:
                 print(f'An error occured in no link {e}')
             
         if 'https://' in str.lower(message.content) or 'http://' in str.lower(message.content):
             try:
-                db = mysql.connector.connect(
-                    host = "us-cdbr-east-02.cleardb.com",
-                    user = "bc4de25d94d683",
-                    passwd = "0bf00100",
-                    database = "heroku_1d7c0ca78dfc2ef"
-                )
-
-                cursor = db.cursor()
-                cursor.execute('SELECT toggle,otherlink FROM antilink WHERE guildid = ' + str(message.guild.id))
-                res = cursor.fetchall()
-                if (len(res) == 0):
-                    return
-
-                if res[0][0] == "ON":
-                    if res[0][1] == 'YES':
-                        await message.delete()
+                ref = db.reference('/antilink')
+                res = ref.get() 
+                if f'{message.guild.id}' in res:
+                    toggle = res[f'{str(message.guild.id)}']['toggle']
+                    if toggle == 'OFF':
+                        return
+                    othermsg = res[f'{str(message.guild.id)}']]['otherlink']
+                    if othermsg == 'NO':
+                        return
+                    await message.delete()
                 else:
-                    pass
-                cursor.close()
-                db.close()
+                    return
             except Exception as e:
                 print(f'An error occured in no link {e}')
 
@@ -673,7 +658,7 @@ class config(Cog):
                 await ctx.send('Invalid choice')
     
     @config.command()
- #   @commands.cooldown(1,60,commands.BucketType.guild)
+    @commands.cooldown(1,60,commands.BucketType.guild)
     @commands.has_permissions(administrator = True)
     async def Minage(self,ctx):
         def check(message):
@@ -767,8 +752,8 @@ class config(Cog):
             res2= cursor.fetchall()
             cursor.execute("SELECT toggle from leavemsg WHERE guildid = " + guildid)  
             res3 = cursor.fetchall()
-            cursor.execute("SELECT toggle,discordlink,otherlink from antilink WHERE guildid = " + guildid)  
-            res4 = cursor.fetchall()
+            # cursor.execute("SELECT toggle,discordlink,otherlink from antilink WHERE guildid = " + guildid)  
+            # res4 = cursor.fetchall()
  
             embed = discord.Embed()
             if (len(res2) == 0):
@@ -786,13 +771,13 @@ class config(Cog):
             else:
                 embed.add_field(name = 'LeaveMessage',value = f'`{res3[0][0]}`',inline= False)
             
-            if (len(res4) == 0):
-                embed.add_field(name = 'AntiLink',value = f'`OFF`',inline= False)
-            elif res4[0][0] == 'OFF':
-                 embed.add_field(name = 'AntiLink',value = f'`OFF`',inline= False)
-            else:
-                embed.add_field(name = 'AntiLink',value = f'`{res4[0][0]}`\n`NODiscordLink: {res4[0][1]}`\n`NOOtherLinks: {res4[0][2]}`',inline= False)               
-            await ctx.send(embed = embed)
+            # if (len(res4) == 0):
+            #     embed.add_field(name = 'AntiLink',value = f'`OFF`',inline= False)
+            # elif res4[0][0] == 'OFF':
+            #      embed.add_field(name = 'AntiLink',value = f'`OFF`',inline= False)
+            # else:
+            #     embed.add_field(name = 'AntiLink',value = f'`{res4[0][0]}`\n`NODiscordLink: {res4[0][1]}`\n`NOOtherLinks: {res4[0][2]}`',inline= False)               
+            # await ctx.send(embed = embed)
             db.close()
             cursor.close()
         except Exception as e:
