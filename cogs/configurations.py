@@ -23,7 +23,7 @@ class config(Cog):
     async def on_ready(self):
         print("Config Cog Is Ready!")
 
-    @Cog.listen('on_message')
+    @Cog.listener('on_message')
     async def nolink(message):
         if isinstance(message.channel, discord.channel.DMChannel):
             return
