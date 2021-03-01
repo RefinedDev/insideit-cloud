@@ -740,7 +740,7 @@ class config(Cog):
                 embed.add_field(name = 'AntiLink',value = f'`ON`',inline= False)
             else:
                 embed.add_field(name = 'AntiLink',value = f'`OFF`',inline= False)
-                
+            
             db.close()
             cursor.close()
         except Exception as e:
