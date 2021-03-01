@@ -342,13 +342,9 @@ class config(Cog):
         cursor.close()
 
     @config.command()
-    #@commands.cooldown(1,60,commands.BucketType.guild)
+    @commands.cooldown(1,60,commands.BucketType.guild)
     @commands.has_permissions(administrator= True)
     async def AntiLink(self,ctx):
-        if not ctx.author.id == 429535933252239360:
-            await ctx.send('This configuration is under maintenance, please try again later.')
-            return
-
         ref = db.reference('/antilink')
 
         def check(message):
