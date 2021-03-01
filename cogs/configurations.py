@@ -702,14 +702,14 @@ class config(Cog):
     @commands.has_permissions(administrator = True)
     async def showconfigs(self,ctx):
         try:
-            db = mysql.connector.connect(
+            dbs = mysql.connector.connect(
                 host = "us-cdbr-east-02.cleardb.com",
                 user = "bc4de25d94d683",
                 passwd = "0bf00100",
                 database = "heroku_1d7c0ca78dfc2ef"
             )
 
-            cursor = db.cursor()
+            cursor = dbs.cursor()
             guildid = str(ctx.guild.id)
             cursor.execute("SELECT toggle from welcomeroles WHERE guildid = " + guildid)
             res1 = cursor.fetchall()
@@ -741,7 +741,7 @@ class config(Cog):
             else:
                 embed.add_field(name = 'AntiLink',value = f'`OFF`',inline= False)
             
-            db.close()
+            dbs.close()
             cursor.close()
         except Exception as e:
             print(f"An Error Occured In showconfigs {e}")
