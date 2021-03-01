@@ -37,10 +37,10 @@ class config(Cog):
                 res = ref.get()
                 if f'{message.guild.id}' in res:
                     toggle = res[f'{str(message.guild.id)}']['toggle']
-                    if toggle == 'OFF':
+                    if str.lower(toggle) == 'off':
                         return
                     discordmsg = res[f'{str(message.guild.id)}']['discordlink']
-                    if discordmsg == 'NO':
+                    if str.lower(discordmsg) == 'no':
                         return
                     await message.delete()
                 else:
@@ -54,10 +54,10 @@ class config(Cog):
                 res = ref.get() 
                 if f'{message.guild.id}' in res:
                     toggle = res[f'{str(message.guild.id)}']['toggle']
-                    if toggle == 'OFF':
+                    if str.lower(toggle) == 'off':
                         return
                     othermsg = res[f'{str(message.guild.id)}']['otherlink']
-                    if othermsg == 'NO':
+                    if str.lower(othermsg) == 'no':
                         return
                     await message.delete()
                 else:
@@ -342,7 +342,7 @@ class config(Cog):
         cursor.close()
 
     @config.command()
-    @commands.cooldown(1,60,commands.BucketType.guild)
+    #@commands.cooldown(1,60,commands.BucketType.guild)
     @commands.has_permissions(administrator= True)
     async def AntiLink(self,ctx):
         if not ctx.author.id == 429535933252239360:
@@ -350,16 +350,7 @@ class config(Cog):
             return
 
         ref = db.reference('/antilink')
-        res = ref.get()
 
-        db = mysql.connector.connect(
-            host = "us-cdbr-east-02.cleardb.com",
-            user = "bc4de25d94d683",
-            passwd = "0bf00100",
-            database = "heroku_1d7c0ca78dfc2ef"
-        )
-
-        cursor = db.cursor()
         def check(message):
             return message.author == ctx.author and message.channel == ctx.channel
 
@@ -395,37 +386,13 @@ class config(Cog):
                                     return
                                 else:
                                     if str.lower(idmsg2.content) == 'yes':
-                                        guildid = str(ctx.guild.id)
-                                        cursor.execute("SELECT toggle from antilink WHERE guildid = " + guildid)
-                                        res = cursor.fetchall()
-                                        if (len(res) == 0):
-                                            sql = "INSERT INTO antilink (guildid,toggle,discordlink,otherlink) VALUES (%s, %s, %s, %s)"
-                                            val = (guildid,'ON','YES','YES')
-                                            cursor.execute(sql,val)
-                                            db.commit()
-                                            await ctx.send(f'AntiLink is now on!')
-                                        elif res[0][0] != 'ON':
-                                            cursor.execute("UPDATE antilink SET toggle = 'ON', discordlink = 'YES', otherlink = 'YES' WHERE guildid = " + guildid)  
-                                            db.commit()
-                                            await ctx.send(f'AntiLink is now on!')
-                                        else:
-                                            await ctx.send('This configuration is already turned on!')
+                                        # val = (guildid,'ON','YES','YES')
+                                        await ctx.send(f'AntiLink is now on!')
+                                        await ctx.send('This configuration is already turned on!')
                                     elif str.lower(idmsg2.content) == 'no':
-                                        guildid = str(ctx.guild.id)
-                                        cursor.execute("SELECT toggle from antilink WHERE guildid = " + guildid)
-                                        res = cursor.fetchall()
-                                        if (len(res) == 0):
-                                            sql = "INSERT INTO antilink (guildid,toggle,discordlink,otherlink) VALUES (%s, %s, %s, %s)"
-                                            val = (guildid,'ON','YES','NO')
-                                            cursor.execute(sql,val)
-                                            db.commit()
-                                            await ctx.send(f'AntiLink is now on!')
-                                        elif res[0][0] != 'ON':
-                                            cursor.execute("UPDATE antilink SET toggle = 'ON', discordlink = 'YES', otherlink = 'NO' WHERE guildid = " + guildid)  
-                                            db.commit()
-                                            await ctx.send(f'AntiLink is now on!')
-                                        else:
-                                            await ctx.send('This configuration is already turned on!')
+                                        #val = (guildid,'ON','YES','NO')
+                                        await ctx.send(f'AntiLink is now on!')
+                                        await ctx.send('This configuration is already turned on!')
                             elif str.lower(idmsg.content) == 'no':
                                         await ctx.send('Okay, do you want to prevent ANY other links like youtube or google links? Yes/No')
                                         try:
@@ -435,112 +402,79 @@ class config(Cog):
                                             return
                                         else:
                                             if str.lower(idmsg2.content) == 'yes':
-                                                guildid = str(ctx.guild.id)
-                                                cursor.execute("SELECT toggle,discordlink,otherlink from antilink WHERE guildid = " + guildid)
-                                                res = cursor.fetchall()
-                                                if (len(res) == 0):
-                                                    sql = "INSERT INTO antilink (guildid,toggle,discordlink,otherlink) VALUES (%s, %s, %s, %s)"
-                                                    val = (guildid,'ON','NO','YES')
-                                                    cursor.execute(sql,val)
-                                                    db.commit()
-                                                    await ctx.send(f'AntiLink is now on!')
-                                                elif res[0][0] != 'ON':
-                                                    cursor.execute("UPDATE antilink SET toggle = 'ON', discordlink = 'NO', otherlink = 'YES' WHERE guildid = " + guildid)  
-                                                    db.commit()
-                                                    await ctx.send(f'AntiLink is now on!')
-                                                else:
-                                                    await ctx.send('This configuration is already turned on!')
+                                                pass
+                                               #on,no,yes
                                             elif str.lower(idmsg2.content) == 'no':
-                                                guildid = str(ctx.guild.id)
-                                                cursor.execute("SELECT toggle from antilink WHERE guildid = " + guildid)
-                                                res = cursor.fetchall()
-                                                if (len(res) == 0):
-                                                    sql = "INSERT INTO antilink (guildid,toggle,discordlink,otherlink) VALUES (%s, %s, %s, %s)"
-                                                    val = (guildid,'OFF','NO','NO')
-                                                    cursor.execute(sql,val)
-                                                    db.commit()
-                                                    await ctx.send("Both of the options were chosen as No so i'm not turning AntiLink on.")
-                                                    return
-                                                elif res[0][0] != 'ON':
-                                                    await ctx.send("Both of the options were chosen as No so i'm not turning AntiLink on.")
-                                                    return
-                                                else:
-                                                    await ctx.send('This configuration is already turned on!')
+                                                pass
+                                                #on,no,no = off
             
                     elif str.lower(msg1.content) == 'off':
-                            guildid = str(ctx.guild.id)
-                            cursor.execute("SELECT toggle from antilink WHERE guildid = " + guildid)
-                            res = cursor.fetchall()
-                            if (len(res) == 0):
-                                sql = "INSERT INTO antilink (guildid,toggle) VALUES (%s, %s)"
-                                val = (guildid,'OFF')
-                                cursor.execute(sql,val)
-                                db.commit()
-                                await ctx.send(f'Your server was not in my database and now is created! AntiLink is Off!')
-                            elif res[0][0] != 'OFF':
-                                cursor.execute("UPDATE antilink SET toggle = 'OFF' WHERE guildid = " + guildid)  
-                                db.commit()
-                                await ctx.send(f'AntiLink is now off!')
-                            else:
-                                await ctx.send('This configuration is already turned off!')
-                    else:
-                        await ctx.send('Invalid Choice.')
-
-            elif str.lower(msg.content) == 'edit':
-                        cursor.execute('SELECT toggle FROM antilink WHERE guildid = ' + str(ctx.guild.id))
-                        res = cursor.fetchall()
-
-                        if len(res) == 0:
-                            await ctx.send('AntiLink is currently off so you cannot edit it!')
-                            return
-                        
-                        if res[0][0] == 'OFF':
-                            await ctx.send('AntiLink is currently off so you cannot edit it!')
-                            return
-                        
-                        await ctx.send('Do you want to prevent discord invite links? Yes/No')
-                        try:
-                            idmsg = await self.client.wait_for('message',timeout = 50.0,check = check)
-                        except asyncio.TimeoutError:
-                            await ctx.send("Din't reply in time noob.")
-                            return
+                        res = ref.get()
+                        if f'{ctx.guild.id}' in res:
+                            ref.child(f'{ctx.guild.id}').delete()
+                            await ctx.send('AntiLink is now off!')
                         else:
-                            if str.lower(idmsg.content) == 'yes':
-                                await ctx.send('Okay, do you want to prevent ANY other links like youtube or google links? Yes/No')
-                                try:
-                                    idmsg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
-                                except asyncio.TimeoutError:
-                                    await ctx.send("Din't reply in time noob.")
-                                    return
+                            await ctx.send('AntiLink is already off!')
+
+            elif str.lower(msg.content) == 'edit':   
+                    await ctx.send('Do you want to prevent discord invite links? Yes/No')
+                    try:
+                        idmsg = await self.client.wait_for('message',timeout = 50.0,check = check)
+                    except asyncio.TimeoutError:
+                        await ctx.send("Din't reply in time noob.")
+                        return
+                    else:
+                        if str.lower(idmsg.content) == 'yes':
+                            await ctx.send('Okay, do you want to prevent ANY other links like youtube or google links? Yes/No')
+                            try:
+                                idmsg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
+                            except asyncio.TimeoutError:
+                                await ctx.send("Din't reply in time noob.")
+                                return
+                            else:
+                                if str.lower(idmsg2.content) == 'yes':
+                                    e = {
+                                        'toggle': 'ON',
+                                        'discordlink': 'YES',
+                                        'otherlink': 'YES'
+                                        }
+                                    ref.child(f'{ctx.guild.id}').set(e)
+                                    await ctx.send(f'Succesfully Edited AntiLink!')
+                                elif str.lower(idmsg2.content) == 'no':
+                                    e = {
+                                        'toggle': 'ON',
+                                        'discordlink': 'YES',
+                                        'otherlink': 'NO'
+                                        }
+                                    ref.child(f'{ctx.guild.id}').set(e)
+                                    await ctx.send(f'Succesfully Edited AntiLink!')
                                 else:
-                                    if str.lower(idmsg2.content) == 'yes':
-                                        guildid = str(ctx.guild.id)
-                                        cursor.execute("UPDATE antilink SET toggle = 'ON', discordlink = 'YES', otherlink = 'YES' WHERE guildid = " + guildid)  
-                                        db.commit()
-                                        await ctx.send(f'Succesfully Edited AntiLink!')
-                                    elif str.lower(idmsg2.content) == 'no':
-                                        guildid = str(ctx.guild.id)
-                                        cursor.execute("UPDATE antilink SET toggle = 'ON', discordlink = 'YES', otherlink = 'NO' WHERE guildid = " + guildid)  
-                                        db.commit()
-                                        await ctx.send(f'Succesfully Edited AntiLink!')
-                            elif str.lower(idmsg.content) == 'no':
-                                        await ctx.send('Okay, do you want to prevent ANY other links like youtube or google links? Yes/No')
-                                        try:
-                                            idmsg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
-                                        except asyncio.TimeoutError:
-                                            await ctx.send("Din't reply in time noob.")
-                                            return
-                                        else:
-                                            if str.lower(idmsg2.content) == 'yes':
-                                                guildid = str(ctx.guild.id)
-                                                cursor.execute("UPDATE antilink SET toggle = 'ON', discordlink = 'NO', otherlink = 'YES' WHERE guildid = " + guildid)  
-                                                db.commit()
-                                                await ctx.send(f'Succesfully Edited AntiLink!')
-                                            elif str.lower(idmsg2.content) == 'no':
-                                                guildid = str(ctx.guild.id)
-                                                cursor.execute("UPDATE antilink SET toggle = 'OFF', discordlink = 'NO', otherlink = 'NO' WHERE guildid = " + guildid)
-                                                db.commit()
+                                    await ctx.send('Invalid Choice')
+                        elif str.lower(idmsg.content) == 'no':
+                                    await ctx.send('Okay, do you want to prevent ANY other links like youtube or google links? Yes/No')
+                                    try:
+                                        idmsg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
+                                    except asyncio.TimeoutError:
+                                        await ctx.send("Din't reply in time noob.")
+                                        return
+                                    else:
+                                        if str.lower(idmsg2.content) == 'no':
+                                            res = ref.get()
+                                            if f'{ctx.guild.id}' in res:
+                                                ref.child(f'{ctx.guild.id}').delete()
                                                 await ctx.send('Succesfully Edited AntiLink, AntiLink is now off!')
+                                            else:
+                                                await ctx.send('AntiLink is already off!')
+                                        elif str.lower(idmsg2.content) == 'yes':
+                                            e = {
+                                                'toggle': 'ON',
+                                                'discordlink': 'NO',
+                                                'otherlink': 'YES'
+                                            }
+                                            ref.child(f'{ctx.guild.id}').set(e)
+                                            await ctx.send(f'Succesfully Edited AntiLink!')
+                                        else:
+                                            await ctx.send('Invalid Choice')
             else:
                 await ctx.send("Invalid Choice")
     
