@@ -740,6 +740,7 @@ class config(Cog):
                 embed.add_field(name = 'AntiLink',value = f'`ON`',inline= False)
             else:
                 embed.add_field(name = 'AntiLink',value = f'`OFF`',inline= False)
+            await ctx.send(embed = embed)
             
             dbs.close()
             cursor.close()
