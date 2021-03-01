@@ -386,13 +386,31 @@ class config(Cog):
                                     return
                                 else:
                                     if str.lower(idmsg2.content) == 'yes':
+                                        res = ref.get()
+                                        if f'{ctx.guild.id}' in res:
+                                            await ctx.send('AntiLink is already on!')
+                                            return
+                                        e = {
+                                                'toggle': 'ON',
+                                                'discordlink': 'YES',
+                                                'otherlink': 'YES'
+                                            }
+                                        ref.child(f'{ctx.guild.id}').set(e)
+                                        await ctx.send(f'AntiLink is now on!')
                                         # val = (guildid,'ON','YES','YES')
-                                        await ctx.send(f'AntiLink is now on!')
-                                        await ctx.send('This configuration is already turned on!')
                                     elif str.lower(idmsg2.content) == 'no':
-                                        #val = (guildid,'ON','YES','NO')
+                                        res = ref.get()
+                                        if f'{ctx.guild.id}' in res:
+                                            await ctx.send('AntiLink is already on!')
+                                            return
+                                        e = {
+                                                'toggle': 'ON',
+                                                'discordlink': 'YES',
+                                                'otherlink': 'NO'
+                                            }
+                                        ref.child(f'{ctx.guild.id}').set(e)
                                         await ctx.send(f'AntiLink is now on!')
-                                        await ctx.send('This configuration is already turned on!')
+                                        #val = (guildid,'ON','YES','NO')
                             elif str.lower(idmsg.content) == 'no':
                                         await ctx.send('Okay, do you want to prevent ANY other links like youtube or google links? Yes/No')
                                         try:
@@ -402,11 +420,22 @@ class config(Cog):
                                             return
                                         else:
                                             if str.lower(idmsg2.content) == 'yes':
-                                                pass
-                                               #on,no,yes
+                                                res = ref.get()
+                                                if f'{ctx.guild.id}' in res:
+                                                    await ctx.send('AntiLink is already on!')
+                                                    return
+                                                e = {
+                                                        'toggle': 'ON',
+                                                        'discordlink': 'NO',
+                                                        'otherlink': 'YES'
+                                                    }
+                                                ref.child(f'{ctx.guild.id}').set(e)
+                                                await ctx.send(f'AntiLink is now on!')
                                             elif str.lower(idmsg2.content) == 'no':
-                                                pass
-                                                #on,no,no = off
+                                                res = ref.get()
+                                                if f'{ctx.guild.id}' in res:
+                                                    ref.child(f'{ctx.guild.id}').delete()
+                                                await ctx.send(f'All options were chosen as no, so im turning AntiLink off.')
             
                     elif str.lower(msg1.content) == 'off':
                         res = ref.get()
@@ -421,7 +450,7 @@ class config(Cog):
                     if not f'{ctx.guild.id}' in res:
                         await ctx.send('AntiLink is currently off, turn it on to edit it.')
                         return
-                        
+
                     await ctx.send('Do you want to prevent discord invite links? Yes/No')
                     try:
                         idmsg = await self.client.wait_for('message',timeout = 50.0,check = check)
