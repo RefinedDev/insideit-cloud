@@ -702,6 +702,8 @@ class config(Cog):
     @commands.has_permissions(administrator = True)
     async def showconfigs(self,ctx):
         try:
+            ref = db.reference('/antilink')
+            res = ref.get()
             db = mysql.connector.connect(
                 host = "us-cdbr-east-02.cleardb.com",
                 user = "bc4de25d94d683",
@@ -717,8 +719,6 @@ class config(Cog):
             res2= cursor.fetchall()
             cursor.execute("SELECT toggle from leavemsg WHERE guildid = " + guildid)  
             res3 = cursor.fetchall()
-            # cursor.execute("SELECT toggle,discordlink,otherlink from antilink WHERE guildid = " + guildid)  
-            # res4 = cursor.fetchall()
  
             embed = discord.Embed()
             if (len(res2) == 0):
@@ -736,13 +736,11 @@ class config(Cog):
             else:
                 embed.add_field(name = 'LeaveMessage',value = f'`{res3[0][0]}`',inline= False)
             
-            # if (len(res4) == 0):
-            #     embed.add_field(name = 'AntiLink',value = f'`OFF`',inline= False)
-            # elif res4[0][0] == 'OFF':
-            #      embed.add_field(name = 'AntiLink',value = f'`OFF`',inline= False)
-            # else:
-            #     embed.add_field(name = 'AntiLink',value = f'`{res4[0][0]}`\n`NODiscordLink: {res4[0][1]}`\n`NOOtherLinks: {res4[0][2]}`',inline= False)               
-            # await ctx.send(embed = embed)
+            if f'{ctx.guild.id}' in res:
+                embed.add_field(name = 'AntiLink',value = f'`ON`',inline= False)
+            else:
+                embed.add_field(name = 'AntiLink',value = f'`OFF`',inline= False)
+                
             db.close()
             cursor.close()
         except Exception as e:
