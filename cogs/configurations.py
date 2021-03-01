@@ -702,8 +702,6 @@ class config(Cog):
     @commands.has_permissions(administrator = True)
     async def showconfigs(self,ctx):
         try:
-            ref = db.reference('/antilink')
-            res = ref.get()
             db = mysql.connector.connect(
                 host = "us-cdbr-east-02.cleardb.com",
                 user = "bc4de25d94d683",
@@ -735,7 +733,9 @@ class config(Cog):
                 embed.add_field(name = 'LeaveMessage',value = f'`OFF`',inline= False)
             else:
                 embed.add_field(name = 'LeaveMessage',value = f'`{res3[0][0]}`',inline= False)
-            
+            ref = db.reference('/antilink')
+            res = ref.get()
+
             if f'{ctx.guild.id}' in res:
                 embed.add_field(name = 'AntiLink',value = f'`ON`',inline= False)
             else:
