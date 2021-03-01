@@ -56,7 +56,7 @@ class config(Cog):
                     toggle = res[f'{str(message.guild.id)}']['toggle']
                     if toggle == 'OFF':
                         return
-                    othermsg = res[f'{str(message.guild.id)}']]['otherlink']
+                    othermsg = res[f'{str(message.guild.id)}']['otherlink']
                     if othermsg == 'NO':
                         return
                     await message.delete()
@@ -349,6 +349,9 @@ class config(Cog):
             await ctx.send('This configuration is under maintenance, please try again later.')
             return
 
+        ref = db.reference('/antilink')
+        res = ref.get()
+
         db = mysql.connector.connect(
             host = "us-cdbr-east-02.cleardb.com",
             user = "bc4de25d94d683",
@@ -540,8 +543,6 @@ class config(Cog):
                                                 await ctx.send('Succesfully Edited AntiLink, AntiLink is now off!')
             else:
                 await ctx.send("Invalid Choice")
-        db.close()
-        cursor.close()
     
     @config.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
