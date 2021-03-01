@@ -361,9 +361,9 @@ class config(Cog):
     @commands.has_permissions(administrator= True)
     async def AntiLink(self,ctx):
         if not ctx.author.id == 429535933252239360:
-            await ctx.send('This configuration is under maintainance, please try again later.')
+            await ctx.send('This configuration is under maintenance, please try again later.')
             return
-            
+
         db = mysql.connector.connect(
             host = "us-cdbr-east-02.cleardb.com",
             user = "bc4de25d94d683",
