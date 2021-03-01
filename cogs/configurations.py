@@ -416,7 +416,12 @@ class config(Cog):
                         else:
                             await ctx.send('AntiLink is already off!')
 
-            elif str.lower(msg.content) == 'edit':   
+            elif str.lower(msg.content) == 'edit':
+                    res = ref.get()
+                    if not f'{ctx.guild.id}' in res:
+                        await ctx.send('AntiLink is currently off, turn it on to edit it.')
+                        return
+                        
                     await ctx.send('Do you want to prevent discord invite links? Yes/No')
                     try:
                         idmsg = await self.client.wait_for('message',timeout = 50.0,check = check)
