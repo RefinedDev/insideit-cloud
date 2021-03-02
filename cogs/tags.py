@@ -202,7 +202,6 @@ class Tags(Cog):
     
     @tag.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
-    @commands.has_permissions(kick_members = True)
     async def show(self,ctx):
         db = mysql.connector.connect(
                 host = "us-cdbr-east-02.cleardb.com",
