@@ -6,7 +6,8 @@ import mysql.connector
 import asyncio
 import random
 
-intents = discord.Intents.all()
+intents = discord.Intents.default()
+intents.members = True
 client = commands.Bot(command_prefix='peg ',intents = intents)
 
 # token = "Nzk1OTYzMjAzODA0MjAwOTgw.X_RAgA.aciIvaEGbyz8jEGII1iwMNZ9ugE"
