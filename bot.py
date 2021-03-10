@@ -28,16 +28,19 @@ async def on_command_error(ctx,error):
 @client.event
 async def on_ready():
     print("Bot is online!")
-    await  client.change_presence(activity =discord.Activity(type= discord.ActivityType.watching,name= f'for free ({len(client.guilds)} Servers)'))
+    pass
+    #await  client.change_presence(activity =discord.Activity(type= discord.ActivityType.watching,name= f'for free ({len(client.guilds)} Servers)'))
 
 @client.event
 async def on_guild_join(guild):
-    await  client.change_presence(activity =discord.Activity(type= discord.ActivityType.watching,name= f'for free ({len(client.guilds)} Servers)'))
+    pass
+    #await  client.change_presence(activity =discord.Activity(type= discord.ActivityType.watching,name= f'for free ({len(client.guilds)} Servers)'))
 
 @client.event
 async def on_guild_remove(guild):
     try:
-        await  client.change_presence(activity =discord.Activity(type= discord.ActivityType.watching,name= f'for free ({len(client.guilds)} Servers)'))
+        pass
+        #await  client.change_presence(activity =discord.Activity(type= discord.ActivityType.watching,name= f'for free ({len(client.guilds)} Servers)'))
     except Exception as e:
         print(f'An Error Occured in on_guild_remove {e}')
 
