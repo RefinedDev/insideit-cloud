@@ -45,12 +45,12 @@ async def on_guild_remove(guild):
 
 def memberjoin(member):
     sentences = [
-    f'{member.mention} has joined the server, we have {len(member.guild.members)} now!',
-    f'{member.mention} fell from the sky we have {len(member.guild.members)} now!',f'{member.mention} showed up!',
-    f'{member.mention} somehow became visible we have {len(member.guild.members)} now!',
-    f'Welcome {member.mention} enjoy your stay! :D',
-    f'Nice to meet you {member.mention}! We have {len(member.guild.members)} now!',
-    f'Welcome {member.mention}, we hope you brought some snacks!'
+    f'**{member.name}{member.discriminator}** has joined the server, we have {len(member.guild.members)} now!',
+    f'**{member.name}{member.discriminator}** fell from the sky we have {len(member.guild.members)} now!',f'{member.mention} showed up!',
+    f'**{member.name}{member.discriminator}** somehow became visible we have {len(member.guild.members)} now!',
+    f'Welcome **{member.name}{member.discriminator}** enjoy your stay! :D',
+    f'Nice to meet you **{member.name}{member.discriminator}**! We have {len(member.guild.members)} now!',
+    f'Welcome **{member.name}{member.discriminator}**, we hope you brought some snacks!'
     ]
     value = random.choice(sentences)
     return value
@@ -125,11 +125,11 @@ async def on_member_join(member):
 
 def memberleave(member):
     sentences = [
-    f'{member.mention} decided to head out.',
-    f'{member.mention} withered away.',
-    f'{member.mention} disappeared.',
-    f'Cya {member.mention} it was a good time.',
-    f'We lost {member.mention}, we have {len(member.guild.members)} left.'
+    f'**{member.name}{member.discriminator}** decided to head out.',
+    f'**{member.name}{member.discriminator}** withered away.',
+    f'**{member.name}{member.discriminator}** disappeared.',
+    f'Cya **{member.name}{member.discriminator}** it was a good time.',
+    f'We lost **{member.name}{member.discriminator}**, we have {len(member.guild.members)} left.'
     ]
     value = random.choice(sentences)
     return value
