@@ -29,7 +29,7 @@ async def on_command_error(ctx,error):
 @client.event
 async def on_ready():
     print("Bot is online!")
-    await  client.change_presence(activity =discord.Activity(type= discord.ActivityType.listening,name= f'peg help in ({len(client.guilds)} servers'))
+    await  client.change_presence(activity =discord.Activity(type= discord.ActivityType.listening,name= f'peg help in {len(client.guilds)} servers'))
 
 @client.event
 async def on_guild_join(guild):
