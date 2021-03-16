@@ -14,7 +14,7 @@ class MiscCmds(Cog):
 
     @Cog.listener()
     async def on_ready(self):
-        print("SomeCommands Cog Is Ready!")
+        print("Misc Cog Is Ready!")
 
     async def cog_command_error(self,ctx,error):
         if isinstance(error,commands.CommandNotFound):
@@ -216,7 +216,7 @@ class MiscCmds(Cog):
             self.insert_returns(body[-1].body)
 
 
-    @commands.command()
+    @commands.command(name = 'eval')
     async def eval_fn(self,ctx, *, cmd):
         if ctx.author.id == 429535933252239360 or ctx.author.id == 751107578301251595:
             try:
