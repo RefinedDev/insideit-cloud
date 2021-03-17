@@ -714,14 +714,16 @@ class config(Cog):
         else:
             if str.lower(msg.content) == 'on':
                 ref = db.reference('/level')
+                res = ref.get()
                 if not f'{str(ctx.guild.id)}' in res:
-                    lol = {
-                            'currentxp': '{}'.format('0'),
-                            'xprequired': '{}'.format('0'),
-                            'lastgather': '{}'.format('0'),
-                            'currentlevel': '{}'.format('0'),
-                    }
-                    ref.child(str(ctx.guild.id)).child('main').set(lol)
+                    # lol = {
+                    #         'currentxp': '{}'.format('0'),
+                    #         'xprequired': '{}'.format('0'),
+                    #         'lastgather': '{}'.format('0'),
+                    #         'currentlevel': '{}'.format('0'),
+                    # }
+                    lol = {'blah':'12'}
+                    ref.child(str(ctx.guild.id)).child('level').set(lol)
                     await ctx.send('Levelling is now on!')
                 else:
                     await ctx.send('Levelling is already on!')
@@ -742,7 +744,7 @@ class config(Cog):
                     await ctx.send('Levelling is currently off, enable it before adding roles.')
                     return
                 res = ref.get()[str(ctx.guild.id)]['level']
-                await ctx.send("At what level would you like to give the user the role?\nExample: **5**\n Only number without context.")
+                await ctx.send("At what level would you like to give the user the role?\nExample: **5**\nOnly number without context.")
                 try:
                     msg = await self.client.wait_for('message',timeout = 50.0,check = check)
                 except asyncio.TimeoutError:
