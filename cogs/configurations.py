@@ -761,8 +761,8 @@ class config(Cog):
                             await ctx.send('Role not found!')
                             return
                         else:
-                            addrole = {f'{msg.content}': f'{msg2.content}'}
-                            ref.child(str(ctx.guild.id)).child('level').set(addrole)
+                            res[msg.content] = msg2.content
+                            ref.child(str(ctx.guild.id)).child('level').set(res)
                             await ctx.send(f'Done, users will recieve the `{role.name}` role when they reach level `{msg.content}`')
 
         
