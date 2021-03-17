@@ -738,6 +738,10 @@ class config(Cog):
                     return
             elif str.lower(msg.content) == 'addrole':
                 ref = db.reference('/level')
+                res = ref.get()
+                if not f'{str(ctx.guild.id)}' in res:
+                    await ctx.send('Levelling is currently off, enable it before adding roles.')
+                    return
                 await ctx.send("At what level would you like to give the user the role?\nExample: **5**\n Only number without context.")
                 try:
                     msg = await self.client.wait_for('message',timeout = 50.0,check = check)
@@ -759,7 +763,7 @@ class config(Cog):
                         else:
                             addrole = {f'{msg.content}': f'{msg2.content}'}
                             ref.child(str(ctx.guild.id)).child('level').set(addrole)
-                            await ctx.send(f'Done, users will recieve the {role.name} role when the reach level {msg.content}')
+                            await ctx.send(f'Done, users will recieve the `{role.name}`` role when they reach level `{msg.content}`')
 
         
 
