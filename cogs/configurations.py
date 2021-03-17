@@ -763,7 +763,7 @@ class config(Cog):
                         else:
                             addrole = {f'{msg.content}': f'{msg2.content}'}
                             ref.child(str(ctx.guild.id)).child('level').set(addrole)
-                            await ctx.send(f'Done, users will recieve the `{role.name}`` role when they reach level `{msg.content}`')
+                            await ctx.send(f'Done, users will recieve the `{role.name}` role when they reach level `{msg.content}`')
 
         
 
