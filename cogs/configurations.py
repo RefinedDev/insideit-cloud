@@ -722,7 +722,7 @@ class config(Cog):
                             'lastgather': '{}'.format('0'),
                             'currentlevel': '{}'.format('0'),
                     }
-                    ref.child(str(ctx.guild.id)).child('main').set(lol)
+                    ref.child(f'{str(ctx.guild.id)}').child('main').set(lol)
                     await ctx.send('Levelling is now on!')
                 else:
                     await ctx.send('Levelling is already on!')
@@ -762,7 +762,7 @@ class config(Cog):
                             return
                         else:
                             res[msg.content] = msg2.content
-                            ref.child(str(ctx.guild.id)).child('level').set(res)
+                            ref.child(f'{str(ctx.guild.id)}').child('level').set(res)
                             await ctx.send(f'Done, users will recieve the `{role.name}` role when they reach level `{msg.content}`')
 
         
