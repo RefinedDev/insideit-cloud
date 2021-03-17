@@ -698,14 +698,14 @@ class config(Cog):
             else:
                 await ctx.send("Invalid Choice")
     
-    @commands.command()
+    @config.command()
     @commands.has_permissions(administrator = True)
     @commands.cooldown(1,60,commands.BucketType.guild)
     async def leveling(self,ctx):
         def check(message):
             return message.author == ctx.author and message.channel == ctx.channel
 
-        await ctx.send("What ya want to configure?\n`on`\n`off`\n`addrole: Give a role to users when they reach a specific level.`\n\nWill this promote spamming?\nNo, the user can only get a few amounts of xp **per minute** spamming won't help in any way.")
+        await ctx.send("What ya want to configure?\n`on`\n`off`\n`addrole`: Give a role to users when they reach a specific level.\n\nWill this promote spamming?\nNo, the user can only get a few amounts of XP **per minute** spamming won't help in any way.")
         
 
     # @commands.command()
