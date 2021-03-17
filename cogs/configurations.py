@@ -705,7 +705,7 @@ class config(Cog):
         def check(message):
             return message.author == ctx.author and message.channel == ctx.channel
 
-        await ctx.send("What ya want to configure?\n`on`\n`off`\n`addrole`: Give a role to users when they reach a specific level.\n\nWill this promote spamming?\nNo, the user can only get a few amounts of XP **per minute** spamming won't help in any way.")
+        await ctx.send("What ya want to configure?\n`on`\n`off`\n\nWill this promote spamming?\nNo, the user can only get a few amounts of XP **per minute** spamming won't help in any way.")
         try:
             msg = await self.client.wait_for('message',timeout = 50.0,check = check)
         except asyncio.TimeoutError:
@@ -735,10 +735,7 @@ class config(Cog):
                     await ctx.send('Levelling is now off!')
                 else:
                     await ctx.send('Levelling is already off!')
-                    return
-            elif str.lower(msg.content) == 'addrole':
-                pass
-        
+                    return        
 
     # @commands.command()
     # @commands.cooldown(1,60,commands.BucketType.guild)
