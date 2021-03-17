@@ -1,6 +1,7 @@
 import discord.ext
 from discord.ext import commands,tasks
 from discord.ext.commands import Cog
+from discord.ext.commands.cooldowns import BucketType
 import mysql.connector
 import asyncio
 import random
@@ -696,6 +697,16 @@ class config(Cog):
                     await ctx.send(f"Minage is now on! Users who's account age is under {msg2.content} days will be kicked")
             else:
                 await ctx.send("Invalid Choice")
+    
+    @commands.command()
+    @commands.has_permissions(administrator = True)
+    @commands.cooldown(1,60,commands.BucketType.guild)
+    async def leveling(self,ctx):
+        def check(message):
+            return message.author == ctx.author and message.channel == ctx.channel
+
+        await ctx.send("What ya want to configure?\n`on`\n`off`\n`addrole: Give a role to users when they reach a specific level.`\n\nWill this promote spamming?\nNo, the user can only get a few amounts of xp **per minute** spamming won't help in any way.")
+        
 
     # @commands.command()
     # @commands.cooldown(1,60,commands.BucketType.guild)
