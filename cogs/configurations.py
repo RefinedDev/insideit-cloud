@@ -700,7 +700,7 @@ class config(Cog):
     
     @config.command()
     @commands.has_permissions(administrator = True)
-    @commands.cooldown(1,60,commands.BucketType.guild)
+    #@commands.cooldown(1,60,commands.BucketType.guild)
     async def levelling(self,ctx):
         def check(message):
             return message.author == ctx.author and message.channel == ctx.channel
