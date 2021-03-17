@@ -706,6 +706,18 @@ class config(Cog):
             return message.author == ctx.author and message.channel == ctx.channel
 
         await ctx.send("What ya want to configure?\n`on`\n`off`\n`addrole`: Give a role to users when they reach a specific level.\n\nWill this promote spamming?\nNo, the user can only get a few amounts of XP **per minute** spamming won't help in any way.")
+        try:
+            msg = await self.client.wait_for('message',timeout = 50.0,check = check)
+        except asyncio.TimeoutError:
+            await ctx.send("Din't reply in time noob.")
+            return
+        else:
+            if str.lower(msg.content) == 'on':
+                pass
+            elif str.lower(msg.content) == 'off':
+                pass
+            elif str.lower(msg.content) == 'addrole':
+                pass
         
 
     # @commands.command()
