@@ -713,9 +713,29 @@ class config(Cog):
             return
         else:
             if str.lower(msg.content) == 'on':
-                pass
+                ref = db.reference('/level')
+                res = ref.get()
+                if not f'{str(ctx.guild.id)}' in res:
+                    lol = {
+                            'currentxp': '{}'.format('0'),
+                            'xprequired': '{}'.format('0'),
+                            'lastgather': '{}'.format('0'),
+                            'currentlevel': '{}'.format('0'),
+                    }
+                    ref.child(str(ctx.guild.id)).child('main').set(lol)
+                    await ctx.send('Levelling is now on!')
+                else:
+                    await ctx.send('Levelling is already on!')
+                    return
             elif str.lower(msg.content) == 'off':
-                pass
+                ref = db.reference('/level')
+                res = ref.get()
+                if f'{str(ctx.guild.id)}' in res:
+                    ref.child(str(ctx.guild.id)).delete()
+                    await ctx.send('Levelling is now off!')
+                else:
+                    await ctx.send('Levelling is already off!')
+                    return
             elif str.lower(msg.content) == 'addrole':
                 pass
         
