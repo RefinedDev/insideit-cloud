@@ -737,7 +737,30 @@ class config(Cog):
                     await ctx.send('Levelling is already off!')
                     return
             elif str.lower(msg.content) == 'addrole':
-                pass
+                ref = db.reference('/level')
+                await ctx.send("At what level would you like to give the user the role?\nExample: **5**\n Only number without context.")
+                try:
+                    msg = await self.client.wait_for('message',timeout = 50.0,check = check)
+                except asyncio.TimeoutError:
+                    await ctx.send("Din't reply in time noob.")
+                    return
+                else:
+                    await ctx.send(f'Okay, now write the RoleID that users will recieve when they reach the level `{msg.content}`')
+                    try:
+                        msg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
+                    except asyncio.TimeoutError:
+                        await ctx.send("Din't reply in time noob.")
+                        return
+                    else:
+                        role = discord.utils.get(ctx.guild.roles,id = int(msg2.content))
+                        if role == None:
+                            await ctx.send('Role not found!')
+                            return
+                        else:
+                            addrole = {f'{msg.content}': f'{msg2.content}'}
+                            ref.child(str(ctx.guild.id)).child('level').set(addrole)
+                            await ctx.send(f'Done, users will recieve the {role.name} role when the reach level {msg.content}')
+
         
 
     # @commands.command()
