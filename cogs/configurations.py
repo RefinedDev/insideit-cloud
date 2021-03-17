@@ -95,7 +95,7 @@ class config(Cog):
     @commands.has_permissions(administrator = True)
     async def config(self,ctx):
         if ctx.invoked_subcommand is None:
-            embed = discord.Embed(title = '⚙ Configurations.',description = 'Use `peg config [nameofconfig]` to configure, you can also use `peg showconfigs` to see what configurations are on or off.',color = ctx.author.color)
+            embed = discord.Embed(title = '⚙ Configurations.',description = 'Use `peg config [nameofconfig]` to configure.',color = ctx.author.color)
             embed.add_field(name = 'You can configure the following.',value = '`WelcomeMessage: Messages in a specific channel when a member joins.`\n\n`WelcomeRole: New members recieve the specified role.`\n\n`LeaveMessage: Messages in a specific channel when a member leaves.`\n\n`AntiLink: Prevent links.`\n\n`ReactionRoles: You should know what this does.`\n\n`Minage: Set a minimum age limit for your servers, new members under that age will be kicked (usefull to prvent raids.)`')
             await ctx.send(embed = embed)
 
@@ -697,55 +697,55 @@ class config(Cog):
             else:
                 await ctx.send("Invalid Choice")
 
-    @commands.command()
-    @commands.cooldown(1,60,commands.BucketType.guild)
-    @commands.has_permissions(administrator = True)
-    async def showconfigs(self,ctx):
-        try:
-            dbs = mysql.connector.connect(
-                host = "us-cdbr-east-02.cleardb.com",
-                user = "bc4de25d94d683",
-                passwd = "0bf00100",
-                database = "heroku_1d7c0ca78dfc2ef"
-            )
+    # @commands.command()
+    # @commands.cooldown(1,60,commands.BucketType.guild)
+    # @commands.has_permissions(administrator = True)
+    # async def showconfigs(self,ctx):
+    #     try:
+    #         dbs = mysql.connector.connect(
+    #             host = "us-cdbr-east-02.cleardb.com",
+    #             user = "bc4de25d94d683",
+    #             passwd = "0bf00100",
+    #             database = "heroku_1d7c0ca78dfc2ef"
+    #         )
 
-            cursor = dbs.cursor()
-            guildid = str(ctx.guild.id)
-            cursor.execute("SELECT toggle from welcomeroles WHERE guildid = " + guildid)
-            res1 = cursor.fetchall()
-            cursor.execute("SELECT toggle from welcomemsg WHERE guildid = " + guildid)
-            res2= cursor.fetchall()
-            cursor.execute("SELECT toggle from leavemsg WHERE guildid = " + guildid)  
-            res3 = cursor.fetchall()
+    #         cursor = dbs.cursor()
+    #         guildid = str(ctx.guild.id)
+    #         cursor.execute("SELECT toggle from welcomeroles WHERE guildid = " + guildid)
+    #         res1 = cursor.fetchall()
+    #         cursor.execute("SELECT toggle from welcomemsg WHERE guildid = " + guildid)
+    #         res2= cursor.fetchall()
+    #         cursor.execute("SELECT toggle from leavemsg WHERE guildid = " + guildid)  
+    #         res3 = cursor.fetchall()
  
-            embed = discord.Embed()
-            if (len(res2) == 0):
-                embed.add_field(name = 'WelcomeMessage',value = '`OFF`')
-            else:
-                embed.add_field(name = 'WelcomeMessage',value = f'`{res2[0][0]}`')
+    #         embed = discord.Embed()
+    #         if (len(res2) == 0):
+    #             embed.add_field(name = 'WelcomeMessage',value = '`OFF`')
+    #         else:
+    #             embed.add_field(name = 'WelcomeMessage',value = f'`{res2[0][0]}`')
 
-            if (len(res1) == 0):
-                embed.add_field(name = 'WelcomeRole',value = f'`OFF`',inline= False)
-            else:
-                embed.add_field(name = 'WelcomeRole',value = f'`{res1[0][0]}`',inline= False)
+    #         if (len(res1) == 0):
+    #             embed.add_field(name = 'WelcomeRole',value = f'`OFF`',inline= False)
+    #         else:
+    #             embed.add_field(name = 'WelcomeRole',value = f'`{res1[0][0]}`',inline= False)
 
-            if (len(res3) == 0):
-                embed.add_field(name = 'LeaveMessage',value = f'`OFF`',inline= False)
-            else:
-                embed.add_field(name = 'LeaveMessage',value = f'`{res3[0][0]}`',inline= False)
-            ref = db.reference('/antilink')
-            res = ref.get()
+    #         if (len(res3) == 0):
+    #             embed.add_field(name = 'LeaveMessage',value = f'`OFF`',inline= False)
+    #         else:
+    #             embed.add_field(name = 'LeaveMessage',value = f'`{res3[0][0]}`',inline= False)
+    #         ref = db.reference('/antilink')
+    #         res = ref.get()
 
-            if f'{ctx.guild.id}' in res:
-                embed.add_field(name = 'AntiLink',value = f'`ON`',inline= False)
-            else:
-                embed.add_field(name = 'AntiLink',value = f'`OFF`',inline= False)
-            await ctx.send(embed = embed)
+    #         if f'{ctx.guild.id}' in res:
+    #             embed.add_field(name = 'AntiLink',value = f'`ON`',inline= False)
+    #         else:
+    #             embed.add_field(name = 'AntiLink',value = f'`OFF`',inline= False)
+    #         await ctx.send(embed = embed)
             
-            dbs.close()
-            cursor.close()
-        except Exception as e:
-            print(f"An Error Occured In showconfigs {e}")
+    #         dbs.close()
+    #         cursor.close()
+    #     except Exception as e:
+    #         print(f"An Error Occured In showconfigs {e}")
 
     @Cog.listener()
     async def on_raw_reaction_add(self,payload):

@@ -10,7 +10,6 @@ from datetime import datetime
 class apiscraping(Cog):
     def __init__(self,client):
         self.client = client
-        #self.MemesForDankMeme.start()
 
     @Cog.listener()
     async def on_ready(self):
