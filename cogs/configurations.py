@@ -780,7 +780,7 @@ class config(Cog):
         res = ref.get()
         if not f'{message.guild.id}' in res:
             return
-    
+
         res2 = res[f'{message.guild.id}']
         if not f'{message.author.id}' in res2:
             newxp = random.randint(20,30)     
@@ -790,7 +790,7 @@ class config(Cog):
                 'lastgather': '{}'.format(datetime.now()),
                 'currentlevel': '{}'.format('1'),
                 }
-            ref.child(message.guild.id).child(message.author.id).set(lol)
+            ref.child(str(message.guild.id)).child(str(message.author.id)).set(lol)
             return
 
         lastgather = res2[message.author.id]['lastgather']
@@ -804,7 +804,7 @@ class config(Cog):
                 'lastgather': '{}'.format(datetime.now()),
                 'currentlevel': '{}'.format(res2[message.author.id]['currentlevel']),
                 }
-            ref.child(message.guild.id).child(message.author.id).set(lol)
+            ref.child(str(message.guild.id)).child(str(message.author.id)).set(lol)
             res3 = ref.get()
             if int(res3[message.author.id]['currentxp']) > int(res3[message.author.id]['xprequired']):
                 lol = {
@@ -815,7 +815,7 @@ class config(Cog):
                 }
                 member = await message.guild.fetch_member(message.author.id)
                 await member.send(f"Ay, congrats you're now level `{int(res3[message.author.id]['currentlevel']) + 1}`")
-                ref.child(message.guild.id).child(message.author.id).set(lol)
+                ref.child(str(message.guild.id)).child(str(message.author.id)).set(lol)
 
     # @commands.command()
     # @commands.cooldown(1,60,commands.BucketType.guild)
