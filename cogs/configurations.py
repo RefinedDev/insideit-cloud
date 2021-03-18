@@ -868,9 +868,9 @@ class config(Cog):
         if not f'{str(ctx.guild.id)}' in res:
             await ctx.send('Levelling is currently off, enable it to use this command.')
             return
-        memberlevel = res[str(ctx.guild.id)][member.id]['currentlevel']
-        memberxp = res[str(ctx.guild.id)][member.id]['currentxp']
-        memberxpreq = res[str(ctx.guild.id)][member.id]['xprequired']
+        memberlevel = res[str(ctx.guild.id)][str(member.id)]['currentlevel']
+        memberxp = res[str(ctx.guild.id)][str(member.id)]['currentxp']
+        memberxpreq = res[str(ctx.guild.id)][str(member.id)]['xprequired']
         embed = discord.Embed(title = f"{member.name}'s rank")
         embed.set_thumbnail(url = member.avatar_url)
         embed.add_field(name = 'Level:',value = f'`{memberlevel}`',inline = False)
