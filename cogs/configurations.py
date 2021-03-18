@@ -810,7 +810,7 @@ class config(Cog):
             newxp = random.randint(20,30)     
             lol = {
                 'currentxp': '{}'.format(newxp),
-                'xprequired': '{}'.format('300'),
+                'xprequired': '{}'.format('200'),
                 'lastgather': '{}'.format(datetime.now()),
                 'currentlevel': '{}'.format('1'),
                 }
