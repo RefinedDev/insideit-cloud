@@ -773,6 +773,9 @@ class config(Cog):
         if not message.guild.id == 777895986461671424:
             return
 
+        if message.author.bot:
+            return
+            
         if isinstance(message.channel, discord.channel.DMChannel):
             return
 
@@ -823,7 +826,7 @@ class config(Cog):
                         if role == None:
                             return
                         await member.add_roles(role)
-                        
+
 
 
     # @commands.command()
