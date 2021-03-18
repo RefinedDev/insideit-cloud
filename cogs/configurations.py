@@ -779,7 +779,7 @@ class config(Cog):
                     await ctx.send('This guild has no level roles.')
                     return
         
-                embed = discord.embed(title = 'Remove a level role.',description = 'To remove the level role specify the ID from the following options.')
+                embed = discord.Embed(title = 'Remove a level role.',description = 'To remove the level role specify the ID from the following options.')
                 for i in res:
                     if not i == 'blah':
                         role = discord.utils.get(message.guild.roles,id = int(i))
