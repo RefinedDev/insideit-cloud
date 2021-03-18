@@ -9,6 +9,7 @@ import firebase_admin
 from firebase_admin import db
 from firebase_admin import credentials
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 cred = credentials.Certificate("serviceAccountKey.json")
 
@@ -716,12 +717,6 @@ class config(Cog):
                 ref = db.reference('/level')
                 res = ref.get()
                 if not f'{str(ctx.guild.id)}' in res:
-                    # lol = {
-                    #         'currentxp': '{}'.format('0'),
-                    #         'xprequired': '{}'.format('0'),
-                    #         'lastgather': '{}'.format('0'),
-                    #         'currentlevel': '{}'.format('0'),
-                    # }
                     lol = {'blah':'12'}
                     ref.child(str(ctx.guild.id)).child('level').set(lol)
                     await ctx.send('Levelling is now on!')
@@ -773,7 +768,54 @@ class config(Cog):
                             ref.child(str(ctx.guild.id)).child('level').set(res)
                             await ctx.send(f'Done, users will recieve the `{role.name}` role when they reach level `{msg.content}`')
 
-        
+    @Cog.listener()
+    async def on_message(self,message):
+        if message.guild.id != 777895986461671424:
+            return
+
+        if isinstance(message.channel, discord.channel.DMChannel):
+            return
+
+        ref = db.reference('/level')
+        res = ref.get()
+        if not f'{message.guild.id}' in res:
+            return
+    
+        res2 = res[f'{message.guild.id}']
+        if not f'{message.author.id}' in res2:
+            newxp = random.randint(20,30)     
+            lol = {
+                'currentxp': '{}'.format(newxp),
+                'xprequired': '{}'.format('50'),
+                'lastgather': '{}'.format(datetime.now()),
+                'currentlevel': '{}'.format('1'),
+                }
+            ref.child(message.guild.id).child(message.author.id).set(lol)
+            return
+
+        lastgather = res2[message.author.id]['lastgather']
+        time = datetime.strptime(lastgather,"%Y-%m-%d %H:%M:%S.%f")
+        cooldowntime = time + relativedelta(seconds= 5)
+        if datetime.now() >= cooldowntime:
+            newxp = random.randint(20,30) 
+            lol = {
+                'currentxp': '{}'.format(int(res2[message.author.id]['currentxp']) + newxp),
+                'xprequired': '{}'.format(res2[message.author.id]['xprequired']),
+                'lastgather': '{}'.format(datetime.now()),
+                'currentlevel': '{}'.format(res2[message.author.id]['currentlevel']),
+                }
+            ref.child(message.guild.id).child(message.author.id).set(lol)
+            res3 = ref.get()
+            if int(res3[message.author.id]['currentxp']) > int(res3[message.author.id]['xprequired']):
+                lol = {
+                    'currentxp': '{}'.format(res3[message.author.id]['currentxp']),
+                    'xprequired': '{}'.format(int(res3[message.author.id]['xprequired']) * 2),
+                    'lastgather': '{}'.format(res3[message.author.id]['lastgather']),
+                    'currentlevel': '{}'.format(int(res3[message.author.id]['currentlevel']) + 1),
+                }
+                member = await message.guild.fetch_member(message.author.id)
+                await member.send(f"Ay, congrats you're now level `{int(res3[message.author.id]['currentlevel']) + 1}`")
+                ref.child(message.guild.id).child(message.author.id).set(lol)
 
     # @commands.command()
     # @commands.cooldown(1,60,commands.BucketType.guild)
