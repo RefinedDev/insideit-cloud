@@ -23,7 +23,9 @@ async def on_command_error(ctx,error):
     elif isinstance(error,commands.MissingRequiredArgument):
         pass
     else:
-        print(error)
+        embed = discord.embed()
+        embed.add_field(name = 'ERROR',value = f'{error}')
+        await ctx.send(embed = embed)
 
 
 @client.event
