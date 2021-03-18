@@ -770,12 +770,9 @@ class config(Cog):
 
     @Cog.listener()
     async def on_message(self,message):
-        if not message.guild.id == 777895986461671424:
-            return
-
         if message.author.bot:
             return
-            
+
         if isinstance(message.channel, discord.channel.DMChannel):
             return
 
