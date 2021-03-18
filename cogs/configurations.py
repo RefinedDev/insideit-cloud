@@ -1,3 +1,4 @@
+from discord import message
 import discord.ext
 from discord.ext import commands,tasks
 from discord.ext.commands import Cog
@@ -706,7 +707,7 @@ class config(Cog):
         def check(message):
             return message.author == ctx.author and message.channel == ctx.channel
 
-        await ctx.send("What ya want to configure?\n`on`\n`off`\n`addrole`: Give a role to users when they reach a specific level.\n\nWill this promote spamming?\nNo, the user can only get a few amounts of XP **per minute** spamming won't help in any way.")
+        await ctx.send("What ya want to configure?\n`on`\n`off`\n`addrole`: Give a role to users when they reach a specific level.\n`removerole`: Remove a role that users recieve on specific level.\n\nWill this promote spamming?\nNo, the user can only get a few amounts of XP **per minute** spamming won't help in any way.")
         try:
             msg = await self.client.wait_for('message',timeout = 50.0,check = check)
         except asyncio.TimeoutError:
@@ -767,7 +768,26 @@ class config(Cog):
                             res[msg2.content] = msg.content
                             ref.child(str(ctx.guild.id)).child('level').set(res)
                             await ctx.send(f'Done, users will recieve the `{role.name}` role when they reach level `{msg.content}`')
-
+            elif str.lower(msg.content) == 'removerole':
+                ref = db.reference('/level')
+                res = ref.get()
+                if not f'{str(ctx.guild.id)}' in res:
+                    await ctx.send('Levelling is currently off, enable it before adding roles.')
+                    return
+                res = ref.get()[str(ctx.guild.id)]['level']
+                if len(res) == 1:
+                    await ctx.send('This guild has no level roles.')
+                    return
+        
+                embed = discord.embed(title = 'Remove a level role.',description = 'To remove the level role specify the ID from the following options.')
+                for i in res:
+                    if not i == 'blah':
+                        role = discord.utils.get(message.guild.roles,id = int(i))
+                        if role == None:
+                            embed.add_field(name = f'ID: `{i}`',value = f'On level `{res[i]}` users recieve the `None` role.')
+                        else:
+                            embed.add_field(name = f'ID: `{i}`',value = f'On level `{res[i]}` users recieve the `{role.name}` role.')
+                    await ctx.send(embed = embed)
     @Cog.listener()
     async def on_message(self,message):
         if message.author.bot:
