@@ -848,7 +848,7 @@ class config(Cog):
                     'currentlevel': '{}'.format(int(res3[str(message.author.id)]['currentlevel']) + 1),
                 }
                 member = await message.guild.fetch_member(int(message.author.id))
-                await member.send(f"Ay, congrats you're now level `{int(res3[str(message.author.id)]['currentlevel']) + 1}`")
+                await message.channel.send(f"**{message.author.display_name}#{message.author.discriminator}** Ay, congrats you're now level `{int(res3[str(message.author.id)]['currentlevel']) + 1}`")
                 ref.child(str(message.guild.id)).child(str(message.author.id)).set(lol)
                 ref3 = res3['level']
                 for i in ref3:
