@@ -779,7 +779,7 @@ class config(Cog):
                     await ctx.send('This guild has no level roles.')
                     return
         
-                embed = discord.Embed(title = 'Remove a level role.',description = 'To remove the level role specify the ID from the following options.')
+                embed = discord.Embed(title = 'Remove a level role.',description = 'To remove the level role specify the `ID` from the following options.')
                 for i in res:
                     if not i == 'blah':
                         role = discord.utils.get(ctx.guild.roles,id = int(i))
@@ -788,6 +788,18 @@ class config(Cog):
                         else:
                             embed.add_field(name = f'ID: `{i}`',value = f'On level `{res[i]}` users recieve the `{role.name}` role.')
                 await ctx.send(embed = embed)
+                try:
+                    msg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
+                except asyncio.TimeoutError:
+                    await ctx.send("Din't reply in time noob.")
+                    return
+                else:
+                    role = discord.utils.get(ctx.guild.roles,id = int(msg2.content))
+                    ref.child(str(ctx.guild.id)).child('level').child(msg2.content).delete()
+                    if role == None:
+                        await ctx.send(f'The level `{res[msg2.content]}` which gave users the role `None` has been removed.')
+                    else:
+                        await ctx.send(f'The level `{res[msg2.content]}` which gave users the role `{role.name}` has been removed.')
     @Cog.listener()
     async def on_message(self,message):
         if message.author.bot:
