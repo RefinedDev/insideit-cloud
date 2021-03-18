@@ -843,7 +843,7 @@ class config(Cog):
             if int(res3[str(message.author.id)]['currentxp']) > int(res3[str(message.author.id)]['xprequired']):
                 lol = {
                     'currentxp': '{}'.format(res3[str(message.author.id)]['currentxp']),
-                    'xprequired': '{}'.format(round(int(res3[str(message.author.id)]['xprequired']) * 1.2)),
+                    'xprequired': '{}'.format(round(int(res3[str(message.author.id)]['xprequired']) * 1.5)),
                     'lastgather': '{}'.format(res3[str(message.author.id)]['lastgather']),
                     'currentlevel': '{}'.format(int(res3[str(message.author.id)]['currentlevel']) + 1),
                 }
