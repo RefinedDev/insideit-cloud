@@ -58,7 +58,7 @@ class helpcommand(Cog):
     async def misc(self,ctx):
         try:
             embed = discord.Embed(colour = ctx.author.color)
-            embed.add_field(name = '😏 Miscellaneous Commands.',value = "`peg rps`,`peg rpsLeaderboard`,`peg whois`,`peg ping`,`peg fromBase64`,`peg simpmeter`,`peg av`,`peg 8ball`,`peg robloxsearch`,`peg choose`,`peg twitter`")
+            embed.add_field(name = '😏 Miscellaneous Commands.',value = "`peg rps`,`peg rpsLeaderboard`,`peg whois`,`peg ping`,`peg fromBase64`,`peg simpmeter`,`peg av`,`peg 8ball`,`peg robloxsearch`,`peg choose`,`peg twitter`,`peg rank`")
             await ctx.send(embed = embed)
         except Exception as e:
             await ctx.send(f'An error occured: {e}')
