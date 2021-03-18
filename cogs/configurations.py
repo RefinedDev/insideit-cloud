@@ -764,6 +764,9 @@ class config(Cog):
                             await ctx.send('Role not found!')
                             return
                         else:
+                            if f'{msg2.content}' in res:
+                                already = res[role.id]
+                                await ctx.send(f'The role {role.name} is already being granted by another level {(already)}, try some other role or remove the level that grants this role.\nLevel: {(already)}')
                             res[msg2.content] = msg.content
                             ref.child(str(ctx.guild.id)).child('level').set(res)
                             await ctx.send(f'Done, users will recieve the `{role.name}` role when they reach level `{msg.content}`')
