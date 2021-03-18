@@ -22,6 +22,15 @@ async def on_command_error(ctx,error):
         await ctx.send(embed= embed,delete_after=5)
     elif isinstance(error,commands.MissingRequiredArgument):
         pass
+    elif isinstance(error,commands.CommandOnCooldown):
+            embeddd = discord.Embed(colour= discord.Colour.red())
+            embeddd.add_field(name = "eyo calmdown",value = f'This command is on cooldown, try again later after {error.retry_after:,.2f} seconds.')
+            await ctx.send(embed = embeddd,delete_after=5) 
+    elif isinstance(error,commands.MemberNotFound):
+            embeddd = discord.Embed(colour= discord.Colour.red())
+            embeddd.add_field(name = "eyo calmdown",value = f'Member Not Found.')
+            await ctx.send(embed = embeddd,delete_after=5)
+    
     else:
         embed = discord.Embed(color = discord.Colour.red())
         embed.add_field(name = 'ERROR',value = f'{error}')

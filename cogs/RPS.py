@@ -14,13 +14,7 @@ class RockPaperScissors(Cog):
     @Cog.listener()
     async def on_ready(self):
         print("RPS Cog Is Ready!")
-
-    async def cog_command_error(self,ctx,exc):
-        if isinstance(exc,commands.CommandOnCooldown):
-            embeddd = discord.Embed(colour= discord.Colour.red())
-            embeddd.add_field(name = "ERROR",value = f'This command is on cooldown, try again later after {exc.retry_after:,.2f} seconds.')
-            await ctx.send(embed = embeddd,delete_after=5)  
-
+ 
     def updateuserstats(self,name,theid):
         db = mysql.connector.connect(
             host = "us-cdbr-east-02.cleardb.com",

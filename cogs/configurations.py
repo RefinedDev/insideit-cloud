@@ -84,13 +84,6 @@ class config(Cog):
                         await member.send(f"You're account age needs to be over {dbage} days before you can join this server.")
                         await member.kick(reason = f'Account age lower than the specified minimum age amount')
 
-
-    
-    async def cog_command_error(self,ctx,exc):
-        if isinstance(exc,commands.CommandOnCooldown):
-            embeddd = discord.Embed(colour= discord.Colour.red())
-            embeddd.add_field(name = "eyo calmdown",value = f'This command is on cooldown, try again later after {exc.retry_after:,.2f} seconds.')
-            await ctx.send(embed = embeddd,delete_after=5)  
     
     @commands.group()
     @commands.has_permissions(administrator = True)

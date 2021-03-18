@@ -15,18 +15,6 @@ class img(Cog):
     @Cog.listener()
     async def on_ready(self):
         print("Image Cog Is Ready!")
-
-
-    async def cog_command_error(self,ctx,exc):
-        if isinstance(exc,commands.CommandOnCooldown):
-            embeddd = discord.Embed(colour= discord.Colour.red())
-            embeddd.add_field(name = "eyo calmdown",value = f'This command is on cooldown, try again later after {exc.retry_after:,.2f} seconds.')
-            await ctx.send(embed = embeddd,delete_after=5) 
-        elif isinstance(exc,commands.MemberNotFound):
-            embeddd = discord.Embed(colour= discord.Colour.red())
-            embeddd.add_field(name = "eyo calmdown",value = f'Member Not Found.')
-            await ctx.send(embed = embeddd,delete_after=5) 
-    
     
     @commands.command()
     @commands.cooldown(1,5,commands.BucketType.user)

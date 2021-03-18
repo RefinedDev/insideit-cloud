@@ -16,20 +16,7 @@ class MiscCmds(Cog):
     async def on_ready(self):
         print("Misc Cog Is Ready!")
 
-    async def cog_command_error(self,ctx,error):
-        if isinstance(error,commands.CommandNotFound):
-            pass
-        elif isinstance(error,commands.MissingPermissions):
-            embed = discord.Embed(colour= discord.Colour.red(),timestamp = datetime.utcnow())
-            embed.add_field(name="eyo calmdown",value= "You do not have the required permissions to run this command.")
-            await ctx.send(embed= embed,delete_after=5)
-        elif isinstance(error,commands.MissingRequiredArgument):
-            pass
-        elif isinstance(error,commands.CommandOnCooldown):
-            embeddd = discord.Embed(colour= discord.Colour.red())
-            embeddd.add_field(name = "eyo calmdown",value = f'This command is on cooldown, try again later after {error.retry_after:,.2f} seconds.')
-            await ctx.send(embed = embeddd,delete_after=5)  
-    #Ping
+      #Ping
     @commands.command()
     @commands.cooldown(1,1,commands.BucketType.user)
     async def ping(self,ctx):
