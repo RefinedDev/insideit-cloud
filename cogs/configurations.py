@@ -816,6 +816,15 @@ class config(Cog):
                 member = await message.guild.fetch_member(int(message.author.id))
                 await member.send(f"Ay, congrats you're now level `{int(res3[str(message.author.id)]['currentlevel']) + 1}`")
                 ref.child(str(message.guild.id)).child(str(message.author.id)).set(lol)
+                ref3 = res['level']
+                for i in ref3:
+                    if int(ref3[i]) == int(res3[str(message.author.id)]['currentlevel']) + 1:
+                        role = discord.utils.get(message.guild.roles, id = int(i))
+                        if role == None:
+                            return
+                        await member.add_roles(role)
+                        
+
 
     # @commands.command()
     # @commands.cooldown(1,60,commands.BucketType.guild)
