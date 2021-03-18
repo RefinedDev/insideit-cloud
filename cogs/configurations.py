@@ -852,11 +852,12 @@ class config(Cog):
                 ref.child(str(message.guild.id)).child(str(message.author.id)).set(lol)
                 ref3 = res2['level']
                 for i in ref3:
-                    if int(ref3[i]) >= int(res3[str(message.author.id)]['currentlevel']) + 1:
-                        role = discord.utils.get(message.guild.roles, id = int(i))
-                        if role == None:
-                            return
-                        await member.add_roles(role)
+                    if not 'blah' == str(i): 
+                        if int(ref3[i]) >= int(res3[str(message.author.id)]['currentlevel']) + 1:
+                            role = discord.utils.get(message.guild.roles, id = int(i))
+                            if role == None:
+                                return
+                            await member.add_roles(role)
 
     @commands.command()
     @commands.cooldown(1,5,commands.BucketType.user)
