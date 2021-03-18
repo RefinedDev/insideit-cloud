@@ -738,6 +738,7 @@ class config(Cog):
                     await ctx.send('Levelling is already off!')
                     return
             elif str.lower(msg.content) == 'addrole':
+                #ADDROLE
                 ref = db.reference('/level')
                 res = ref.get()
                 if not f'{str(ctx.guild.id)}' in res:
@@ -763,7 +764,7 @@ class config(Cog):
                             await ctx.send('Role not found!')
                             return
                         else:
-                            res[msg.content] = msg2.content
+                            res[msg2.content] = msg.content
                             ref.child(str(ctx.guild.id)).child('level').set(res)
                             await ctx.send(f'Done, users will recieve the `{role.name}` role when they reach level `{msg.content}`')
 
