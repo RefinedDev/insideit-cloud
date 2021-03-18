@@ -787,7 +787,7 @@ class config(Cog):
                             embed.add_field(name = f'ID: `{i}`',value = f'On level `{res[i]}` users recieve the `None` role.')
                         else:
                             embed.add_field(name = f'ID: `{i}`',value = f'On level `{res[i]}` users recieve the `{role.name}` role.')
-                    await ctx.send(embed = embed)
+                await ctx.send(embed = embed)
     @Cog.listener()
     async def on_message(self,message):
         if message.author.bot:
