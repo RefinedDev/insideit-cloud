@@ -793,28 +793,28 @@ class config(Cog):
             ref.child(str(message.guild.id)).child(str(message.author.id)).set(lol)
             return
 
-        lastgather = res2[message.author.id]['lastgather']
+        lastgather = res2[str(message.author.id)]['lastgather']
         time = datetime.strptime(lastgather,"%Y-%m-%d %H:%M:%S.%f")
         cooldowntime = time + relativedelta(seconds= 5)
         if datetime.now() >= cooldowntime:
             newxp = random.randint(20,30) 
             lol = {
-                'currentxp': '{}'.format(int(res2[message.author.id]['currentxp']) + newxp),
-                'xprequired': '{}'.format(res2[message.author.id]['xprequired']),
+                'currentxp': '{}'.format(int(res2[str(message.author.id)]['currentxp']) + newxp),
+                'xprequired': '{}'.format(res2[str(message.author.id)]['xprequired']),
                 'lastgather': '{}'.format(datetime.now()),
-                'currentlevel': '{}'.format(res2[message.author.id]['currentlevel']),
+                'currentlevel': '{}'.format(res2[str(message.author.id)]['currentlevel']),
                 }
             ref.child(str(message.guild.id)).child(str(message.author.id)).set(lol)
             res3 = ref.get()
-            if int(res3[message.author.id]['currentxp']) > int(res3[message.author.id]['xprequired']):
+            if int(res3[str(message.author.id)]['currentxp']) > int(res3[str(message.author.id)]['xprequired']):
                 lol = {
-                    'currentxp': '{}'.format(res3[message.author.id]['currentxp']),
-                    'xprequired': '{}'.format(int(res3[message.author.id]['xprequired']) * 2),
-                    'lastgather': '{}'.format(res3[message.author.id]['lastgather']),
-                    'currentlevel': '{}'.format(int(res3[message.author.id]['currentlevel']) + 1),
+                    'currentxp': '{}'.format(res3[str(message.author.id)]['currentxp']),
+                    'xprequired': '{}'.format(int(res3[str(message.author.id)]['xprequired']) * 2),
+                    'lastgather': '{}'.format(res3[str(message.author.id)]['lastgather']),
+                    'currentlevel': '{}'.format(int(res3[str(message.author.id)]['currentlevel']) + 1),
                 }
-                member = await message.guild.fetch_member(message.author.id)
-                await member.send(f"Ay, congrats you're now level `{int(res3[message.author.id]['currentlevel']) + 1}`")
+                member = await message.guild.fetch_member(int(message.author.id))
+                await member.send(f"Ay, congrats you're now level `{int(res3[str(message.author.id)]['currentlevel']) + 1}`")
                 ref.child(str(message.guild.id)).child(str(message.author.id)).set(lol)
 
     # @commands.command()
