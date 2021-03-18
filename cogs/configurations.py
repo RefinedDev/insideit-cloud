@@ -877,25 +877,25 @@ class config(Cog):
         embed.add_field(name = 'XP:',value = f'`{memberxp}`',inline = False)
         percentage = int(memberxp) / int(memberxpreq) * 100
         if round(percentage) >= 10 and round(percentage) < 20:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕🌑🌑🌑🌑🌑🌑🌑🌑🌑',inline = False)
+            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
         elif round(percentage) >= 20 and round(percentage) < 30:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕🌕🌑🌑🌑🌑🌑🌑🌑🌑',inline = False)
+            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
         elif round(percentage) >= 30 and round(percentage) < 40:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕🌕🌕🌑🌑🌑🌑🌑🌑🌑',inline = False)
+            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌑 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
         elif round(percentage) >= 40 and round(percentage) < 50:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕🌕🌕🌕🌑🌑🌑🌑🌑🌑',inline = False)
+            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
         elif round(percentage) >= 50 and round(percentage) < 60:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕🌕🌕🌕🌕🌑🌑🌑🌑🌑',inline = False)
+            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌑 🌑 🌑 🌑 🌑',inline = False)
         elif round(percentage) >= 60 and round(percentage) < 70:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕🌕🌕🌕🌕🌕🌑🌑🌑🌑',inline = False)
+            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌑 🌑 🌑 🌑',inline = False)
         elif round(percentage) >= 70 and round(percentage) < 80:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕🌕🌕🌕🌕🌕🌕🌑🌑🌑',inline = False)
+            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌑 🌑 🌑',inline = False)
         elif round(percentage) >= 80 and round(percentage) < 90:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕🌕🌕🌕🌕🌕🌕🌕🌑🌑',inline = False)
+            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌑 🌑',inline = False)
         elif round(percentage) >= 90 and round(percentage) < 100:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕🌕🌕🌕🌕🌕🌕🌕🌕🌑',inline = False)
-        elif round(percentage) >= 100 and round(percentage) < 10000000000:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕🌕🌕🌕🌕🌕🌕🌕🌕🌕',inline = False)
+            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌑',inline = False)
+        elif round(percentage) >= 100:
+            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕',inline = False)
         await ctx.send(embed = embed)
 
 
