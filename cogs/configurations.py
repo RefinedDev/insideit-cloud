@@ -783,7 +783,7 @@ class config(Cog):
         
                 embed = discord.Embed(title = 'Remove a level role.',description = 'To remove the level role specify the `ID` from the following options.')
                 for i in res:
-                    if not i == 'blah':
+                    if not 'blah' == str(i):
                         role = discord.utils.get(ctx.guild.roles,id = int(i))
                         if role == None:
                             embed.add_field(name = f'ID: `{i}`',value = f'On level `{res[i]}` users recieve the `None` role.',inline = False)
