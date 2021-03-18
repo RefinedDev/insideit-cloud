@@ -805,7 +805,7 @@ class config(Cog):
                 'currentlevel': '{}'.format(res2[str(message.author.id)]['currentlevel']),
                 }
             ref.child(str(message.guild.id)).child(str(message.author.id)).set(lol)
-            res3 = ref.get()
+            res3 = ref.get()[f'{message.guild.id}']
             if int(res3[str(message.author.id)]['currentxp']) > int(res3[str(message.author.id)]['xprequired']):
                 lol = {
                     'currentxp': '{}'.format(res3[str(message.author.id)]['currentxp']),
