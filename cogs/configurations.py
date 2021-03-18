@@ -776,9 +776,9 @@ class config(Cog):
                     if not i == 'blah':
                         role = discord.utils.get(ctx.guild.roles,id = int(i))
                         if role == None:
-                            embed.add_field(name = f'ID: `{i}`',value = f'On level `{res[i]}` users recieve the `None` role.')
+                            embed.add_field(name = f'ID: `{i}`',value = f'On level `{res[i]}` users recieve the `None` role.',inline = False)
                         else:
-                            embed.add_field(name = f'ID: `{i}`',value = f'On level `{res[i]}` users recieve the `{role.name}` role.')
+                            embed.add_field(name = f'ID: `{i}`',value = f'On level `{res[i]}` users recieve the `{role.name}` role.',inline = False)
                 await ctx.send(embed = embed)
                 try:
                     msg2 = await self.client.wait_for('message',timeout = 50.0,check = check)
