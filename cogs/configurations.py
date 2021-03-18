@@ -719,8 +719,18 @@ class config(Cog):
                 ref = db.reference('/level')
                 res = ref.get()
                 if f'{str(ctx.guild.id)}' in res:
-                    ref.child(str(ctx.guild.id)).delete()
-                    await ctx.send('Levelling is now off!')
+                    await ctx.send('Are you sure? All the levels that the users have will be deleted, and when re-enabled everyone will restart from level 1. Yes/No')
+                    try:
+                        msg = await self.client.wait_for('message',timeout = 50.0,check = check)
+                    except asyncio.TimeoutError:
+                        await ctx.send("Din't reply in time noob.")
+                        return
+                    else:
+                        if str.lower(msg.content) == 'yes':
+                            ref.child(str(ctx.guild.id)).delete()
+                            await ctx.send('Levelling is now off!')
+                        else:
+                            await ctx.send('Aborted.')
                 else:
                     await ctx.send('Levelling is already off!')
                     return
@@ -848,6 +858,11 @@ class config(Cog):
                             return
                         await member.add_roles(role)
 
+    @commands.command()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def rank(self,ctx,member = None):
+        if member == None:
+            member = ctx.author
 
 
     # @commands.command()
