@@ -21,8 +21,7 @@ class apiscraping(Cog):
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "eyo calmdown",value = f'This command is on cooldown, try again later after {exc.retry_after:,.2f} seconds.')
             await ctx.send(embed = embeddd,delete_after=5)  
-        else:
-            print(exc)
+
 
     @commands.command()
     @commands.cooldown(1,1,commands.BucketType.user)

@@ -29,8 +29,6 @@ class MiscCmds(Cog):
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "eyo calmdown",value = f'This command is on cooldown, try again later after {error.retry_after:,.2f} seconds.')
             await ctx.send(embed = embeddd,delete_after=5)  
-        else:
-            print(error)
     #Ping
     @commands.command()
     @commands.cooldown(1,1,commands.BucketType.user)

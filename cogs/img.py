@@ -26,8 +26,7 @@ class img(Cog):
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "eyo calmdown",value = f'Member Not Found.')
             await ctx.send(embed = embeddd,delete_after=5) 
-        else:
-            print(exc)
+    
     
     @commands.command()
     @commands.cooldown(1,5,commands.BucketType.user)

@@ -32,8 +32,7 @@ class HighRank(Cog):
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "eyo calmdown",value = f'This command is on cooldown, try again later after {error.retry_after:,.2f} seconds.')
             await ctx.send(embed = embeddd,delete_after=5)  
-        else:
-            print(error)
+
 
     #ClearChat
     @commands.command(aliases=['clear'])
