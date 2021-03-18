@@ -871,7 +871,7 @@ class config(Cog):
         memberlevel = res[str(ctx.guild.id)][str(member.id)]['currentlevel']
         memberxp = res[str(ctx.guild.id)][str(member.id)]['currentxp']
         memberxpreq = res[str(ctx.guild.id)][str(member.id)]['xprequired']
-        embed = discord.Embed(title = f"{member.name}'s rank")
+        embed = discord.Embed(title = f"{member.name}'s rank",color = ctx.author.color)
         embed.set_thumbnail(url = member.avatar_url)
         embed.add_field(name = 'Level:',value = f'`{memberlevel}`',inline = False)
         embed.add_field(name = 'XP:',value = f'`{memberxp}`',inline = False)
