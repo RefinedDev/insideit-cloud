@@ -746,6 +746,7 @@ class config(Cog):
                     await ctx.send("Din't reply in time noob.")
                     return
                 else:
+                    e = int(msg.content)
                     await ctx.send(f'Okay, now write the RoleID that users will recieve when they reach the level `{msg.content}`')
                     try:
                         msg2 = await self.client.wait_for('message',timeout = 50.0,check = check)

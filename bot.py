@@ -23,7 +23,7 @@ async def on_command_error(ctx,error):
     elif isinstance(error,commands.MissingRequiredArgument):
         pass
     else:
-        embed = discord.Embed()
+        embed = discord.Embed(color = discord.Colour.red())
         embed.add_field(name = 'ERROR',value = f'{error}')
         await ctx.send(embed = embed)
 
