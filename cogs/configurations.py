@@ -786,7 +786,7 @@ class config(Cog):
             newxp = random.randint(20,30)     
             lol = {
                 'currentxp': '{}'.format(newxp),
-                'xprequired': '{}'.format('50'),
+                'xprequired': '{}'.format('300'),
                 'lastgather': '{}'.format(datetime.now()),
                 'currentlevel': '{}'.format('1'),
                 }
@@ -795,7 +795,7 @@ class config(Cog):
 
         lastgather = res2[str(message.author.id)]['lastgather']
         time = datetime.strptime(lastgather,"%Y-%m-%d %H:%M:%S.%f")
-        cooldowntime = time + relativedelta(seconds= 5)
+        cooldowntime = time + relativedelta(seconds= 60)
         if datetime.now() >= cooldowntime:
             newxp = random.randint(20,30) 
             lol = {
