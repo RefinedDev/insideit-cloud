@@ -90,7 +90,7 @@ class config(Cog):
     async def config(self,ctx):
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(title = '⚙ Configurations.',description = 'Use `peg config [nameofconfig]` to configure.',color = ctx.author.color)
-            embed.add_field(name = 'You can configure the following.',value = '`WelcomeMessage: Messages in a specific channel when a member joins.`\n\n`WelcomeRole: New members recieve the specified role.`\n\n`LeaveMessage: Messages in a specific channel when a member leaves.`\n\n`AntiLink: Prevent links.`\n\n`ReactionRoles: You should know what this does.`\n\n`Minage: Set a minimum age limit for your servers, new members under that age will be kicked (usefull to prvent raids.)`')
+            embed.add_field(name = 'You can configure the following.',value = '`WelcomeMessage: Messages in a specific channel when a member joins.`\n\n`WelcomeRole: New members recieve the specified role.`\n\n`LeaveMessage: Messages in a specific channel when a member leaves.`\n\n`AntiLink: Prevent links.`\n\n`ReactionRoles: You should know what this does.`\n\n`Minage: Set a minimum age limit for your servers, new members under that age will be kicked (usefull to prvent raids.)`\n\n`Levelling: Enable level system with roles as rewards!`')
             await ctx.send(embed = embed)
 
 
@@ -694,7 +694,7 @@ class config(Cog):
     @config.command()
     @commands.has_permissions(administrator = True)
     #@commands.cooldown(1,60,commands.BucketType.guild)
-    async def levelling(self,ctx):
+    async def Levelling(self,ctx):
         def check(message):
             return message.author == ctx.author and message.channel == ctx.channel
 
