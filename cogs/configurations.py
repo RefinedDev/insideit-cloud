@@ -91,9 +91,7 @@ class config(Cog):
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "eyo calmdown",value = f'This command is on cooldown, try again later after {exc.retry_after:,.2f} seconds.')
             await ctx.send(embed = embeddd,delete_after=5)  
-        else:
-            print(exc)
-
+    
     @commands.group()
     @commands.has_permissions(administrator = True)
     async def config(self,ctx):
