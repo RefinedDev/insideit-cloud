@@ -867,7 +867,7 @@ class config(Cog):
         ref = db.reference('/level')
         res = ref.get()
         if not f'{str(ctx.guild.id)}' in res:
-            await ctx.send('Levelling is currently off, enable it to use this command.')
+            await ctx.send('This command requires the `Levelling` configuration to be enabled. To enable, run `peg config Levelling`.')
             return
         memberlevel = res[str(ctx.guild.id)][str(member.id)]['currentlevel']
         memberxp = res[str(ctx.guild.id)][str(member.id)]['currentxp']
