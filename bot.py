@@ -14,12 +14,11 @@ client = commands.Bot(command_prefix='peg ',intents = intents)
 
 @client.event
 async def on_command_error(ctx,error):
-    print(dir(error))
     if isinstance(error,commands.CommandNotFound):
         pass
     elif isinstance(error,commands.MissingPermissions):
         embed = discord.Embed(colour= discord.Colour.red(),timestamp = datetime.utcnow())
-        embed.add_field(name="eyo calmdown",value= "You do not have the required permissions to run this command.")
+        embed.add_field(name="eyo calmdown",value= f"You do not have the required permissions to run this command. You need the {error.missing_perms} permission.")
         await ctx.send(embed= embed,delete_after=5)
     elif isinstance(error,commands.MissingRequiredArgument):
         pass
