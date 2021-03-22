@@ -18,22 +18,22 @@ async def on_command_error(ctx,error):
         pass
     elif isinstance(error,commands.MissingPermissions):
         embed = discord.Embed(colour= discord.Colour.red(),timestamp = datetime.utcnow())
-        embed.add_field(name="eyo calmdown",value= f"You do not have the required permissions to run this command. You need the `{error.missing_perms[0]}` permission.")
+        embed.add_field(name="HEY",value= f"You do not have the required permissions to run this command. You need the `{error.missing_perms[0]}` permission.")
         await ctx.send(embed= embed,delete_after=5)
     elif isinstance(error,commands.MissingRequiredArgument):
         pass
     elif isinstance(error,commands.CommandOnCooldown):
             embeddd = discord.Embed(colour= discord.Colour.red())
-            embeddd.add_field(name = "eyo calmdown",value = f'This command is on cooldown, try again later after {error.retry_after:,.2f} seconds.')
+            embeddd.add_field(name = "HEY",value = f'This command is on cooldown, try again later after {error.retry_after:,.2f} seconds.')
             await ctx.send(embed = embeddd,delete_after=5) 
     elif isinstance(error,commands.MemberNotFound):
             embeddd = discord.Embed(colour= discord.Colour.red())
-            embeddd.add_field(name = "eyo calmdown",value = f'Member Not Found.')
+            embeddd.add_field(name = "HEY",value = f'Member Not Found.')
             await ctx.send(embed = embeddd,delete_after=5)
     
     else:
         embed = discord.Embed(color = discord.Colour.red())
-        embed.add_field(name = 'ERROR',value = f'{error}')
+        embed.add_field(name = 'An error occured.',value = f'{error}')
         await ctx.send(embed = embed)
 
 
