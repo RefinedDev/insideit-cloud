@@ -14,6 +14,7 @@ client = commands.Bot(command_prefix='peg ',intents = intents)
 
 @client.event
 async def on_command_error(ctx,error):
+    print(dir(error))
     if isinstance(error,commands.CommandNotFound):
         pass
     elif isinstance(error,commands.MissingPermissions):
