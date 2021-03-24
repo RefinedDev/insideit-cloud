@@ -27,17 +27,23 @@ class MiscCmds(Cog):
     async def whois(self,ctx,member : discord.Member = None):
         if member == None:
             member = ctx.author
-
+        
         em = discord.Embed(timestamp=datetime.utcnow(),colour = ctx.author.color)
         roles = []
         serverjoindate = member.joined_at
+        age = datetime.now() - serverjoindate
+        eage = str(age).split(',')[0]
+        realage = str(eage).split('days')[0]
         dateandtime = serverjoindate.strftime("%m/%d/%Y, %H:%M:%S GMT")
         registerdate = member.created_at
+        age = datetime.now() - registerdate
+        eage = str(age).split(',')[0]
+        realage2 = str(eage).split('days')[0]
         formatregister = registerdate.strftime("%m/%d/%Y, %H:%M:%S GMT")
 
         em.set_author(name = member.display_name, icon_url= member.avatar_url)
-        em.add_field(name = "Server Join Date", value =  dateandtime)
-        em.add_field(name = "Registered", value =  formatregister)
+        em.add_field(name = "Server Join Date", value =  f'{dateandtime} ({realage} Days)')
+        em.add_field(name = "Registered", value =  f'{formatregister} ({realage2} Days)')
         # if str(member.status) == 'offline':
         #     em.add_field(name = "Current Status <:status_offline:803132091453538345>",value = 'Offline',inline= False)
         # elif str(member.status) == 'online':
