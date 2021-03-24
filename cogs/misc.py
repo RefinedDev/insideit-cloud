@@ -42,8 +42,9 @@ class MiscCmds(Cog):
         formatregister = registerdate.strftime("%m/%d/%Y, %H:%M:%S GMT")
 
         em.set_author(name = member.display_name, icon_url= member.avatar_url)
-        em.add_field(name = "Server Join Date", value =  f'{dateandtime} ({realage} Days)')
-        em.add_field(name = "Registered", value =  f'{formatregister} ({realage2} Days)')
+        em.add_field(name = "Server Join Date", value =  f'{dateandtime}, ({realage} Days)')
+        em.add_field(name = "Registered", value =  f'{formatregister}, ({realage2} Days)')
+        em.add_field(name = 'Nickname' , value = member.display_name)
         # if str(member.status) == 'offline':
         #     em.add_field(name = "Current Status <:status_offline:803132091453538345>",value = 'Offline',inline= False)
         # elif str(member.status) == 'online':
