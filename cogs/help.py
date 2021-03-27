@@ -49,7 +49,7 @@ class helpcommand(Cog):
     async def meme(self,ctx):
         try:
             embed = discord.Embed(colour = ctx.author.color)
-            embed.add_field(name = '😂 Meme Commands.',value = "`peg meme`,`peg dankmeme`,`peg chan`,`peg AntiJoke`,`peg wholesome`,`peg surreal`,`peg facepalm`,`peg danidev`,`peg fortnite`,`peg discord`")
+            embed.add_field(name = '😂 Meme Commands.',value = "`peg meme`,`peg dankmeme`,`peg chan`,`peg AntiJoke`,`peg wholesome`,`peg surreal`,`peg facepalm`,`peg danidev`")
             await ctx.send(embed = embed)
         except Exception as e:
             await ctx.send(f'An error occured: {e}')

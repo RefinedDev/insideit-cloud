@@ -31,9 +31,9 @@ class apiscraping(Cog):
                     newlink = standard + lin
                     embed = discord.Embed(description= f'[{title}]({newlink})',colour = ctx.author.color)
                     embed.set_image(url= choose['data']['url'] )
-                    likes = choose['data']['ups']
-                    replies = choose['data']['num_comments']
-                    embed.set_footer(text = f'👍 {likes} | 💬 {replies}')
+                    # likes = choose['data']['ups']
+                    # replies = choose['data']['num_comments']
+                    # embed.set_footer(text = f'👍 {likes} | 💬 {replies}')
                     await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(f'An error occured: {e}',delete_after=10)
@@ -55,9 +55,6 @@ class apiscraping(Cog):
                     newlink = standard + lin
                     embed = discord.Embed(description= f'[{title}]({newlink})',colour = ctx.author.color)
                     embed.set_image(url= choose['data']['url'] )
-                    likes = choose['data']['ups']
-                    replies = choose['data']['num_comments']
-                    embed.set_footer(text = f'👍 {likes} | 💬 {replies}')
                     await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(f'An error occured: {e}',delete_after=10)
@@ -78,9 +75,6 @@ class apiscraping(Cog):
                     newlink = standard + lin
                     embed = discord.Embed(description= f'[{title}]({newlink})',colour = ctx.author.color)
                     embed.set_image(url= choose['data']['url'] )
-                    likes = choose['data']['ups']
-                    replies = choose['data']['num_comments']
-                    embed.set_footer(text = f'👍 {likes} | 💬 {replies}')
                     await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(f'An error occured: {e}',delete_after=10)
@@ -101,9 +95,6 @@ class apiscraping(Cog):
                     newlink = standard + lin
                     embed = discord.Embed(description= f'[{title}]({newlink})',colour = ctx.author.color)
                     embed.set_image(url= choose['data']['url'] )
-                    likes = choose['data']['ups']
-                    replies = choose['data']['num_comments']
-                    embed.set_footer(text = f'👍 {likes} | 💬 {replies}')
                     await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(f'An error occured: {e}',delete_after=10)
@@ -125,9 +116,6 @@ class apiscraping(Cog):
                     newlink = standard + lin
                     embed = discord.Embed(description= f'[{title}]({newlink})',colour = ctx.author.color)
                     embed.set_image(url= choose['data']['url'] )
-                    likes = choose['data']['ups']
-                    replies = choose['data']['num_comments']
-                    embed.set_footer(text = f'👍 {likes} | 💬 {replies}')
                     await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(f'An error occured: {e}',delete_after=10)
@@ -149,9 +137,6 @@ class apiscraping(Cog):
                     newlink = standard + lin
                     embed = discord.Embed(description= f'[{title}]({newlink})',colour = ctx.author.color)
                     embed.set_image(url= choose['data']['url'] )
-                    likes = choose['data']['ups']
-                    replies = choose['data']['num_comments']
-                    embed.set_footer(text = f'👍 {likes} | 💬 {replies}')
                     await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(f'An error occured: {e}',delete_after=10)
@@ -172,9 +157,6 @@ class apiscraping(Cog):
                     newlink = standard + lin
                     embed = discord.Embed(description= f'[{title}]({newlink})',colour = ctx.author.color)
                     embed.set_image(url= choose['data']['url'] )
-                    likes = choose['data']['ups']
-                    replies = choose['data']['num_comments']
-                    embed.set_footer(text = f'👍 {likes} | 💬 {replies}')
                     await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(f'An error occured: {e}',delete_after=10)
@@ -195,59 +177,10 @@ class apiscraping(Cog):
                     newlink = standard + lin
                     embed = discord.Embed(description= f'[{title}]({newlink})',colour = ctx.author.color)
                     embed.set_image(url= choose['data']['url'] )
-                    likes = choose['data']['ups']
-                    replies = choose['data']['num_comments']
-                    embed.set_footer(text = f'👍 {likes} | 💬 {replies}')
                     await ctx.send(embed=embed)
         except Exception as e:
             await ctx.send(f'An error occured: {e}',delete_after=10)
 
-    @commands.command()
-    @commands.cooldown(1,1,commands.BucketType.user)
-    async def fortnite(self,ctx):
-        try:
-            # link = "https://www.reddit.com/r/facepalm/new.json?sort=hot,"
-            # data = urllib.request.urlopen(link)
-            async with aiohttp.ClientSession() as cs:
-                async with cs.get("https://www.reddit.com/r/FortNiteBR/new.json?sort=hot,") as data:
-                    res = await data.json()
-                    choose = res['data']['children'] [random.randint(0, 25)]
-                    title = choose['data']['title']
-                    standard = 'https://www.reddit.com'
-                    lin = choose['data']['permalink']
-                    newlink = standard + lin
-                    embed = discord.Embed(description= f'[{title}]({newlink})',colour = ctx.author.color)
-                    embed.set_image(url= choose['data']['url'] )
-                    likes = choose['data']['ups']
-                    replies = choose['data']['num_comments']
-                    embed.set_footer(text = f'👍 {likes} | 💬 {replies}')
-                    await ctx.send(embed=embed)
-        except Exception as e:
-            await ctx.send(f'An error occured: {e}',delete_after=10)
-
-
-    @commands.command()
-    @commands.cooldown(1,1,commands.BucketType.user)
-    async def discord(self,ctx):
-        try:
-            # link = "https://www.reddit.com/r/facepalm/new.json?sort=hot,"
-            # data = urllib.request.urlopen(link)
-            async with aiohttp.ClientSession() as cs:
-                async with cs.get("https://www.reddit.com/r/discordapp/new.json?sort=hot,") as data:
-                    res = await data.json()
-                    choose = res['data']['children'] [random.randint(0, 25)]
-                    title = choose['data']['title']
-                    standard = 'https://www.reddit.com'
-                    lin = choose['data']['permalink']
-                    newlink = standard + lin
-                    embed = discord.Embed(description= f'[{title}]({newlink})',colour = ctx.author.color)
-                    embed.set_image(url= choose['data']['url'] )
-                    likes = choose['data']['ups']
-                    replies = choose['data']['num_comments']
-                    embed.set_footer(text = f'👍 {likes} | 💬 {replies}')
-                    await ctx.send(embed=embed)
-        except Exception as e:
-            await ctx.send(f'An error occured: {e}',delete_after=10)
 
     @commands.command()
     @commands.cooldown(1,1,commands.BucketType.user)
