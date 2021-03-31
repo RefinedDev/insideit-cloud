@@ -78,7 +78,7 @@ class helpcommand(Cog):
             embed.add_field(name = 'Description',value = 'InsideIt is a multipurpose powerful bot which has **a lot** of commands and also has configurations, more coming soon! **In BETA Mode**')
             embed.add_field(name = 'Version',value = '3.2',inline = False)
             embed.add_field(name = 'Servers',value = len(self.client.guilds))
-            embed.add_field(name = 'Users',value = len(self.client.guilds.members))
+            embed.add_field(name = 'Users',value = len(self.client.guilds.member_count))
             embed.add_field(name = 'Creator',value = '<@!429535933252239360>')
             embed.set_thumbnail(url = self.client.user.avatar_url)
             embed.add_field(name="Invite The Bot", value="[Link](https://discord.com/api/oauth2/authorize?client_id=795963203804200980&permissions=2147483639&redirect_uri=https%3A%2F%2Finsideit.live%2Fl&scope=bot)")
