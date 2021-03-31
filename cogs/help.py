@@ -77,7 +77,7 @@ class helpcommand(Cog):
             members = 0
             embed = discord.Embed(title = "❓ InsideIt's Info",colour = ctx.author.color)
             embed.add_field(name = 'Description',value = 'InsideIt is a multipurpose powerful bot with features like Configurations, Tags, Levelling etc.')
-            embed.add_field(name = 'Version',value = '3.2')
+            embed.add_field(name = 'Version',value = '3.2',inline = False)
             embed.add_field(name = 'Servers',value = len(self.client.guilds))
             for i in self.client.guilds:
                 members = members + i.member_count
