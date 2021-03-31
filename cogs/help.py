@@ -76,15 +76,16 @@ class helpcommand(Cog):
         try:
             members = 0
             embed = discord.Embed(title = "❓ InsideIt's Info",colour = ctx.author.color)
-            embed.add_field(name = 'Description',value = 'InsideIt is a multipurpose powerful bot which has **a lot** of commands and also has configurations, more coming soon! **In BETA Mode**')
-            embed.add_field(name = 'Version',value = '3.2',inline = False)
+            embed.add_field(name = 'Description',value = 'InsideIt is a multipurpose powerful bot with features like Configurations, Tags, Levelling etc.')
+            embed.add_field(name = 'Version',value = '3.2')
             embed.add_field(name = 'Servers',value = len(self.client.guilds))
             for i in self.client.guilds:
                 members = members + i.member_count
             embed.add_field(name = 'Users',value = members)
             embed.add_field(name = 'Creator',value = '<@!429535933252239360>')
+            embed.add_field(name = 'Library',value = 'discord.py')
             embed.set_thumbnail(url = self.client.user.avatar_url)
-            embed.add_field(name="Invite The Bot", value="[Link](https://discord.com/api/oauth2/authorize?client_id=795963203804200980&permissions=2147483639&redirect_uri=https%3A%2F%2Finsideit.live%2Fl&scope=bot)")
+            embed.add_field(name="Invite Link", value="[Here ya go](https://discord.com/api/oauth2/authorize?client_id=795963203804200980&permissions=2147483639&redirect_uri=https%3A%2F%2Finsideit.live%2Fl&scope=bot)")
             await ctx.send(embed = embed)
         except Exception as e:
             await ctx.send(f'An error occured: {e}')
