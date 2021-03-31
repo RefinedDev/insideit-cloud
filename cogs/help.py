@@ -74,6 +74,7 @@ class helpcommand(Cog):
     @help.command()
     async def info(self,ctx):
         try:
+            members = 0
             embed = discord.Embed(title = "❓ InsideIt's Info",colour = ctx.author.color)
             embed.add_field(name = 'Description',value = 'InsideIt is a multipurpose powerful bot which has **a lot** of commands and also has configurations, more coming soon! **In BETA Mode**')
             embed.add_field(name = 'Version',value = '3.2',inline = False)
