@@ -16,7 +16,7 @@ class helpcommand(Cog):
         if ctx.invoked_subcommand is None:
             em = discord.Embed(color = ctx.author.color)
             em.set_author(name = 'InsideIt commands help.',icon_url=self.client.user.avatar_url)
-            em.add_field(name=  "❓ Info",value="`peg help info`",inline=False)
+            em.add_field(name=  "❓ Info",value="`peg info`",inline=False)
             em.add_field(name = "⚡ HighRank",value = '`peg help highrank`',inline=False)
             em.add_field(name = "😏 Miscellaneous",value = '`peg help misc`',inline=False)
             em.add_field(name = "😂 Memes",value = '`peg help meme`',inline=False)
@@ -71,7 +71,7 @@ class helpcommand(Cog):
             await ctx.send(embed = embed)
         except Exception as e:
             await ctx.send(f'An error occured: {e}')
-    @help.command()
+    @commands.command()
     async def info(self,ctx):
         try:
             members = 0
