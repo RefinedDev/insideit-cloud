@@ -55,18 +55,6 @@ async def on_guild_remove(guild):
         print(f'An Error Occured in on_guild_remove {e}')
 
 
-def memberjoin(member):
-    sentences = [
-    f'**{member.name}#{member.discriminator}** has joined the server, we have {len(member.guild.members)} now!',
-    f'**{member.name}#{member.discriminator}** fell from the sky we have {len(member.guild.members)} now!',f'{member.mention} showed up!',
-    f'**{member.name}#{member.discriminator}** somehow became visible we have {len(member.guild.members)} now!',
-    f'Welcome **{member.name}#{member.discriminator}** enjoy your stay! :D',
-    f'Nice to meet you **{member.name}#{member.discriminator}**! We have {len(member.guild.members)} now!',
-    f'Welcome **{member.name}#{member.discriminator}**, we hope you brought some snacks!'
-    ]
-    value = random.choice(sentences)
-    return value
-
 @client.event
 async def on_member_join(member):
     try:
@@ -112,8 +100,11 @@ async def on_member_join(member):
             channelid = res[0][1]
             channel = client.get_channel(int(channelid))
             if channel != None:
-                msg = memberjoin(member)
-                await channel.send(msg)
+                embed = discord.Embed()
+                embed.add_field(name = 'We got a new member!',value = f'{member.name} has joined the server!',timestamp = datetime.utcnow(),color = discord.color.blue())
+                embed.set_thumbnail(url = member.avatar_url)
+                embed.set_footer(text = f'We have {len(member.guild.members)} now!')
+                await channel.send(embed = embed)
             else:
                 pass
         cursor.execute("SELECT toggle,roleid from welcomeroles WHERE guildid = " + guildid)
@@ -134,17 +125,6 @@ async def on_member_join(member):
         db.close()
     except Exception as e:
         print(f"An error occured on_member_join {e}")
-
-def memberleave(member):
-    sentences = [
-    f'**{member.name}#{member.discriminator}** decided to head out.',
-    f'**{member.name}#{member.discriminator}** withered away.',
-    f'**{member.name}#{member.discriminator}** disappeared.',
-    f'Cya **{member.name}#{member.discriminator}** it was a good time.',
-    f'We lost **{member.name}#{member.discriminator}**, we have {len(member.guild.members)} left.'
-    ]
-    value = random.choice(sentences)
-    return value
 
 @client.command()
 async def getserver(ctx):
@@ -188,8 +168,11 @@ async def on_member_remove(member):
             channelid = res[0][1]
             channel = client.get_channel(int(channelid))
             if channel != None:
-                msg = memberleave(member)
-                await channel.send(msg)
+                embed = discord.Embed()
+                embed.add_field(name = 'We lost one :(',value = f'{member.name} has left the server!',timestamp = datetime.utcnow(),color = discord.color.blue())
+                embed.set_thumbnail(url = member.avatar_url)
+                embed.set_footer(text = f'We have {len(member.guild.members)} now!')
+                await channel.send(embed = embed)
             else:
                 pass
         cursor.close()
