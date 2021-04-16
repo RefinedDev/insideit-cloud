@@ -17,7 +17,7 @@ class HighRank(Cog):
 
     #ClearChat
     @commands.command(aliases=['clear'])
-    @commands.has_permissions(kick_members = True)
+    @commands.has_permissions(manage_messages = True)
     async def purge(self,ctx,amount : int = None):
         if amount == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
@@ -29,7 +29,7 @@ class HighRank(Cog):
         await ctx.channel.purge(limit = amount)
 
     @commands.command()
-    @commands.has_permissions(kick_members = True)
+    @commands.has_permissions(administrator = True)
     async def announce(self,ctx,channelid = None,*,text = None):
         if channelid == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
@@ -54,7 +54,7 @@ class HighRank(Cog):
 
 
     @commands.command()
-    @commands.has_permissions(kick_members = True)
+    @commands.has_permissions(manage_messages = True)
     async def slowmode(self,ctx, seconds: int = None):
         if seconds == None:
             await ctx.send(f'This channel has a slowmode of {ctx.channel.slowmode_delay} seconds.')
