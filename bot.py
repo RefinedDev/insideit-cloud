@@ -100,8 +100,8 @@ async def on_member_join(member):
             channelid = res[0][1]
             channel = client.get_channel(int(channelid))
             if channel != None:
-                embed = discord.Embed()
-                embed.add_field(name = 'We got a new member!',value = f'{member.name} has joined the server!',timestamp = datetime.utcnow(),color = discord.Colour.blue())
+                embed = discord.Embed(timestamp = datetime.utcnow(),color = discord.Colour.blue())
+                embed.add_field(name = 'We got a new member!',value = f'{member.name} has joined the server!')
                 embed.set_thumbnail(url = member.avatar_url)
                 embed.set_footer(text = f'We have {len(member.guild.members)} now!')
                 await channel.send(embed = embed)
@@ -168,8 +168,8 @@ async def on_member_remove(member):
             channelid = res[0][1]
             channel = client.get_channel(int(channelid))
             if channel != None:
-                embed = discord.Embed()
-                embed.add_field(name = 'We lost one :(',value = f'{member.name} has left the server!',timestamp = datetime.utcnow(),color = discord.Colour.blue())
+                embed = discord.Embed(timestamp = datetime.utcnow(),color = discord.Colour.blue())
+                embed.add_field(name = 'We lost one :(',value = f'{member.name} has left the server!')
                 embed.set_thumbnail(url = member.avatar_url)
                 embed.set_footer(text = f'We have {len(member.guild.members)} now!')
                 await channel.send(embed = embed)
