@@ -49,6 +49,7 @@ async def on_guild_join(guild):
 @client.event
 async def on_guild_remove(guild):
     try:
+        print(f'Kicked from {guild.name}')
         await  client.change_presence(activity =discord.Activity(type= discord.ActivityType.listening,name= f'{len(client.guilds)} servers'))
     except Exception as e:
         print(f'An Error Occured in on_guild_remove {e}')
