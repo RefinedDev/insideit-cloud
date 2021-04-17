@@ -233,7 +233,9 @@ class MiscCmds(Cog):
                 result = f"{stdout.getvalue()}\n-- {obj}\n"
         except Exception as e:
             result = "".join(format_exception(e, e, e.__traceback__))
-            await ctx.send(result)
+            embed = discord.Embed()
+            embed.add_field(name = 'Error', value = f'{result}')
+            await ctx.send(embed = embed)
 
 def setup(client):
     client.add_cog(MiscCmds(client))
