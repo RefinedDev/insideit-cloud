@@ -5,11 +5,8 @@ from datetime import datetime
 import twitpy
 import random
 import pythonroblox
-import ast
 import contextlib
 import io
-import os
-import logging
 import textwrap
 from traceback import format_exception
 
@@ -202,9 +199,11 @@ class MiscCmds(Cog):
             await ctx.message.delete()
             await ctx.send(embed = embeddd,delete_after=5)
 
-    def clean_code(code):
-        if code.startswith('```') and code.endswith('```'):
-            return "/".join(code.split('/n')[:1][:-3])
+    def clean_code(content):
+        if content.startswith("```") and content.endswith("```"):
+            return "\n".join(content.split("\n")[1:])[:-3]
+        else:
+            return content
 
     @commands.command(name="eval", aliases=["exec"])
     @commands.is_owner()
