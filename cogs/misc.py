@@ -233,7 +233,7 @@ class MiscCmds(Cog):
                 result = f"{stdout.getvalue()}\n-- {obj}\n"
         except Exception as e:
             result = "".join(format_exception(e, e, e.__traceback__))
-            embed = discord.Embed()
+            embed = discord.Embed(colour = discord.Colour.red())
             embed.add_field(name = 'Error', value = f'{result}')
             await ctx.send(embed = embed)
 
