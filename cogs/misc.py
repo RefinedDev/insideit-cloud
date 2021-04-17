@@ -235,7 +235,6 @@ class MiscCmds(Cog):
             result = "".join(format_exception(e, e, e.__traceback__))
 
         pager = Pag(
-            length=1,
             prefix="```py\n",
             suffix="```"
         )
