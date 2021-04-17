@@ -235,7 +235,6 @@ class MiscCmds(Cog):
             result = "".join(format_exception(e, e, e.__traceback__))
 
         pager = Pag(
-            entries=[result[i: i + 2000] for i in range(0, len(result), 2000)],
             length=1,
             prefix="```py\n",
             suffix="```"
