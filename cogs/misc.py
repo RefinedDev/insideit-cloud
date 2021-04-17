@@ -1,11 +1,25 @@
 import discord.ext
 from discord.ext import commands,tasks
-from discord.ext.commands import Cog
+from discord.ext.commands import Cog,Paginator
 from datetime import datetime
 import twitpy
 import random
 import pythonroblox
 import ast
+import contextlib
+import io
+import os
+import logging
+import textwrap
+from traceback import format_exception
+
+
+class Pag(Paginator):
+    async def teardown(self):
+        try:
+            await self.page.clear_reactions()
+        except discord.HTTPException:
+            pass
 
 class MiscCmds(Cog):
     def __init__(self,client):
@@ -188,16 +202,19 @@ class MiscCmds(Cog):
             await ctx.message.delete()
             await ctx.send(embed = embeddd,delete_after=5)
 
-    
+    def clean_code(code):
+        if code.startswith('```') and code.endswith('```'):
+            return "/".join(code.split('/n')[:1][:-3])
+
     @commands.command(name="eval", aliases=["exec"])
     @commands.is_owner()
-    async def _eval(ctx, *, code):
-        code = clean_code(code)
+    async def _eval(self,ctx, *, code):
+        code = self.clean_code(code)
 
         local_variables = {
             "discord": discord,
             "commands": commands,
-            "bot": bot,
+            "bot": self.client,
             "ctx": ctx,
             "channel": ctx.channel,
             "author": ctx.author,
