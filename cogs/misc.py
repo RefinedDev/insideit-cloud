@@ -234,13 +234,6 @@ class MiscCmds(Cog):
         except Exception as e:
             result = "".join(format_exception(e, e, e.__traceback__))
 
-        pager = Pag(
-            prefix="```py\n",
-            suffix="```"
-        )
-
-        await pager.start(ctx)
-
 def setup(client):
     client.add_cog(MiscCmds(client))
 
