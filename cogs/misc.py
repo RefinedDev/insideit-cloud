@@ -188,57 +188,45 @@ class MiscCmds(Cog):
             await ctx.message.delete()
             await ctx.send(embed = embeddd,delete_after=5)
 
-    def insert_returns(self,body):
-        # insert return stmt if the last expression is a expression statement
-        if isinstance(body[-1], ast.Expr):
-            body[-1] = ast.Return(body[-1].value)
-            ast.fix_missing_locations(body[-1])
+    
+    @commands.command(name="eval", aliases=["exec"])
+    @commands.is_owner()
+    async def _eval(ctx, *, code):
+        code = clean_code(code)
 
-        # for if statements, we insert returns into the body and the orelse
-        if isinstance(body[-1], ast.If):
-            self.insert_returns(body[-1].body)
-            self.insert_returns(body[-1].orelse)
+        local_variables = {
+            "discord": discord,
+            "commands": commands,
+            "bot": bot,
+            "ctx": ctx,
+            "channel": ctx.channel,
+            "author": ctx.author,
+            "guild": ctx.guild,
+            "message": ctx.message
+        }
 
-        # for with blocks, again we insert returns into the body
-        if isinstance(body[-1], ast.With):
-            self.insert_returns(body[-1].body)
+        stdout = io.StringIO()
 
-        # for with blocks, again we insert returns into the body
-        if isinstance(body[-1], ast.AsyncWith):
-            self.insert_returns(body[-1].body)
+        try:
+            with contextlib.redirect_stdout(stdout):
+                exec(
+                    f"async def func():\n{textwrap.indent(code, '    ')}", local_variables,
+                )
 
+                obj = await local_variables["func"]()
+                result = f"{stdout.getvalue()}\n-- {obj}\n"
+        except Exception as e:
+            result = "".join(format_exception(e, e, e.__traceback__))
 
-    @commands.command(name = 'eval')
-    async def eval_fn(self,ctx, *, cmd):
-        if ctx.author.id == 429535933252239360 or ctx.author.id == 751107578301251595:
-            try:
-                fn_name = "_eval_expr"
+        pager = Pag(
+            timeout=100,
+            entries=[result[i: i + 2000] for i in range(0, len(result), 2000)],
+            length=1,
+            prefix="```py\n",
+            suffix="```"
+        )
 
-                cmd = cmd.strip("` ")
-
-                # add a layer of indentation
-                cmd = "\n".join(f"    {i}" for i in cmd.splitlines())
-
-                # wrap in async def body
-                body = f"async def {fn_name}():\n{cmd}"
-
-                parsed = ast.parse(body)
-                body = parsed.body[0].body
-
-                self.insert_returns(body)
-
-                env = {
-                    'bot': ctx.bot,
-                    'discord': discord,
-                    'commands': commands,
-                    'ctx': ctx,
-                    '__import__': __import__
-                }
-                exec(compile(parsed, filename="<ast>", mode="exec"), env)
-
-                (await eval(f"{fn_name}()", env))
-            except:
-                pass
+        await pager.start(ctx)
 
 def setup(client):
     client.add_cog(MiscCmds(client))
