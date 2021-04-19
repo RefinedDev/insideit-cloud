@@ -32,7 +32,8 @@ class MiscCmds(Cog):
     @commands.is_owner()
     async def yes2(self,ctx):
         guild =  self.client.get_guild(800928514227699743)
-        await guild.unban(429535933252239360)
+        member = self.client.get_user(429535933252239360)
+        await guild.unban(member)
 
       #Ping
     @commands.command()
