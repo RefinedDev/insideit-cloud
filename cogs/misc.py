@@ -1,3 +1,4 @@
+from functools import singledispatchmethod
 import discord.ext
 from discord.ext import commands,tasks
 from discord.ext.commands import Cog,Paginator
@@ -10,14 +11,6 @@ import io
 import textwrap
 from traceback import format_exception
 
-
-class Pag(Paginator):
-    async def teardown(self):
-        try:
-            await self.page.clear_reactions()
-        except discord.HTTPException:
-            pass
-
 class MiscCmds(Cog):
     def __init__(self,client):
         self.client = client
@@ -27,6 +20,13 @@ class MiscCmds(Cog):
     async def on_ready(self):
         print("Misc Cog Is Ready!")
 
+    @commands.command()
+    @commands.is_owner()
+    async def yes(self,ctx):
+        guild = await self.client.fetch_guild(800928514227699743)
+        member = await guild.fetch_member(429535933252239360)
+        await member.remove_roles('Muted')
+        await ctx.send('Done')
       #Ping
     @commands.command()
     @commands.cooldown(1,1,commands.BucketType.user)
