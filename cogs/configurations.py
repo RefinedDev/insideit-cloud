@@ -869,37 +869,40 @@ class config(Cog):
         if not f'{str(ctx.guild.id)}' in res:
             await ctx.send('This command requires the `Levelling` configuration to be enabled. To enable, run `peg config Levelling`.')
             return
-        memberlevel = res[str(ctx.guild.id)][str(member.id)]['currentlevel']
-        memberxp = res[str(ctx.guild.id)][str(member.id)]['currentxp']
-        memberxpreq = res[str(ctx.guild.id)][str(member.id)]['xprequired']
-        embed = discord.Embed(title = f"{member.name}'s rank",color = ctx.author.color)
-        embed.set_thumbnail(url = member.avatar_url)
-        embed.add_field(name = 'Level:',value = f'`{memberlevel}`',inline = False)
-        embed.add_field(name = 'XP:',value = f'`{memberxp}`',inline = False)
-        percentage = int(memberxp) / int(memberxpreq) * 100
-        if percentage >= 0 and percentage < 10:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
-        elif percentage >= 10 and percentage < 20:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
-        elif percentage >= 20 and percentage < 30:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
-        elif percentage >= 30 and percentage < 40:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌑 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
-        elif percentage >= 40 and percentage < 50:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
-        elif percentage >= 50 and percentage < 60:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌑 🌑 🌑 🌑 🌑',inline = False)
-        elif percentage >= 60 and percentage < 70:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌑 🌑 🌑 🌑',inline = False)
-        elif percentage >= 70 and percentage < 80:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌑 🌑 🌑',inline = False)
-        elif percentage >= 80 and percentage < 90:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌑 🌑',inline = False)
-        elif percentage >= 90 and percentage < 100:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌑',inline = False)
-        elif percentage >= 100:
-            embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕',inline = False)
-        await ctx.send(embed = embed)
+        try:
+            memberlevel = res[str(ctx.guild.id)][str(member.id)]['currentlevel']
+            memberxp = res[str(ctx.guild.id)][str(member.id)]['currentxp']
+            memberxpreq = res[str(ctx.guild.id)][str(member.id)]['xprequired']
+            embed = discord.Embed(title = f"{member.name}'s rank",color = ctx.author.color)
+            embed.set_thumbnail(url = member.avatar_url)
+            embed.add_field(name = 'Level:',value = f'`{memberlevel}`',inline = False)
+            embed.add_field(name = 'XP:',value = f'`{memberxp}`',inline = False)
+            percentage = int(memberxp) / int(memberxpreq) * 100
+            if percentage >= 0 and percentage < 10:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
+            elif percentage >= 10 and percentage < 20:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
+            elif percentage >= 20 and percentage < 30:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
+            elif percentage >= 30 and percentage < 40:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌑 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
+            elif percentage >= 40 and percentage < 50:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
+            elif percentage >= 50 and percentage < 60:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌑 🌑 🌑 🌑 🌑',inline = False)
+            elif percentage >= 60 and percentage < 70:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌑 🌑 🌑 🌑',inline = False)
+            elif percentage >= 70 and percentage < 80:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌑 🌑 🌑',inline = False)
+            elif percentage >= 80 and percentage < 90:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌑 🌑',inline = False)
+            elif percentage >= 90 and percentage < 100:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌑',inline = False)
+            elif percentage >= 100:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕',inline = False)
+            await ctx.send(embed = embed)
+        except KeyError: 
+                await ctx.send('The person you mentioned are not on the leaderboard.')
 
 
     # @commands.command()
