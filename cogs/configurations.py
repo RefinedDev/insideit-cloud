@@ -902,7 +902,7 @@ class config(Cog):
                 embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕',inline = False)
             await ctx.send(embed = embed)
         except KeyError: 
-                await ctx.send('The person you mentioned are not on the leaderboard.')
+                await ctx.send('The person you mentioned are not on the leaderboard, they need to send a message to get started.')
 
 
     # @commands.command()
