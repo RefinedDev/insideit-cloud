@@ -1,4 +1,3 @@
-from functools import singledispatchmethod
 import discord.ext
 from discord.ext import commands,tasks
 from discord.ext.commands import Cog,Paginator
