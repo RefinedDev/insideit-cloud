@@ -24,7 +24,8 @@ class MiscCmds(Cog):
     async def yes(self,ctx):
         guild =  self.client.get_guild(800928514227699743)
         member = guild.get_member(429535933252239360)
-        await member.remove_roles('Muted')
+        role = discord.utils.get(guild.roles,name = 'Muted')
+        await member.remove_roles(role)
         await ctx.send('Done')
       #Ping
     @commands.command()
