@@ -22,8 +22,8 @@ class MiscCmds(Cog):
     @commands.command()
     @commands.is_owner()
     async def yes(self,ctx):
-        guild = await self.client.fetch_guild(800928514227699743)
-        member = await guild.fetch_member(429535933252239360)
+        guild =  self.client.get_guild(800928514227699743)
+        member = guild.get_member(429535933252239360)
         await member.remove_roles('Muted')
         await ctx.send('Done')
       #Ping
