@@ -50,7 +50,7 @@ class HighRank(Cog):
 
             await ctx.channel.purge(limit = amount)
         else:
-            return MissingPermissions
+            raise MissingPermissions
 
     @commands.command()
     @commands.has_permissions(manage_guild = True)
