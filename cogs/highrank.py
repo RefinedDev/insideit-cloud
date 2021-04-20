@@ -20,7 +20,7 @@ permissions = {
     'Unmute': 'kick_members',
     'Configurations': 'manage_guild',
 }
-print(permissions['Purge'])
+
 class HighRank(Cog):
     def __init__(self,client):
         self.client = client
@@ -38,7 +38,7 @@ class HighRank(Cog):
 
     #ClearChat
     @commands.command(aliases=['clear'])
-    @commands.has_permissions(permissions['Purge'])
+    @commands.has_permissions('manage_messages')
     async def purge(self,ctx,amount : int = None):
         if amount == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
