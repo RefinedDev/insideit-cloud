@@ -11,7 +11,6 @@ from firebase_admin import db
 from firebase_admin import credentials
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-import json
 
 cred = credentials.Certificate("serviceAccountKey.json")
 
@@ -26,9 +25,6 @@ class config(Cog):
     @Cog.listener()
     async def on_ready(self):
         print("Config Cog Is Ready!")
-        ref = db.reference('/customperms').get()
-        with open('customperms.json','w') as f:
-            json.dump(ref,f,indent =4)
 
     
     @commands.group()
@@ -41,7 +37,7 @@ class config(Cog):
 
     @config.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
-    @commands.has_permissions(manage_guild= True)
+    @commands.has_permissions(manage_server= True)
     async def WelcomeMessage(self,ctx):
         db = mysql.connector.connect(
             host = "us-cdbr-east-02.cleardb.com",
@@ -122,7 +118,7 @@ class config(Cog):
 
     @config.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
-    @commands.has_permissions(manage_guild= True)
+    @commands.has_permissions(manage_server= True)
     async def LeaveMessage(self,ctx):
         db = mysql.connector.connect(
             host = "us-cdbr-east-02.cleardb.com",
@@ -202,7 +198,7 @@ class config(Cog):
 
     @config.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
-    @commands.has_permissions(manage_guild= True)
+    @commands.has_permissions(manage_server= True)
     async def WelcomeRole(self,ctx):
         db = mysql.connector.connect(
             host = "us-cdbr-east-02.cleardb.com",
@@ -282,7 +278,7 @@ class config(Cog):
 
     @config.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
-    @commands.has_permissions(manage_guild= True)
+    @commands.has_permissions(manage_server= True)
     async def AntiLink(self,ctx):
         ref = db.reference('/antilink')
 
@@ -449,7 +445,7 @@ class config(Cog):
     
     @config.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
-    @commands.has_permissions(manage_guild= True)
+    @commands.has_permissions(manage_server= True)
     async def ReactionRoles(self,ctx):
         def check(message):
             return message.author == ctx.author and message.channel == ctx.channel
@@ -563,7 +559,7 @@ class config(Cog):
     
     @config.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
-    @commands.has_permissions(manage_guild = True)
+    @commands.has_permissions(manage_server = True)
     async def Minage(self,ctx):
         def check(message):
             return message.author == ctx.author and message.channel == ctx.channel
@@ -637,7 +633,7 @@ class config(Cog):
                 await ctx.send("Invalid Choice")
     
     @config.command()
-    @commands.has_permissions(manage_guild = True)
+    @commands.has_permissions(manage_server = True)
     #@commands.cooldown(1,60,commands.BucketType.guild)
     async def Levelling(self,ctx):
         def check(message):
@@ -747,10 +743,10 @@ class config(Cog):
                         await ctx.send(f'The level `{res[msg2.content]}` which gave users the role `None` has been removed.')
                     else:
                         await ctx.send(f'The level `{res[msg2.content]}` which gave users the role `{role.name}` has been removed.')
-
+                        
     
     @commands.command()
-    @commands.has_permissions(manage_guild = True)
+    @commands.has_permissions(manage_server = True)
     # @commands.cooldown(1,60,commands.BucketType.guild)
     async def CustomPermissions(self,ctx):
         def check(message):
@@ -816,83 +812,7 @@ class config(Cog):
                 return
         except Exception as e:
             await ctx.send(f'An error occured: {e}')
-
     # LISTENERS
-    @Cog.listener()
-    async def on_guild_join(self,guild):
-        format = {
-            'Kick': 'kick_members = True',
-            'Ban': 'ban_members = True',
-            'Warn': 'kick_members = True',
-            'Purge': 'manage_messages = True',
-            'Announce': 'manage_guild = True',
-            'SetSlowmode': 'manage_messages = True',
-            'Infractions': 'kick_members = True',
-            'Revoke Infractions': 'kick_members = True',
-            'Mute': 'kick_members = True',
-            'Unmute': 'kick_members = True',
-            'Configurations': 'manage_guild = True',
-        }
-        ref = db.reference('/customperms')
-        ref.child(str(message.guild.id)).set(format)
-
-    @Cog.listener()
-    async def on_message(self,message):
-        if message.author.bot:
-            return
-
-        if isinstance(message.channel, discord.channel.DMChannel):
-            return
-
-        ref = db.reference('/level')
-        res = ref.get()
-        if not f'{message.guild.id}' in res:
-            return
-
-        res2 = res[f'{message.guild.id}']
-        if not f'{message.author.id}' in res2:
-            newxp = random.randint(20,30)     
-            lol = {
-                'currentxp': '{}'.format(newxp),
-                'xprequired': '{}'.format('200'),
-                'lastgather': '{}'.format(datetime.now()),
-                'currentlevel': '{}'.format('1'),
-                }
-            ref.child(str(message.guild.id)).child(str(message.author.id)).set(lol)
-            return
-
-        lastgather = res2[str(message.author.id)]['lastgather']
-        time = datetime.strptime(lastgather,"%Y-%m-%d %H:%M:%S.%f")
-        cooldowntime = time + relativedelta(seconds= 60)
-        if datetime.now() >= cooldowntime:
-            newxp = random.randint(10,25) 
-            lol = {
-                'currentxp': '{}'.format(int(res2[str(message.author.id)]['currentxp']) + newxp),
-                'xprequired': '{}'.format(res2[str(message.author.id)]['xprequired']),
-                'lastgather': '{}'.format(datetime.now()),
-                'currentlevel': '{}'.format(res2[str(message.author.id)]['currentlevel']),
-                }
-            ref.child(str(message.guild.id)).child(str(message.author.id)).set(lol)
-            res3 = ref.get()[f'{message.guild.id}']
-            if int(res3[str(message.author.id)]['currentxp']) > int(res3[str(message.author.id)]['xprequired']):
-                lol = {
-                    'currentxp': '{}'.format(res3[str(message.author.id)]['currentxp']),
-                    'xprequired': '{}'.format(round(int(res3[str(message.author.id)]['xprequired']) * 2)),
-                    'lastgather': '{}'.format(res3[str(message.author.id)]['lastgather']),
-                    'currentlevel': '{}'.format(int(res3[str(message.author.id)]['currentlevel']) + 1),
-                }
-                member = await message.guild.fetch_member(int(message.author.id))
-                await message.channel.send(f"**{message.author.display_name}#{message.author.discriminator}** Ay, congrats you're now level `{int(res3[str(message.author.id)]['currentlevel']) + 1}`")
-                ref.child(str(message.guild.id)).child(str(message.author.id)).set(lol)
-                ref3 = res3['level']
-                for i in ref3:
-                    if not 'blah' == str(i): 
-                        if int(ref3[i]) <= (int(res3[str(message.author.id)]['currentlevel']) + 1):
-                            role = discord.utils.get(message.guild.roles, id = int(i))
-                            if role == None:
-                                return
-                            await member.add_roles(role)
-
     @Cog.listener()
     async def on_message(self,message):
         if isinstance(message.channel, discord.channel.DMChannel):

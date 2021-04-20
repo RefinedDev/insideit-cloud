@@ -2,36 +2,14 @@ import discord.ext
 from discord.ext import commands,tasks
 from discord.ext.commands import Cog
 from datetime import datetime
-from discord.ext.commands.errors import MissingPermissions
 import mysql.connector
 import asyncio
 from dateutil.relativedelta import relativedelta
-import json
-
-permissions = {
-    'Kick': 'kick_members = True',
-    'Ban': 'ban_members = True',
-    'Warn': 'kick_members = True',
-    'Purge': 'manage_messages = True',
-    'Announce': 'manage_guild = True',
-    'SetSlowmode': 'manage_messages = True',
-    'Infractions': 'kick_members = True',
-    'Revoke Infractions': 'kick_members = True',
-    'Mute': 'kick_members = True',
-    'Unmute': 'kick_members = True',
-    'Configurations': 'manage_guild = True',
-}
 
 class HighRank(Cog):
     def __init__(self,client):
         self.client = client
-
-    def get_prefix(self,client,message):
-        with open('yes.json', 'r') as f:
-            perms = json.load(f)
-            permissions = perms[str(message.guild.id)]
-            return permissions
-
+    
     @Cog.listener()
     async def on_ready(self):
         print("High Rank Cog Is Ready!")
@@ -39,18 +17,16 @@ class HighRank(Cog):
 
     #ClearChat
     @commands.command(aliases=['clear'])
+    @commands.has_permissions(manage_messages = True)
     async def purge(self,ctx,amount : int = None):
-        if  ctx.author.guild_permissions.manage_messages == True:
-            if amount == None:
-                embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
-                embeddd.add_field(name = "Missing Number",value = "Please specify a Integer of how many messages you want to purge.",inline= False)
-                embeddd.add_field(name = "Command Example",value = "`peg purge 100`",inline= False)
-                await ctx.send(embed = embeddd,delete_after=5)
-                return
+        if amount == None:
+            embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
+            embeddd.add_field(name = "Missing Number",value = "Please specify a Integer of how many messages you want to purge.",inline= False)
+            embeddd.add_field(name = "Command Example",value = "`peg purge 100`",inline= False)
+            await ctx.send(embed = embeddd,delete_after=5)
+            return
 
-            await ctx.channel.purge(limit = amount)
-        else:
-            await ctx.send('No perms you need `manage_messages` perm.')
+        await ctx.channel.purge(limit = amount)
 
     @commands.command()
     @commands.has_permissions(manage_guild = True)
