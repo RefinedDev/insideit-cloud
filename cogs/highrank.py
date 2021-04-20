@@ -7,7 +7,19 @@ import asyncio
 from dateutil.relativedelta import relativedelta
 import json
 
-permissions = {}
+permissions = {
+    'Kick': 'kick_members',
+    'Ban': 'ban_members',
+    'Warn': 'kick_members',
+    'Purge': 'manage_messages',
+    'Announce': 'manage_guild',
+    'SetSlowmode': 'manage_messages',
+    'Infractions': 'kick_members',
+    'Revoke Infractions': 'kick_members',
+    'Mute': 'kick_members',
+    'Unmute': 'kick_members',
+    'Configurations': 'manage_guild',
+}
 class HighRank(Cog):
     def __init__(self,client):
         self.client = client
@@ -15,7 +27,7 @@ class HighRank(Cog):
     def get_prefix(self,client,message):
         with open('yes.json', 'r') as f:
             perms = json.load(f)
-            self.permissions = perms[str(message.guild.id)]
+            permissions = perms[str(message.guild.id)]
             return permissions
 
     @Cog.listener()
