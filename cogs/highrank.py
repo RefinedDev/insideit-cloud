@@ -8,17 +8,17 @@ from dateutil.relativedelta import relativedelta
 import json
 
 permissions = {
-    'Kick': 'kick_members',
-    'Ban': 'ban_members',
-    'Warn': 'kick_members',
-    'Purge': 'manage_messages',
-    'Announce': 'manage_guild',
-    'SetSlowmode': 'manage_messages',
-    'Infractions': 'kick_members',
-    'Revoke Infractions': 'kick_members',
-    'Mute': 'kick_members',
-    'Unmute': 'kick_members',
-    'Configurations': 'manage_guild',
+    'Kick': 'kick_members = True',
+    'Ban': 'ban_members = True',
+    'Warn': 'kick_members = True',
+    'Purge': 'manage_messages = True',
+    'Announce': 'manage_guild = True',
+    'SetSlowmode': 'manage_messages = True',
+    'Infractions': 'kick_members = True',
+    'Revoke Infractions': 'kick_members = True',
+    'Mute': 'kick_members = True',
+    'Unmute': 'kick_members = True',
+    'Configurations': 'manage_guild = True',
 }
 
 class HighRank(Cog):
@@ -38,7 +38,7 @@ class HighRank(Cog):
 
     #ClearChat
     @commands.command(aliases=['clear'])
-    @commands.has_permissions(manage_messages = True)
+    @commands.has_permissions(permissions['Purge'])
     async def purge(self,ctx,amount : int = None):
         if amount == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())

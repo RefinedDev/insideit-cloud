@@ -11,7 +11,6 @@ from firebase_admin import db
 from firebase_admin import credentials
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-import json
 
 cred = credentials.Certificate("serviceAccountKey.json")
 
@@ -26,9 +25,23 @@ class config(Cog):
     @Cog.listener()
     async def on_ready(self):
         print("Config Cog Is Ready!")
-        ref = db.reference('/customperms').get()
-        with open('customperms.json','w') as f:
-            json.dump(ref,f,indent =4)
+        for i in self.client.guilds:
+            format = {
+            'Kick': 'kick_members = True',
+            'Ban': 'ban_members = True',
+            'Warn': 'kick_members = True',
+            'Purge': 'manage_messages = True',
+            'Announce': 'manage_guild = True',
+            'SetSlowmode': 'manage_messages = True',
+            'Infractions': 'kick_members = True',
+            'Revoke Infractions': 'kick_members = True',
+            'Mute': 'kick_members = True',
+            'Unmute': 'kick_members = True',
+            'Configurations': 'manage_guild = True',
+        }
+            ref = db.reference('/customperms')
+            ref.child(str(i.id)).set(format)
+
     
     @commands.group()
     async def config(self,ctx):
