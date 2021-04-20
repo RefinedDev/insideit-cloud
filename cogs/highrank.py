@@ -38,7 +38,7 @@ class HighRank(Cog):
 
     #ClearChat
     @commands.command(aliases=['clear'])
-    @commands.has_permissions(permissions['Purge'].split("'")[0])
+    @commands.has_permissions(permissions['Purge'].replace('"', ''))
     async def purge(self,ctx,amount : int = None):
         if amount == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
