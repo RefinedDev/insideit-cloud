@@ -41,7 +41,6 @@ class RockPaperScissors(Cog):
         cursor.close()
 
     @commands.command()
-    @commands.cooldown(1,60,commands.BucketType.user)
     async def rps(self,ctx):
         db = mysql.connector.connect(
             host = "us-cdbr-east-02.cleardb.com",
@@ -127,7 +126,6 @@ class RockPaperScissors(Cog):
         cursor.close()
 
     @commands.command()
-    @commands.cooldown(1,60,commands.BucketType.guild)
     async def rpsLeaderboard(self,ctx):
         db = mysql.connector.connect(
             host = "us-cdbr-east-02.cleardb.com",

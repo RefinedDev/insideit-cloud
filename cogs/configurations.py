@@ -25,68 +25,25 @@ class config(Cog):
     @Cog.listener()
     async def on_ready(self):
         print("Config Cog Is Ready!")
-
-    @Cog.listener()
-    async def on_message(self,message):
-        if isinstance(message.channel, discord.channel.DMChannel):
-            return
-
-        if message.guild.owner == message.author:
-            return    
-
-        if 'discord.gg/' in str.lower(message.content):
-            try:
-                ref = db.reference('/antilink')
-                res = ref.get()
-                if f'{message.guild.id}' in res:
-                    toggle = res[f'{str(message.guild.id)}']['toggle']
-                    if str.lower(toggle) == 'off':
-                        return
-                    discordmsg = res[f'{str(message.guild.id)}']['discordlink']
-                    if str.lower(discordmsg) == 'no':
-                        return
-                    await message.delete()
-                else:
-                    return
-            except Exception as e:
-                print(f'An error occured in no link {e}')
-            
-        if 'https://' in str.lower(message.content) or 'http://' in str.lower(message.content):
-            try:
-                ref = db.reference('/antilink')
-                res = ref.get() 
-                if f'{message.guild.id}' in res:
-                    toggle = res[f'{str(message.guild.id)}']['toggle']
-                    if str.lower(toggle) == 'off':
-                        return
-                    othermsg = res[f'{str(message.guild.id)}']['otherlink']
-                    if str.lower(othermsg) == 'no':
-                        return
-                    await message.delete()
-                else:
-                    return
-            except Exception as e:
-                print(f'An error occured in no link {e}')
-
-    @Cog.listener()
-    async def on_member_join(self,member):
-        if member.guild.id == 777895986461671424:
-            age = datetime.now() - member.created_at
-            eage = str(age).split(',')[0]
-            realage = str(eage).split('days')[0]
-            ref = db.reference('/minage')
-            res = ref.get()
-            if f'{member.guild.id}' in res:
-                toggle = res[str(member.guild.id)]['toggle']
-                if toggle == 'ON':
-                    dbage = res[str(member.guild.id)]['age']
-                    if int(dbage) > int(realage):
-                        await member.send(f"You're account age needs to be over {dbage} days before you can join this server.")
-                        await member.kick(reason = f'Account age lower than the specified minimum age amount')
+        for i in self.client.guilds:
+            format = {
+            'Kick': 'kick_members',
+            'Ban': 'ban_members',
+            'Warn': 'kick_members',
+            'Purge': 'manage_messages',
+            'Announce': 'manage_server',
+            'SetSlowmode': 'manage_messages',
+            'Infractions': 'kick_members',
+            'Revoke Infractions': 'kick_members',
+            'Mute': 'kick_members',
+            'Unmute': 'kick_members',
+            'Configurations': 'manage_server',
+            }
+            ref = db.reference('/customperms')
+            ref.child(str(message.guild.id)).set(format)
 
     
     @commands.group()
-    @commands.has_permissions(administrator = True)
     async def config(self,ctx):
         if ctx.invoked_subcommand is None:
             embed = discord.Embed(title = '⚙ Configurations.',description = 'Use `peg config [nameofconfig]` to configure.',color = ctx.author.color)
@@ -96,7 +53,7 @@ class config(Cog):
 
     @config.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
-    @commands.has_permissions(administrator= True)
+    @commands.has_permissions(manage_server= True)
     async def WelcomeMessage(self,ctx):
         db = mysql.connector.connect(
             host = "us-cdbr-east-02.cleardb.com",
@@ -177,7 +134,7 @@ class config(Cog):
 
     @config.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
-    @commands.has_permissions(administrator= True)
+    @commands.has_permissions(manage_server= True)
     async def LeaveMessage(self,ctx):
         db = mysql.connector.connect(
             host = "us-cdbr-east-02.cleardb.com",
@@ -257,7 +214,7 @@ class config(Cog):
 
     @config.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
-    @commands.has_permissions(administrator= True)
+    @commands.has_permissions(manage_server= True)
     async def WelcomeRole(self,ctx):
         db = mysql.connector.connect(
             host = "us-cdbr-east-02.cleardb.com",
@@ -337,7 +294,7 @@ class config(Cog):
 
     @config.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
-    @commands.has_permissions(administrator= True)
+    @commands.has_permissions(manage_server= True)
     async def AntiLink(self,ctx):
         ref = db.reference('/antilink')
 
@@ -504,7 +461,7 @@ class config(Cog):
     
     @config.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
-    @commands.has_permissions(administrator= True)
+    @commands.has_permissions(manage_server= True)
     async def ReactionRoles(self,ctx):
         def check(message):
             return message.author == ctx.author and message.channel == ctx.channel
@@ -618,7 +575,7 @@ class config(Cog):
     
     @config.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
-    @commands.has_permissions(administrator = True)
+    @commands.has_permissions(manage_server = True)
     async def Minage(self,ctx):
         def check(message):
             return message.author == ctx.author and message.channel == ctx.channel
@@ -692,7 +649,7 @@ class config(Cog):
                 await ctx.send("Invalid Choice")
     
     @config.command()
-    @commands.has_permissions(administrator = True)
+    @commands.has_permissions(manage_server = True)
     #@commands.cooldown(1,60,commands.BucketType.guild)
     async def Levelling(self,ctx):
         def check(message):
@@ -802,6 +759,95 @@ class config(Cog):
                         await ctx.send(f'The level `{res[msg2.content]}` which gave users the role `None` has been removed.')
                     else:
                         await ctx.send(f'The level `{res[msg2.content]}` which gave users the role `{role.name}` has been removed.')
+
+    
+    @commands.command()
+    @commands.has_permissions(manage_server = True)
+    # @commands.cooldown(1,60,commands.BucketType.guild)
+    async def CustomPermissions(self,ctx):
+        def check(message):
+            return message.author == ctx.author and message.channel == ctx.channel
+
+        await ctx.send("What would you like to do?\n`SetCustomPermission`\n`SeePermissions`")
+        try:
+            msg = await self.client.wait_for('message',timeout = 50.0,check = check)
+        except asyncio.TimeoutError:
+            await ctx.send("Din't reply in time noob.")
+            return
+        else:
+            if str.lower(msg.content) == 'SetCustomPermission':
+                pass
+            elif str.lower(msg.content) == 'SeePermissions':
+                pass
+
+
+    @commands.command()
+    @commands.cooldown(1,5,commands.BucketType.user)
+    async def rank(self,ctx,member : discord.Member = None):
+        if member == None:
+            member = ctx.author
+        ref = db.reference('/level')
+        res = ref.get()
+        if not f'{str(ctx.guild.id)}' in res:
+            await ctx.send('This command requires the `Levelling` configuration to be enabled. To enable, run `peg config Levelling`.')
+            return
+        try:
+            memberlevel = res[str(ctx.guild.id)][str(member.id)]['currentlevel']
+            memberxp = res[str(ctx.guild.id)][str(member.id)]['currentxp']
+            memberxpreq = res[str(ctx.guild.id)][str(member.id)]['xprequired']
+            embed = discord.Embed(title = f"{member.name}'s rank",color = ctx.author.color)
+            embed.set_thumbnail(url = member.avatar_url)
+            embed.add_field(name = 'Level:',value = f'`{memberlevel}`',inline = False)
+            embed.add_field(name = 'XP:',value = f'`{memberxp}`',inline = False)
+            percentage = int(memberxp) / int(memberxpreq) * 100
+            if percentage >= 0 and percentage < 10:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
+            elif percentage >= 10 and percentage < 20:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
+            elif percentage >= 20 and percentage < 30:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
+            elif percentage >= 30 and percentage < 40:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌑 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
+            elif percentage >= 40 and percentage < 50:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
+            elif percentage >= 50 and percentage < 60:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌑 🌑 🌑 🌑 🌑',inline = False)
+            elif percentage >= 60 and percentage < 70:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌑 🌑 🌑 🌑',inline = False)
+            elif percentage >= 70 and percentage < 80:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌑 🌑 🌑',inline = False)
+            elif percentage >= 80 and percentage < 90:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌑 🌑',inline = False)
+            elif percentage >= 90 and percentage < 100:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌑',inline = False)
+            elif percentage >= 100:
+                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕',inline = False)
+            await ctx.send(embed = embed)
+        except KeyError: 
+                await ctx.send('The person you mentioned are not on the leaderboard, they need to send a message to get started.')
+                return
+        except Exception as e:
+            await ctx.send(f'An error occured: {e}')
+
+    # LISTENERS
+    @Cog.listener()
+    async def on_guild_join(self,guild):
+        format = {
+            'Kick': 'kick_members',
+            'Ban': 'ban_members',
+            'Warn': 'kick_members',
+            'Purge': 'manage_messages',
+            'Announce': 'manage_server',
+            'SetSlowmode': 'manage_messages',
+            'Infractions': 'kick_members',
+            'Revoke Infractions': 'kick_members',
+            'Mute': 'kick_members',
+            'Unmute': 'kick_members',
+            'Configurations': 'manage_server',
+        }
+        ref = db.reference('/customperms')
+        ref.child(str(message.guild.id)).set(format)
+
     @Cog.listener()
     async def on_message(self,message):
         if message.author.bot:
@@ -859,102 +905,63 @@ class config(Cog):
                                 return
                             await member.add_roles(role)
 
-    @commands.command()
-    @commands.cooldown(1,5,commands.BucketType.user)
-    async def rank(self,ctx,member : discord.Member = None):
-        if member == None:
-            member = ctx.author
-        ref = db.reference('/level')
-        res = ref.get()
-        if not f'{str(ctx.guild.id)}' in res:
-            await ctx.send('This command requires the `Levelling` configuration to be enabled. To enable, run `peg config Levelling`.')
+    @Cog.listener()
+    async def on_message(self,message):
+        if isinstance(message.channel, discord.channel.DMChannel):
             return
-        try:
-            memberlevel = res[str(ctx.guild.id)][str(member.id)]['currentlevel']
-            memberxp = res[str(ctx.guild.id)][str(member.id)]['currentxp']
-            memberxpreq = res[str(ctx.guild.id)][str(member.id)]['xprequired']
-            embed = discord.Embed(title = f"{member.name}'s rank",color = ctx.author.color)
-            embed.set_thumbnail(url = member.avatar_url)
-            embed.add_field(name = 'Level:',value = f'`{memberlevel}`',inline = False)
-            embed.add_field(name = 'XP:',value = f'`{memberxp}`',inline = False)
-            percentage = int(memberxp) / int(memberxpreq) * 100
-            if percentage >= 0 and percentage < 10:
-                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
-            elif percentage >= 10 and percentage < 20:
-                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
-            elif percentage >= 20 and percentage < 30:
-                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌑 🌑 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
-            elif percentage >= 30 and percentage < 40:
-                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌑 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
-            elif percentage >= 40 and percentage < 50:
-                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌑 🌑 🌑 🌑 🌑 🌑',inline = False)
-            elif percentage >= 50 and percentage < 60:
-                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌑 🌑 🌑 🌑 🌑',inline = False)
-            elif percentage >= 60 and percentage < 70:
-                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌑 🌑 🌑 🌑',inline = False)
-            elif percentage >= 70 and percentage < 80:
-                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌑 🌑 🌑',inline = False)
-            elif percentage >= 80 and percentage < 90:
-                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌑 🌑',inline = False)
-            elif percentage >= 90 and percentage < 100:
-                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌑',inline = False)
-            elif percentage >= 100:
-                embed.add_field(name = 'XP required to rank up:',value = f'`{int(memberxpreq) - int(memberxp)}`\n\n🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕 🌕',inline = False)
-            await ctx.send(embed = embed)
-        except KeyError: 
-                await ctx.send('The person you mentioned are not on the leaderboard, they need to send a message to get started.')
 
+        if message.guild.owner == message.author:
+            return    
 
-    # @commands.command()
-    # @commands.cooldown(1,60,commands.BucketType.guild)
-    # @commands.has_permissions(administrator = True)
-    # async def showconfigs(self,ctx):
-    #     try:
-    #         dbs = mysql.connector.connect(
-    #             host = "us-cdbr-east-02.cleardb.com",
-    #             user = "bc4de25d94d683",
-    #             passwd = "0bf00100",
-    #             database = "heroku_1d7c0ca78dfc2ef"
-    #         )
-
-    #         cursor = dbs.cursor()
-    #         guildid = str(ctx.guild.id)
-    #         cursor.execute("SELECT toggle from welcomeroles WHERE guildid = " + guildid)
-    #         res1 = cursor.fetchall()
-    #         cursor.execute("SELECT toggle from welcomemsg WHERE guildid = " + guildid)
-    #         res2= cursor.fetchall()
-    #         cursor.execute("SELECT toggle from leavemsg WHERE guildid = " + guildid)  
-    #         res3 = cursor.fetchall()
- 
-    #         embed = discord.Embed()
-    #         if (len(res2) == 0):
-    #             embed.add_field(name = 'WelcomeMessage',value = '`OFF`')
-    #         else:
-    #             embed.add_field(name = 'WelcomeMessage',value = f'`{res2[0][0]}`')
-
-    #         if (len(res1) == 0):
-    #             embed.add_field(name = 'WelcomeRole',value = f'`OFF`',inline= False)
-    #         else:
-    #             embed.add_field(name = 'WelcomeRole',value = f'`{res1[0][0]}`',inline= False)
-
-    #         if (len(res3) == 0):
-    #             embed.add_field(name = 'LeaveMessage',value = f'`OFF`',inline= False)
-    #         else:
-    #             embed.add_field(name = 'LeaveMessage',value = f'`{res3[0][0]}`',inline= False)
-    #         ref = db.reference('/antilink')
-    #         res = ref.get()
-
-    #         if f'{ctx.guild.id}' in res:
-    #             embed.add_field(name = 'AntiLink',value = f'`ON`',inline= False)
-    #         else:
-    #             embed.add_field(name = 'AntiLink',value = f'`OFF`',inline= False)
-    #         await ctx.send(embed = embed)
+        if 'discord.gg/' in str.lower(message.content):
+            try:
+                ref = db.reference('/antilink')
+                res = ref.get()
+                if f'{message.guild.id}' in res:
+                    toggle = res[f'{str(message.guild.id)}']['toggle']
+                    if str.lower(toggle) == 'off':
+                        return
+                    discordmsg = res[f'{str(message.guild.id)}']['discordlink']
+                    if str.lower(discordmsg) == 'no':
+                        return
+                    await message.delete()
+                else:
+                    return
+            except Exception as e:
+                print(f'An error occured in no link {e}')
             
-    #         dbs.close()
-    #         cursor.close()
-    #     except Exception as e:
-    #         print(f"An Error Occured In showconfigs {e}")
+        if 'https://' in str.lower(message.content) or 'http://' in str.lower(message.content):
+            try:
+                ref = db.reference('/antilink')
+                res = ref.get() 
+                if f'{message.guild.id}' in res:
+                    toggle = res[f'{str(message.guild.id)}']['toggle']
+                    if str.lower(toggle) == 'off':
+                        return
+                    othermsg = res[f'{str(message.guild.id)}']['otherlink']
+                    if str.lower(othermsg) == 'no':
+                        return
+                    await message.delete()
+                else:
+                    return
+            except Exception as e:
+                print(f'An error occured in no link {e}')
 
+    @Cog.listener()
+    async def on_member_join(self,member):
+        if member.guild.id == 777895986461671424:
+            age = datetime.now() - member.created_at
+            eage = str(age).split(',')[0]
+            realage = str(eage).split('days')[0]
+            ref = db.reference('/minage')
+            res = ref.get()
+            if f'{member.guild.id}' in res:
+                toggle = res[str(member.guild.id)]['toggle']
+                if toggle == 'ON':
+                    dbage = res[str(member.guild.id)]['age']
+                    if int(dbage) > int(realage):
+                        await member.send(f"You're account age needs to be over {dbage} days before you can join this server.")
+                        await member.kick(reason = f'Account age lower than the specified minimum age amount | Under {dbage} days.')
     @Cog.listener()
     async def on_raw_reaction_add(self,payload):
         try:

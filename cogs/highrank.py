@@ -29,7 +29,7 @@ class HighRank(Cog):
         await ctx.channel.purge(limit = amount)
 
     @commands.command()
-    @commands.has_permissions(administrator = True)
+    @commands.has_permissions(manage_server = True)
     async def announce(self,ctx,channelid = None,*,text = None):
         if channelid == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
