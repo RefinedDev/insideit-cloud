@@ -40,7 +40,7 @@ class config(Cog):
             'Configurations': 'manage_server',
             }
             ref = db.reference('/customperms')
-            ref.child(str(message.guild.id)).set(format)
+            ref.child(str(i.id)).set(format)
 
     
     @commands.group()
