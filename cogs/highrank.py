@@ -20,7 +20,7 @@ permissions = {
     'Unmute': 'kick_members',
     'Configurations': 'manage_guild',
 }
-
+print(permissions['Purge'])
 class HighRank(Cog):
     def __init__(self,client):
         self.client = client
@@ -34,7 +34,6 @@ class HighRank(Cog):
     @Cog.listener()
     async def on_ready(self):
         print("High Rank Cog Is Ready!")
-        print(permissions['Purge'])
         self.mute_loop.start()
 
     #ClearChat
