@@ -50,7 +50,7 @@ class HighRank(Cog):
 
             await ctx.channel.purge(limit = amount)
         else:
-            raise MissingPermissions
+            await ctx.send('No perms you need `manage_messages` perm.')
 
     @commands.command()
     @commands.has_permissions(manage_guild = True)
