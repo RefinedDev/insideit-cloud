@@ -25,23 +25,6 @@ class config(Cog):
     @Cog.listener()
     async def on_ready(self):
         print("Config Cog Is Ready!")
-        for i in self.client.guilds:
-            format = {
-            'Kick': 'kick_members',
-            'Ban': 'ban_members',
-            'Warn': 'kick_members',
-            'Purge': 'manage_messages',
-            'Announce': 'manage_guild',
-            'SetSlowmode': 'manage_messages',
-            'Infractions': 'kick_members',
-            'Revoke Infractions': 'kick_members',
-            'Mute': 'kick_members',
-            'Unmute': 'kick_members',
-            'Configurations': 'manage_guild',
-            }
-            ref = db.reference('/customperms')
-            ref.child(str(i.id)).set(format)
-
     
     @commands.group()
     async def config(self,ctx):
