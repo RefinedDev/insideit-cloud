@@ -41,6 +41,7 @@ class HighRank(Cog):
     @commands.has_permissions(manage_messages = True)
     async def purge(self,ctx,amount : int = None):
         if amount == None:
+            print(ctx.author.guild_permissions)
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
             embeddd.add_field(name = "Missing Number",value = "Please specify a Integer of how many messages you want to purge.",inline= False)
             embeddd.add_field(name = "Command Example",value = "`peg purge 100`",inline= False)
