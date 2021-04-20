@@ -5,11 +5,19 @@ from datetime import datetime
 import mysql.connector
 import asyncio
 from dateutil.relativedelta import relativedelta
+import json
 
+permissions = {}
 class HighRank(Cog):
     def __init__(self,client):
         self.client = client
-    
+
+    def get_prefix(self,client,message):
+        with open('yes.json', 'r') as f:
+            perms = json.load(f)
+            self.permissions = perms[str(message.guild.id)]
+            return permissions
+
     @Cog.listener()
     async def on_ready(self):
         print("High Rank Cog Is Ready!")
@@ -17,7 +25,7 @@ class HighRank(Cog):
 
     #ClearChat
     @commands.command(aliases=['clear'])
-    @commands.has_permissions(manage_messages = True)
+    @commands.has_permissions(permissions['Purge'])
     async def purge(self,ctx,amount : int = None):
         if amount == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())

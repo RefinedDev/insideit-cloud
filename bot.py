@@ -6,6 +6,7 @@ import mysql.connector
 import asyncio
 import random
 
+
 intents = discord.Intents.default()
 intents.members = True
 client = commands.Bot(command_prefix='peg ',intents = intents)
