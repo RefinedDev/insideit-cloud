@@ -31,13 +31,13 @@ class config(Cog):
             'Ban': 'ban_members',
             'Warn': 'kick_members',
             'Purge': 'manage_messages',
-            'Announce': 'manage_server',
+            'Announce': 'manage_guild',
             'SetSlowmode': 'manage_messages',
             'Infractions': 'kick_members',
             'Revoke Infractions': 'kick_members',
             'Mute': 'kick_members',
             'Unmute': 'kick_members',
-            'Configurations': 'manage_server',
+            'Configurations': 'manage_guild',
             }
             ref = db.reference('/customperms')
             ref.child(str(i.id)).set(format)
@@ -53,7 +53,7 @@ class config(Cog):
 
     @config.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
-    @commands.has_permissions(manage_server= True)
+    @commands.has_permissions(manage_guild= True)
     async def WelcomeMessage(self,ctx):
         db = mysql.connector.connect(
             host = "us-cdbr-east-02.cleardb.com",
@@ -134,7 +134,7 @@ class config(Cog):
 
     @config.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
-    @commands.has_permissions(manage_server= True)
+    @commands.has_permissions(manage_guild= True)
     async def LeaveMessage(self,ctx):
         db = mysql.connector.connect(
             host = "us-cdbr-east-02.cleardb.com",
@@ -214,7 +214,7 @@ class config(Cog):
 
     @config.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
-    @commands.has_permissions(manage_server= True)
+    @commands.has_permissions(manage_guild= True)
     async def WelcomeRole(self,ctx):
         db = mysql.connector.connect(
             host = "us-cdbr-east-02.cleardb.com",
@@ -294,7 +294,7 @@ class config(Cog):
 
     @config.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
-    @commands.has_permissions(manage_server= True)
+    @commands.has_permissions(manage_guild= True)
     async def AntiLink(self,ctx):
         ref = db.reference('/antilink')
 
@@ -461,7 +461,7 @@ class config(Cog):
     
     @config.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
-    @commands.has_permissions(manage_server= True)
+    @commands.has_permissions(manage_guild= True)
     async def ReactionRoles(self,ctx):
         def check(message):
             return message.author == ctx.author and message.channel == ctx.channel
@@ -575,7 +575,7 @@ class config(Cog):
     
     @config.command()
     @commands.cooldown(1,60,commands.BucketType.guild)
-    @commands.has_permissions(manage_server = True)
+    @commands.has_permissions(manage_guild = True)
     async def Minage(self,ctx):
         def check(message):
             return message.author == ctx.author and message.channel == ctx.channel
@@ -649,7 +649,7 @@ class config(Cog):
                 await ctx.send("Invalid Choice")
     
     @config.command()
-    @commands.has_permissions(manage_server = True)
+    @commands.has_permissions(manage_guild = True)
     #@commands.cooldown(1,60,commands.BucketType.guild)
     async def Levelling(self,ctx):
         def check(message):
@@ -762,7 +762,7 @@ class config(Cog):
 
     
     @commands.command()
-    @commands.has_permissions(manage_server = True)
+    @commands.has_permissions(manage_guild = True)
     # @commands.cooldown(1,60,commands.BucketType.guild)
     async def CustomPermissions(self,ctx):
         def check(message):
@@ -837,13 +837,13 @@ class config(Cog):
             'Ban': 'ban_members',
             'Warn': 'kick_members',
             'Purge': 'manage_messages',
-            'Announce': 'manage_server',
+            'Announce': 'manage_guild',
             'SetSlowmode': 'manage_messages',
             'Infractions': 'kick_members',
             'Revoke Infractions': 'kick_members',
             'Mute': 'kick_members',
             'Unmute': 'kick_members',
-            'Configurations': 'manage_server',
+            'Configurations': 'manage_guild',
         }
         ref = db.reference('/customperms')
         ref.child(str(message.guild.id)).set(format)
