@@ -11,6 +11,7 @@ from firebase_admin import db
 from firebase_admin import credentials
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+import json
 
 cred = credentials.Certificate("serviceAccountKey.json")
 
@@ -25,6 +26,9 @@ class config(Cog):
     @Cog.listener()
     async def on_ready(self):
         print("Config Cog Is Ready!")
+        ref = db.reference('/customperms').get()
+        with open('customperms.json','w') as f:
+            json.dump(ref,f,indent =4)
     
     @commands.group()
     async def config(self,ctx):
