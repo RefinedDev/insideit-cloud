@@ -25,7 +25,44 @@ class config(Cog):
     @Cog.listener()
     async def on_ready(self):
         print("Config Cog Is Ready!")
-
+        ref = db.reference('/customperms')
+        for i in self.client.guilds:
+            peg = {
+                "Kick": {
+                    "kick_members": "True",
+                },
+                "Ban": {
+                    "ban_members": "True",
+                },
+                "Warn": {
+                    "kick_members": "True",
+                },
+                "Purge": {
+                    "manage_messages ": "True",
+                },
+                "Announce": {
+                    "manage_guild ": "True",
+                },
+                "SetSlowmode": {
+                    "manage_messages ": "True",
+                },
+                "Infractions": {
+                    "kick_members": "True",
+                },
+                "Revoke_Infractions": {
+                    "kick_members": "True",
+                },
+                "Mute": {
+                    "kick_members": "True",
+                },
+                "Unmute": {
+                    "kick_members": "True",
+                },
+                "Configurations": {
+                    "manage_guild": "True",
+                },
+            }
+            ref.child(str(i.id)).set(peg)
     
     @commands.group()
     async def config(self,ctx):
