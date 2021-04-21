@@ -16,8 +16,6 @@ class HighRank(Cog):
         self.mute_loop.start()
     
     #ClearChat
-    # dic  = {'manage_messages': 'True'}
-    # dic = {key: bool(value) for key, value in dic.items()}
     @commands.command(aliases=['clear'])
     @commands.has_permissions(manage_messages = True)
     async def purge(self,ctx,amount : int = None):
