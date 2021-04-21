@@ -744,25 +744,6 @@ class config(Cog):
                     else:
                         await ctx.send(f'The level `{res[msg2.content]}` which gave users the role `{role.name}` has been removed.')
                         
-    
-    @commands.command()
-    @commands.has_permissions(manage_guild = True)
-    # @commands.cooldown(1,60,commands.BucketType.guild)
-    async def CustomPermissions(self,ctx):
-        def check(message):
-            return message.author == ctx.author and message.channel == ctx.channel
-
-        await ctx.send("What would you like to do?\n`SetCustomPermission`\n`SeePermissions`")
-        try:
-            msg = await self.client.wait_for('message',timeout = 50.0,check = check)
-        except asyncio.TimeoutError:
-            await ctx.send("Din't reply in time noob.")
-            return
-        else:
-            if str.lower(msg.content) == 'SetCustomPermission':
-                pass
-            elif str.lower(msg.content) == 'SeePermissions':
-                pass
 
 
     @commands.command()
