@@ -411,7 +411,9 @@ class HighRank(Cog):
     @commands.command()
     @commands.has_permissions(manage_channels=True)
     async def lock(ctx, channel : discord.TextChannel=None):
-        channel = channel or ctx.channel
+        if channel == None:
+            channel = ctx.channel
+            
         overwrite = channel.overwrites_for(ctx.guild.default_role)
         overwrite.send_messages = False
         await channel.set_permissions(ctx.guild.default_role, overwrite=overwrite)
