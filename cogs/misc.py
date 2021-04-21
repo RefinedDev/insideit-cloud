@@ -19,22 +19,6 @@ class MiscCmds(Cog):
     async def on_ready(self):
         print("Misc Cog Is Ready!")
 
-    @commands.command()
-    @commands.is_owner()
-    async def yes(self,ctx):
-        guild =  self.client.get_guild(800928514227699743)
-        member = guild.get_member(429535933252239360)
-        role = discord.utils.get(guild.roles,name = 'Muted')
-        await member.remove_roles(role)
-        await ctx.send('Done')
-
-    @commands.command()
-    @commands.is_owner()
-    async def yes2(self,ctx):
-        guild =  self.client.get_guild(800928514227699743)
-        member = self.client.get_user(429535933252239360)
-        await guild.unban(member)
-
       #Ping
     @commands.command()
     @commands.cooldown(1,1,commands.BucketType.user)
