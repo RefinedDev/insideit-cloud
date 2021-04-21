@@ -472,7 +472,7 @@ class HighRank(Cog):
                 print(f'AN Error Occured in mute loop {e}')
             cursor.close()
             db.close()
-
+    
 
 
 def setup(client):

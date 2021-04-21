@@ -26,62 +26,6 @@ class config(Cog):
     async def on_ready(self):
         print("Config Cog Is Ready!")
 
-    @Cog.listener()
-    async def on_message(self,message):
-        if message.author.bot:
-            return
-
-        if isinstance(message.channel, discord.channel.DMChannel):
-            return
-
-        ref = db.reference('/level')
-        res = ref.get()
-        if not f'{message.guild.id}' in res:
-            return
-
-        res2 = res[f'{message.guild.id}']
-        if not f'{message.author.id}' in res2:
-            newxp = random.randint(20,30)     
-            lol = {
-                'currentxp': '{}'.format(newxp),
-                'xprequired': '{}'.format('200'),
-                'lastgather': '{}'.format(datetime.now()),
-                'currentlevel': '{}'.format('1'),
-                }
-            ref.child(str(message.guild.id)).child(str(message.author.id)).set(lol)
-            return
-
-        lastgather = res2[str(message.author.id)]['lastgather']
-        time = datetime.strptime(lastgather,"%Y-%m-%d %H:%M:%S.%f")
-        cooldowntime = time + relativedelta(seconds= 60)
-        if datetime.now() >= cooldowntime:
-            newxp = random.randint(10,25) 
-            lol = {
-                'currentxp': '{}'.format(int(res2[str(message.author.id)]['currentxp']) + newxp),
-                'xprequired': '{}'.format(res2[str(message.author.id)]['xprequired']),
-                'lastgather': '{}'.format(datetime.now()),
-                'currentlevel': '{}'.format(res2[str(message.author.id)]['currentlevel']),
-                }
-            ref.child(str(message.guild.id)).child(str(message.author.id)).set(lol)
-            res3 = ref.get()[f'{message.guild.id}']
-            if int(res3[str(message.author.id)]['currentxp']) > int(res3[str(message.author.id)]['xprequired']):
-                lol = {
-                    'currentxp': '{}'.format(res3[str(message.author.id)]['currentxp']),
-                    'xprequired': '{}'.format(round(int(res3[str(message.author.id)]['xprequired']) * 2)),
-                    'lastgather': '{}'.format(res3[str(message.author.id)]['lastgather']),
-                    'currentlevel': '{}'.format(int(res3[str(message.author.id)]['currentlevel']) + 1),
-                }
-                member = await message.guild.fetch_member(int(message.author.id))
-                await message.channel.send(f"**{message.author.display_name}#{message.author.discriminator}** Ay, congrats you're now level `{int(res3[str(message.author.id)]['currentlevel']) + 1}`")
-                ref.child(str(message.guild.id)).child(str(message.author.id)).set(lol)
-                ref3 = res3['level']
-                for i in ref3:
-                    if not 'blah' == str(i): 
-                        if int(ref3[i]) <= (int(res3[str(message.author.id)]['currentlevel']) + 1):
-                            role = discord.utils.get(message.guild.roles, id = int(i))
-                            if role == None:
-                                return
-                            await member.add_roles(role)
     
     @commands.group()
     async def config(self,ctx):
@@ -850,47 +794,94 @@ class config(Cog):
         except Exception as e:
             await ctx.send(f'An error occured: {e}')
     # LISTENERS
-    # @Cog.listener()
-    # async def on_message(self,message):
-    #     if isinstance(message.channel, discord.channel.DMChannel):
-    #         return
+    @Cog.listener()
+    async def on_message(self,message):
+        if isinstance(message.channel, discord.channel.DMChannel):
+            return
 
-    #     if message.guild.owner == message.author:
-    #         return    
 
-    #     if 'discord.gg/' in str.lower(message.content):
-    #         try:
-    #             ref = db.reference('/antilink')
-    #             res = ref.get()
-    #             if f'{message.guild.id}' in res:
-    #                 toggle = res[f'{str(message.guild.id)}']['toggle']
-    #                 if str.lower(toggle) == 'off':
-    #                     return
-    #                 discordmsg = res[f'{str(message.guild.id)}']['discordlink']
-    #                 if str.lower(discordmsg) == 'no':
-    #                     return
-    #                 await message.delete()
-    #             else:
-    #                 return
-    #         except Exception as e:
-    #             print(f'An error occured in no link {e}')
+        if 'discord.gg/' in str.lower(message.content):
+            try:
+                ref = db.reference('/antilink')
+                res = ref.get()
+                if f'{message.guild.id}' in res:
+                    toggle = res[f'{str(message.guild.id)}']['toggle']
+                    if str.lower(toggle) == 'off':
+                        pass
+                    discordmsg = res[f'{str(message.guild.id)}']['discordlink']
+                    if str.lower(discordmsg) == 'no':
+                        pass
+                    await message.delete()
+                else:
+                    pass
+            except Exception as e:
+                print(f'An error occured in no link {e}')
             
-    #     if 'https://' in str.lower(message.content) or 'http://' in str.lower(message.content):
-    #         try:
-    #             ref = db.reference('/antilink')
-    #             res = ref.get() 
-    #             if f'{message.guild.id}' in res:
-    #                 toggle = res[f'{str(message.guild.id)}']['toggle']
-    #                 if str.lower(toggle) == 'off':
-    #                     return
-    #                 othermsg = res[f'{str(message.guild.id)}']['otherlink']
-    #                 if str.lower(othermsg) == 'no':
-    #                     return
-    #                 await message.delete()
-    #             else:
-    #                 return
-    #         except Exception as e:
-    #             print(f'An error occured in no link {e}')
+        if 'https://' in str.lower(message.content) or 'http://' in str.lower(message.content):
+            try:
+                ref = db.reference('/antilink')
+                res = ref.get() 
+                if f'{message.guild.id}' in res:
+                    toggle = res[f'{str(message.guild.id)}']['toggle']
+                    if str.lower(toggle) == 'off':
+                        pass
+                    othermsg = res[f'{str(message.guild.id)}']['otherlink']
+                    if str.lower(othermsg) == 'no':
+                        pass
+                    await message.delete()
+                else:
+                    pass
+            except Exception as e:
+                print(f'An error occured in no link {e}')
+
+        ref = db.reference('/level')
+        res = ref.get()
+        if not f'{message.guild.id}' in res:
+            return
+
+        res2 = res[f'{message.guild.id}']
+        if not f'{message.author.id}' in res2:
+            newxp = random.randint(20,30)     
+            lol = {
+                'currentxp': '{}'.format(newxp),
+                'xprequired': '{}'.format('200'),
+                'lastgather': '{}'.format(datetime.now()),
+                'currentlevel': '{}'.format('1'),
+                }
+            ref.child(str(message.guild.id)).child(str(message.author.id)).set(lol)
+            return
+
+        lastgather = res2[str(message.author.id)]['lastgather']
+        time = datetime.strptime(lastgather,"%Y-%m-%d %H:%M:%S.%f")
+        cooldowntime = time + relativedelta(seconds= 60)
+        if datetime.now() >= cooldowntime:
+            newxp = random.randint(10,25) 
+            lol = {
+                'currentxp': '{}'.format(int(res2[str(message.author.id)]['currentxp']) + newxp),
+                'xprequired': '{}'.format(res2[str(message.author.id)]['xprequired']),
+                'lastgather': '{}'.format(datetime.now()),
+                'currentlevel': '{}'.format(res2[str(message.author.id)]['currentlevel']),
+                }
+            ref.child(str(message.guild.id)).child(str(message.author.id)).set(lol)
+            res3 = ref.get()[f'{message.guild.id}']
+            if int(res3[str(message.author.id)]['currentxp']) > int(res3[str(message.author.id)]['xprequired']):
+                lol = {
+                    'currentxp': '{}'.format(res3[str(message.author.id)]['currentxp']),
+                    'xprequired': '{}'.format(round(int(res3[str(message.author.id)]['xprequired']) * 2)),
+                    'lastgather': '{}'.format(res3[str(message.author.id)]['lastgather']),
+                    'currentlevel': '{}'.format(int(res3[str(message.author.id)]['currentlevel']) + 1),
+                }
+                member = await message.guild.fetch_member(int(message.author.id))
+                await message.channel.send(f"**{message.author.display_name}#{message.author.discriminator}** Ay, congrats you're now level `{int(res3[str(message.author.id)]['currentlevel']) + 1}`")
+                ref.child(str(message.guild.id)).child(str(message.author.id)).set(lol)
+                ref3 = res3['level']
+                for i in ref3:
+                    if not 'blah' == str(i): 
+                        if int(ref3[i]) <= (int(res3[str(message.author.id)]['currentlevel']) + 1):
+                            role = discord.utils.get(message.guild.roles, id = int(i))
+                            if role == None:
+                                return
+                            await member.add_roles(role)
 
     @Cog.listener()
     async def on_member_join(self,member):
