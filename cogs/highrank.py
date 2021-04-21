@@ -413,10 +413,7 @@ class HighRank(Cog):
     async def lock(ctx, channel : discord.TextChannel=None):
         if channel == None:
             channel = ctx.channel
-            
-        overwrite = channel.overwrites_for(ctx.guild.default_role)
-        overwrite.send_messages = False
-        await channel.set_permissions(ctx.guild.default_role, overwrite=overwrite)
+        channel.send_messages = False
         await ctx.send(f'{channel.name} has been locked.')
 
     @tasks.loop(minutes = 5)
