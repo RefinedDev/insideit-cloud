@@ -796,6 +796,7 @@ class config(Cog):
     # LISTENERS
     @Cog.listener()
     async def on_message(self,message):
+        print("YEAHBRO")
         if message.author.bot:
             return
 
