@@ -416,7 +416,17 @@ class HighRank(Cog):
         overwrite = channel.overwrites_for(ctx.guild.default_role)
         overwrite.send_messages = False
         await channel.set_permissions(ctx.guild.default_role, overwrite=overwrite)
-        await ctx.send(f'{channel.name} has been locked.')
+        await ctx.send(f'`{channel.name}` has been locked.')
+
+    @commands.command()
+    @commands.has_permissions(manage_channels=True)
+    async def unlock(self, ctx, channel : discord.TextChannel=None):
+        if channel == None:
+            channel = ctx.channel
+        overwrite = channel.overwrites_for(ctx.guild.default_role)
+        overwrite.send_messages = True
+        await channel.set_permissions(ctx.guild.default_role, overwrite=overwrite)
+        await ctx.send(f'`{channel.name}` has been unlocked.')
 
     @tasks.loop(minutes = 5)
     async def mute_loop(self):
