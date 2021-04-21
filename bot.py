@@ -5,7 +5,15 @@ from datetime import datetime
 import mysql.connector
 import asyncio
 import random
+import firebase_admin
+from firebase_admin import db
+from firebase_admin import credentials
 
+cred = credentials.Certificate("serviceAccountKey.json")
+
+firebase_admin.initialize_app(cred, {
+'databaseURL': 'https://insideitdatabase-default-rtdb.firebaseio.com/'
+})
 
 intents = discord.Intents.default()
 intents.members = True
