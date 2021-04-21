@@ -28,7 +28,6 @@ class config(Cog):
 
     @Cog.listener()
     async def on_message(self,message):
-        print("YEAHBRO")
         if message.author.bot:
             return
 
@@ -853,7 +852,6 @@ class config(Cog):
     # LISTENERS
     @Cog.listener()
     async def on_message(self,message):
-        print("YEAHBRO#2")
         if isinstance(message.channel, discord.channel.DMChannel):
             return
 
