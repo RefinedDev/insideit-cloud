@@ -14,7 +14,7 @@ class HighRank(Cog):
     async def on_ready(self):
         print("High Rank Cog Is Ready!")
         self.mute_loop.start()
-    dic  = {'manage_messages': 'True'}
+    dic  = {'manage_messages': True}
     #ClearChat
     @commands.command(aliases=['clear'])
     @commands.has_permissions(**dic)
