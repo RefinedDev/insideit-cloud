@@ -850,47 +850,47 @@ class config(Cog):
         except Exception as e:
             await ctx.send(f'An error occured: {e}')
     # LISTENERS
-    @Cog.listener()
-    async def on_message(self,message):
-        if isinstance(message.channel, discord.channel.DMChannel):
-            return
+    # @Cog.listener()
+    # async def on_message(self,message):
+    #     if isinstance(message.channel, discord.channel.DMChannel):
+    #         return
 
-        if message.guild.owner == message.author:
-            return    
+    #     if message.guild.owner == message.author:
+    #         return    
 
-        if 'discord.gg/' in str.lower(message.content):
-            try:
-                ref = db.reference('/antilink')
-                res = ref.get()
-                if f'{message.guild.id}' in res:
-                    toggle = res[f'{str(message.guild.id)}']['toggle']
-                    if str.lower(toggle) == 'off':
-                        return
-                    discordmsg = res[f'{str(message.guild.id)}']['discordlink']
-                    if str.lower(discordmsg) == 'no':
-                        return
-                    await message.delete()
-                else:
-                    return
-            except Exception as e:
-                print(f'An error occured in no link {e}')
+    #     if 'discord.gg/' in str.lower(message.content):
+    #         try:
+    #             ref = db.reference('/antilink')
+    #             res = ref.get()
+    #             if f'{message.guild.id}' in res:
+    #                 toggle = res[f'{str(message.guild.id)}']['toggle']
+    #                 if str.lower(toggle) == 'off':
+    #                     return
+    #                 discordmsg = res[f'{str(message.guild.id)}']['discordlink']
+    #                 if str.lower(discordmsg) == 'no':
+    #                     return
+    #                 await message.delete()
+    #             else:
+    #                 return
+    #         except Exception as e:
+    #             print(f'An error occured in no link {e}')
             
-        if 'https://' in str.lower(message.content) or 'http://' in str.lower(message.content):
-            try:
-                ref = db.reference('/antilink')
-                res = ref.get() 
-                if f'{message.guild.id}' in res:
-                    toggle = res[f'{str(message.guild.id)}']['toggle']
-                    if str.lower(toggle) == 'off':
-                        return
-                    othermsg = res[f'{str(message.guild.id)}']['otherlink']
-                    if str.lower(othermsg) == 'no':
-                        return
-                    await message.delete()
-                else:
-                    return
-            except Exception as e:
-                print(f'An error occured in no link {e}')
+    #     if 'https://' in str.lower(message.content) or 'http://' in str.lower(message.content):
+    #         try:
+    #             ref = db.reference('/antilink')
+    #             res = ref.get() 
+    #             if f'{message.guild.id}' in res:
+    #                 toggle = res[f'{str(message.guild.id)}']['toggle']
+    #                 if str.lower(toggle) == 'off':
+    #                     return
+    #                 othermsg = res[f'{str(message.guild.id)}']['otherlink']
+    #                 if str.lower(othermsg) == 'no':
+    #                     return
+    #                 await message.delete()
+    #             else:
+    #                 return
+    #         except Exception as e:
+    #             print(f'An error occured in no link {e}')
 
     @Cog.listener()
     async def on_member_join(self,member):

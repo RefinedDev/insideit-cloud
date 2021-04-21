@@ -30,7 +30,6 @@ async def on_command_error(ctx,error):
             embeddd = discord.Embed(colour= discord.Colour.red())
             embeddd.add_field(name = "HEY",value = f'Member Not Found.')
             await ctx.send(embed = embeddd,delete_after=5)
-    
     else:
         embed = discord.Embed(color = discord.Colour.red())
         embed.add_field(name = 'An error occured.',value = f'{error}')
