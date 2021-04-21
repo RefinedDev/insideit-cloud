@@ -794,7 +794,6 @@ class config(Cog):
         except Exception as e:
             await ctx.send(f'An error occured: {e}')
     # LISTENERS
-
     @Cog.listener()
     async def on_message(self,message):
         if message.author.bot:
