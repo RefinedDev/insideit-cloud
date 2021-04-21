@@ -414,6 +414,9 @@ class HighRank(Cog):
         if channel == None:
             channel = ctx.channel
         overwrite = channel.overwrites_for(ctx.guild.default_role)
+        if overwrite.send_messages == False:
+            await ctx.send('This channel is already locked!')
+            return
         overwrite.send_messages = False
         await channel.set_permissions(ctx.guild.default_role, overwrite=overwrite)
         await ctx.send(f'`{channel.name}` has been locked.')
@@ -424,6 +427,9 @@ class HighRank(Cog):
         if channel == None:
             channel = ctx.channel
         overwrite = channel.overwrites_for(ctx.guild.default_role)
+        if overwrite.send_messages == True:
+            await ctx.send('This channel is already unlocked!')
+            return
         overwrite.send_messages = True
         await channel.set_permissions(ctx.guild.default_role, overwrite=overwrite)
         await ctx.send(f'`{channel.name}` has been unlocked.')
