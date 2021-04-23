@@ -5,6 +5,17 @@ from datetime import datetime
 import mysql.connector
 import asyncio
 from dateutil.relativedelta import relativedelta
+import firebase_admin
+from firebase_admin import db
+from firebase_admin import credentials
+
+
+cred = credentials.Certificate("serviceAccountKey.json")
+
+firebase_admin.initialize_app(cred, {
+'databaseURL': 'https://insideitdatabase-default-rtdb.firebaseio.com/',},
+ name = 'Highrank'
+)
 
 class HighRank(Cog):
     def __init__(self,client):
