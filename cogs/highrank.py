@@ -9,12 +9,6 @@ import firebase_admin
 from firebase_admin import db
 from firebase_admin import credentials
 
-cred = credentials.Certificate("serviceAccountKey.json")
-
-firebase_admin.initialize_app(cred, {
-'databaseURL': 'https://insideitdatabase-default-rtdb.firebaseio.com/',}
-)
-
 class HighRank(Cog):
     def __init__(self,client):
         self.client = client
