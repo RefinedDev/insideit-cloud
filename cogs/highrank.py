@@ -5,60 +5,19 @@ from datetime import datetime
 import mysql.connector
 import asyncio
 from dateutil.relativedelta import relativedelta
-import json
 
 class HighRank(Cog):
     def __init__(self,client):
         self.client = client
-    perms = {
-            "Kick": {
-                "kick_members": "True",
-            },
-            "Ban": {
-                "ban_members": "True",
-            },
-            "Warn": {
-                "kick_members": "True",
-            },
-            "Purge": {
-                "manage_messages": "True",
-            },
-            "Announce": {
-                "manage_guild": "True",
-            },
-            "SetSlowmode": {
-                "manage_messages": "True",
-            },
-            "Infractions": {
-                "kick_members": "True",
-            },
-            "Revoke_Infractions": {
-                "kick_members": "True",
-            },
-            "Mute": {
-                "kick_members": "True",
-            },
-            "Unmute": {
-                "kick_members": "True",
-            },
-            "Configurations": {
-                "manage_guild": "True",
-            },
-        }
+    
     @Cog.listener()
     async def on_ready(self):
         print("High Rank Cog Is Ready!")
         self.mute_loop.start()
-    @Cog.listener()
-    async def on_message(self,message):
-        with open('customperms.json','r') as f:
-            perms = json.load(f)
-        
-        return perms[message.guild.id]
-
+    
     #ClearChat
     @commands.command(aliases=['clear'])
-    @commands.has_permissions(**{key: bool(value) for key, value in perms['Purge'].items()})
+    @commands.has_permissions(manage_messages = True)
     async def purge(self,ctx,amount : int = None):
         if amount == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
