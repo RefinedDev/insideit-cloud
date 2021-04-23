@@ -11,6 +11,7 @@ from firebase_admin import db
 from firebase_admin import credentials
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+import json
 
 cred = credentials.Certificate("serviceAccountKey.json")
 
@@ -25,6 +26,10 @@ class config(Cog):
     @Cog.listener()
     async def on_ready(self):
         print("Config Cog Is Ready!")
+        ref = db.reference('/customperms')
+        res = ref.get()
+        with open('customperms.json','w') as f:
+            json.dump(res,f,indent = 4)
 
     @Cog.listener()
     async def on_guild_join(self,guild):
@@ -65,6 +70,9 @@ class config(Cog):
             },
         }
         ref.child(str(guild.id)).set(peg)
+        res = ref.get()
+        with open('customperms.json','w') as f:
+            json.dump(res,f,indent = 4)
     
     @commands.group()
     async def config(self,ctx):
