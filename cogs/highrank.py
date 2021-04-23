@@ -22,10 +22,9 @@ class HighRank(Cog):
         
         return perms[message.guild.id]
 
-    print(get_prefix)
     #ClearChat
     @commands.command(aliases=['clear'])
-    @commands.has_permissions(manage_messages = True)
+    @commands.has_permissions(**{key: bool(value) for key, value in get_prefix['Kick'].items()})
     async def purge(self,ctx,amount : int = None):
         if amount == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
