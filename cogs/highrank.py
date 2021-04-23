@@ -10,13 +10,13 @@ import json
 class HighRank(Cog):
     def __init__(self,client):
         self.client = client
-    
+    perms = {}
     @Cog.listener()
     async def on_ready(self):
         print("High Rank Cog Is Ready!")
         self.mute_loop.start()
-    
-    def get_prefix(self,client,message):
+    @Cog.listener()
+    async def on_message(self,message):
         with open('customperms.json','r') as f:
             perms = json.load(f)
         
@@ -24,7 +24,7 @@ class HighRank(Cog):
 
     #ClearChat
     @commands.command(aliases=['clear'])
-    @commands.has_permissions(**{key: bool(value) for key, value in get_prefix['Kick'].items()})
+    @commands.has_permissions(**{key: bool(value) for key, value in perms['Purge'].items()})
     async def purge(self,ctx,amount : int = None):
         if amount == None:
             embeddd = discord.Embed(timestamp = datetime.utcnow(),colour= discord.Colour.red())
