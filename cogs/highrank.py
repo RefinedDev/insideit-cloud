@@ -5,6 +5,7 @@ from datetime import datetime
 import mysql.connector
 import asyncio
 from dateutil.relativedelta import relativedelta
+import json
 
 class HighRank(Cog):
     def __init__(self,client):
@@ -15,6 +16,13 @@ class HighRank(Cog):
         print("High Rank Cog Is Ready!")
         self.mute_loop.start()
     
+    def get_prefix(self,client,message):
+        with open('customperms.json','r') as f:
+            perms = json.load(f)
+        
+        return perms[message.guild.id]
+
+    print(get_prefix)
     #ClearChat
     @commands.command(aliases=['clear'])
     @commands.has_permissions(manage_messages = True)
