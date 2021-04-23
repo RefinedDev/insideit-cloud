@@ -16,8 +16,8 @@ import json
 cred = credentials.Certificate("serviceAccountKey.json")
 
 firebase_admin.initialize_app(cred, {
-'databaseURL': 'https://insideitdatabase-default-rtdb.firebaseio.com/',},
- name = 'Config'
+'databaseURL': 'https://insideitdatabase-default-rtdb.firebaseio.com/',
+}
 )
 
 class config(Cog):
