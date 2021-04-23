@@ -21,13 +21,13 @@ class HighRank(Cog):
                 "kick_members": "True",
             },
             "Purge": {
-                "manage_messages ": "True",
+                "manage_messages": "True",
             },
             "Announce": {
-                "manage_guild ": "True",
+                "manage_guild": "True",
             },
             "SetSlowmode": {
-                "manage_messages ": "True",
+                "manage_messages": "True",
             },
             "Infractions": {
                 "kick_members": "True",
