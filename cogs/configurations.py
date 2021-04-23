@@ -11,14 +11,12 @@ from firebase_admin import db
 from firebase_admin import credentials
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-import json
 
 cred = credentials.Certificate("serviceAccountKey.json")
 
 firebase_admin.initialize_app(cred, {
-'databaseURL': 'https://insideitdatabase-default-rtdb.firebaseio.com/',
-}
-)
+'databaseURL': 'https://insideitdatabase-default-rtdb.firebaseio.com/'
+})
 
 class config(Cog):
     def __init__(self,client):
@@ -27,53 +25,6 @@ class config(Cog):
     @Cog.listener()
     async def on_ready(self):
         print("Config Cog Is Ready!")
-        ref = db.reference('/customperms')
-        res = ref.get()
-        with open('customperms.json','w') as f:
-            json.dump(res,f,indent = 4)
-
-    @Cog.listener()
-    async def on_guild_join(self,guild):
-        ref = db.reference('/customperms')
-        peg = {
-            "Kick": {
-                "kick_members": "True",
-            },
-            "Ban": {
-                "ban_members": "True",
-            },
-            "Warn": {
-                "kick_members": "True",
-            },
-            "Purge": {
-                "manage_messages ": "True",
-            },
-            "Announce": {
-                "manage_guild ": "True",
-            },
-            "SetSlowmode": {
-                "manage_messages ": "True",
-            },
-            "Infractions": {
-                "kick_members": "True",
-            },
-            "Revoke_Infractions": {
-                "kick_members": "True",
-            },
-            "Mute": {
-                "kick_members": "True",
-            },
-            "Unmute": {
-                "kick_members": "True",
-            },
-            "Configurations": {
-                "manage_guild": "True",
-            },
-        }
-        ref.child(str(guild.id)).set(peg)
-        res = ref.get()
-        with open('customperms.json','w') as f:
-            json.dump(res,f,indent = 4)
     
     @commands.group()
     async def config(self,ctx):
