@@ -10,7 +10,41 @@ import json
 class HighRank(Cog):
     def __init__(self,client):
         self.client = client
-    perms = {}
+    perms = {
+            "Kick": {
+                "kick_members": "True",
+            },
+            "Ban": {
+                "ban_members": "True",
+            },
+            "Warn": {
+                "kick_members": "True",
+            },
+            "Purge": {
+                "manage_messages ": "True",
+            },
+            "Announce": {
+                "manage_guild ": "True",
+            },
+            "SetSlowmode": {
+                "manage_messages ": "True",
+            },
+            "Infractions": {
+                "kick_members": "True",
+            },
+            "Revoke_Infractions": {
+                "kick_members": "True",
+            },
+            "Mute": {
+                "kick_members": "True",
+            },
+            "Unmute": {
+                "kick_members": "True",
+            },
+            "Configurations": {
+                "manage_guild": "True",
+            },
+        }
     @Cog.listener()
     async def on_ready(self):
         print("High Rank Cog Is Ready!")
