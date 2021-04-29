@@ -884,19 +884,18 @@ class config(Cog):
 
     @Cog.listener()
     async def on_member_join(self,member):
-        if member.guild.id == 777895986461671424:
-            age = datetime.now() - member.created_at
-            eage = str(age).split(',')[0]
-            realage = str(eage).split('days')[0]
-            ref = db.reference('/minage')
-            res = ref.get()
-            if f'{member.guild.id}' in res:
-                toggle = res[str(member.guild.id)]['toggle']
-                if toggle == 'ON':
-                    dbage = res[str(member.guild.id)]['age']
-                    if int(dbage) > int(realage):
-                        await member.send(f"You're account age needs to be over {dbage} days before you can join this server.")
-                        await member.kick(reason = f'Account age lower than the specified minimum age amount | Under {dbage} days.')
+        age = datetime.now() - member.created_at
+        eage = str(age).split(',')[0]
+        realage = str(eage).split('days')[0]
+        ref = db.reference('/minage')
+        res = ref.get()
+        if f'{member.guild.id}' in res:
+            toggle = res[str(member.guild.id)]['toggle']
+            if toggle == 'ON':
+                dbage = res[str(member.guild.id)]['age']
+                if int(dbage) > int(realage):
+                    await member.send(f"You're account age needs to be over {dbage} days before you can join this server.")
+                    await member.kick(reason = f'Account age lower than the specified minimum age amount | Under {dbage} days.')
     @Cog.listener()
     async def on_raw_reaction_add(self,payload):
         try:
